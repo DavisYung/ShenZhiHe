@@ -1,0 +1,75 @@
+# ============================================================
+# 神智核 / F6 筆記整合網 · Git 忽略規則
+#
+# 重要：本檔位於 f6chem/ 內，所有路徑都相對 f6chem/ 書寫，
+#       不可寫成 f6chem/site/...（那會完全失效）。
+#
+# 原則：只追蹤「原始碼與資料」，不追蹤「建置產物」與「測試暫存」。
+#   資料    ：data/、quiz/、extras/
+#   原始碼  ：site/*.py|*.js|*.json|template.html、*.py
+#   產物    ：神智核*.html、gh-pages/、部署包（皆可由原始碼重建）
+# ============================================================
+
+# ---------- 建置產物 ----------
+site/神智核.html
+site/神智核-V*.html
+site/F6筆記整合網.html
+site/F6化學筆記整合網.html
+site/index.html
+gh-pages/
+# 註：部署包（神智核-GitHub部署包/ 與 .zip）位於 f6chem/ 之外，
+#     不在本倉庫範圍內，無需在此忽略。
+
+# ---------- 測試暫存 ----------
+# 測試用單檔 HTML（每次 build 重生，5–9 MB）
+site/_t_*.html
+site/_appcheck.js
+site/_check_main.js
+# headless Chrome 臨時 profile（每個約 10 MB，累積上百 MB）
+site/_t_profile*/
+# Python 快取
+__pycache__/
+*.pyc
+
+# ---------- 截圖（人工檢視用）----------
+site/shots/
+shots/
+scratch/phys_preview/
+scratch/phys_extract/
+scratch/phys_bundles/
+
+# ---------- 原始 PDF 頁圖（97 MB；data/ 已記錄 page，site/img/ 才是內嵌用）----------
+pages/
+
+# ---------- OCR 中間產物 ----------
+ocr/
+notes-raw/
+
+# ---------- scratch 的中間產物（保留生產管線 .py 腳本與其說明）----------
+# backup_*：舊資料快照（內容已在 data/ 正式版，屬重複）
+scratch/backup_data_premerge/
+scratch/backup_exam/
+scratch/backup_dedup/
+# 逐頁處理的中間檔
+scratch/pp/
+scratch/map/
+scratch/prompts/
+scratch/prompts2/
+scratch/genui-src/
+scratch/figcrops/
+scratch/sheets/
+scratch/__pycache__/
+
+# ---------- 作業系統 / 編輯器 ----------
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+*.tmp
+~$*
+
+# ---------- 依賴與快取 ----------
+node_modules/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/

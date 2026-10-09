@@ -1,0 +1,1 @@
+﻿import io,json,sys; sys.stdout.reconfigure(encoding='utf-8'); q=json.load(io.open('f6chem/quiz/chem_backup_fill/2a.json',encoding='utf-8')); [print(x['id'],x['type'],'|',x['q'][:60]) for x in q['questions'] if x['id']=='2a-q26']

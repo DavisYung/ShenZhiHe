@@ -1,0 +1,15 @@
+﻿ncards=88
+
+viewportH=429
+
+card_top_after_manual_scroll=75
+
+visible_ratio=1.00
+
+io_callbacks=[]
+
+seen_count=0
+
+seen_keys=[]
+
+due=0 readonly=0

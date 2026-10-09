@@ -1,0 +1,33 @@
+{
+  "id": "phys",
+  "title": "物理",
+  "full": "F6 物理筆記",
+  "emoji": "🔭",
+  "color": "#2563eb",
+  "order": 2,
+  "ready": true,
+  "description": "熱學、力學、波動學等分區的物理筆記。目前熱學（溫度、內能、物態、傳熱、氣體）已完成。",
+  "source": "牛津《新高中生活與物理（第二版）》課堂工作紙 · Heat notes（第1–4課）＋ Gases note（第5課）＋ 配套答案本",
+  "units": [
+    {
+      "id": "thermal",
+      "title": "熱學",
+      "emoji": "🌡️",
+      "description": "溫度與溫度計、內能與比熱容量、物態的改變、傳熱方式、氣體定律與分子運動論。",
+      "topics": [
+        "heat1",
+        "heat2",
+        "heat3",
+        "heat4",
+        "heat5"
+      ]
+    }
+  ],
+  "topics": [
+    "heat1",
+    "heat2",
+    "heat3",
+    "heat4",
+    "heat5"
+  ]
+}

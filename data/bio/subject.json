@@ -1,0 +1,12 @@
+{
+  "id": "bio",
+  "title": "生物",
+  "full": "F6 生物筆記",
+  "emoji": "🧬",
+  "color": "#15803d",
+  "order": 3,
+  "ready": false,
+  "description": "生物科的筆記、知識點與測驗。內容還在整理，先把架子搭好，隨時可以往裡面放。",
+  "source": "待補：生物科教師版筆記 PDF",
+  "topics": []
+}

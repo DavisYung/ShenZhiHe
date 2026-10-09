@@ -1,0 +1,105 @@
+2012_p2.txt page 1: 16 lines
+2012_p2.txt page 2: 26 lines
+2012_p2.txt page 3: 16 lines
+2012_p2.txt page 4: 22 lines
+2012_p2.txt page 5: 16 lines
+2012_p2.txt page 6: 27 lines
+2012_p2.txt page 7: 20 lines
+2012_p2.txt page 8: 49 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2012_p2.txt
+2013_p2.txt page 1: 16 lines
+2013_p2.txt page 2: 23 lines
+2013_p2.txt page 3: 38 lines
+2013_p2.txt page 4: 33 lines
+2013_p2.txt page 5: 23 lines
+2013_p2.txt page 6: 38 lines
+2013_p2.txt page 7: 38 lines
+2013_p2.txt page 8: 46 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2013_p2.txt
+2014_p2.txt page 1: 15 lines
+2014_p2.txt page 2: 25 lines
+2014_p2.txt page 3: 32 lines
+2014_p2.txt page 4: 23 lines
+2014_p2.txt page 5: 21 lines
+2014_p2.txt page 6: 32 lines
+2014_p2.txt page 7: 32 lines
+2014_p2.txt page 8: 46 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2014_p2.txt
+2015_p2.txt page 1: 17 lines
+2015_p2.txt page 2: 37 lines
+2015_p2.txt page 3: 19 lines
+2015_p2.txt page 4: 32 lines
+2015_p2.txt page 5: 26 lines
+2015_p2.txt page 6: 34 lines
+2015_p2.txt page 7: 25 lines
+2015_p2.txt page 8: 49 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2015_p2.txt
+2016_p2.txt page 1: 15 lines
+2016_p2.txt page 2: 32 lines
+2016_p2.txt page 3: 24 lines
+2016_p2.txt page 4: 29 lines
+2016_p2.txt page 5: 23 lines
+2016_p2.txt page 6: 21 lines
+2016_p2.txt page 7: 25 lines
+2016_p2.txt page 8: 32 lines
+2016_p2.txt page 9: 31 lines
+2016_p2.txt page 10: 49 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2016_p2.txt
+2017_p2.txt page 1: 16 lines
+2017_p2.txt page 2: 27 lines
+2017_p2.txt page 3: 30 lines
+2017_p2.txt page 4: 24 lines
+2017_p2.txt page 5: 29 lines
+2017_p2.txt page 6: 37 lines
+2017_p2.txt page 7: 29 lines
+2017_p2.txt page 8: 50 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2017_p2.txt
+2018_p2.txt page 1: 16 lines
+2018_p2.txt page 2: 27 lines
+2018_p2.txt page 3: 25 lines
+2018_p2.txt page 4: 24 lines
+2018_p2.txt page 5: 30 lines
+2018_p2.txt page 6: 36 lines
+2018_p2.txt page 7: 39 lines
+2018_p2.txt page 8: 49 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2018_p2.txt
+2019_p2.txt page 1: 16 lines
+2019_p2.txt page 2: 35 lines
+2019_p2.txt page 3: 31 lines
+2019_p2.txt page 4: 32 lines
+2019_p2.txt page 5: 27 lines
+2019_p2.txt page 6: 40 lines
+2019_p2.txt page 7: 26 lines
+2019_p2.txt page 8: 48 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2019_p2.txt
+2020_p2.txt page 1: 17 lines
+2020_p2.txt page 2: 39 lines
+2020_p2.txt page 3: 38 lines
+2020_p2.txt page 4: 28 lines
+2020_p2.txt page 5: 25 lines
+2020_p2.txt page 6: 31 lines
+2020_p2.txt page 7: 36 lines
+2020_p2.txt page 8: 47 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2020_p2.txt
+2021_p2.txt page 1: 37 lines
+2021_p2.txt page 2: 27 lines
+2021_p2.txt page 3: 32 lines
+2021_p2.txt page 4: 17 lines
+2021_p2.txt page 5: 36 lines
+2021_p2.txt page 6: 28 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2021_p2.txt
+2022_p2.txt page 1: 54 lines
+2022_p2.txt page 2: 53 lines
+2022_p2.txt page 3: 49 lines
+2022_p2.txt page 4: 48 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2022_p2.txt
+2023_p2.txt page 1: 16 lines
+2023_p2.txt page 2: 28 lines
+2023_p2.txt page 3: 27 lines
+2023_p2.txt page 4: 21 lines
+2023_p2.txt page 5: 21 lines
+2023_p2.txt page 6: 29 lines
+2023_p2.txt page 7: 33 lines
+2023_p2.txt page 8: 46 lines
+written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\2023_p2.txt
+ALL DONE

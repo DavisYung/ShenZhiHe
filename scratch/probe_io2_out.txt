@@ -1,0 +1,60 @@
+﻿=== plain ===
+raf_ticks_before_scroll=2
+
+io_before=0/0
+
+after_instant_scroll io=1/0
+
+scrollY=2000
+
+raf_ticks=3
+
+card0_top_now=-1550
+
+after_takeRecords=1/0
+
+=== compositor ===
+raf_ticks_before_scroll=2
+
+io_before=0/0
+
+after_instant_scroll io=1/0
+
+scrollY=2000
+
+raf_ticks=3
+
+card0_top_now=-1550
+
+after_takeRecords=1/0
+
+=== beginframe ===
+raf_ticks_before_scroll=2
+
+io_before=0/0
+
+after_instant_scroll io=1/0
+
+scrollY=2000
+
+raf_ticks=3
+
+card0_top_now=-1550
+
+after_takeRecords=1/0
+
+=== headless-new ===
+raf_ticks_before_scroll=1
+
+io_before=0/0
+
+after_instant_scroll io=1/0
+
+scrollY=2000
+
+raf_ticks=2
+
+card0_top_now=-1550
+
+after_takeRecords=1/0
+

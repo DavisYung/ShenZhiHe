@@ -1,0 +1,26 @@
+﻿files: 12967 data_off: 3392060 blob bytes: 117956891
+genui-fence-repair                 total=0
+
+resend_corrected_fence_only        total=0
+
+dsh-ui                             total=0
+
+validate_dsh_ui                    total=0
+
+render_failed                      total=0
+
+fingerprint                        total=301
+      191  ?
+       23  /dsh/node_modules/@deepseek-ai/dsh-client-ui-sidebar-documentpreview/lib/client.pdf.js
+       16  /dsh/node_modules/@deepseek-ai/dsh-session-query-sqlite/lib/index.js
+       11  /dsh/node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.js
+       11  /dsh/node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.js
+       11  /dsh/node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.js
+
+block_markdown                     total=2
+        2  /dsh/node_modules/@deepseek-ai/dsh-web-frontend/dist/assets/langs/markdown-Cvjx9yec.js
+
+invalid_json                       total=0
+
+repair=failed                      total=0
+

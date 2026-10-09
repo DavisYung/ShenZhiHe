@@ -1,0 +1,62 @@
+[
+ {
+  "from": "heat1-s2-p2",
+  "to": "heat3-s1-p1",
+  "label": "0 °C 与 100 °C 正是水的熔点和沸点"
+ },
+ {
+  "from": "heat1-s1-p1",
+  "to": "heat3-s1-p2",
+  "label": "加热曲线的平台对应物态变化"
+ },
+ {
+  "from": "heat3-s1-p2",
+  "to": "heat4-s1-p1",
+  "label": "熔化和沸腾都需要持续供热"
+ },
+ {
+  "from": "heat3-s1-p3",
+  "to": "heat4-s1-p4",
+  "label": "潜热与传导都涉及分子能量的传递"
+ },
+ {
+  "from": "heat3-s2-p3",
+  "to": "heat4-s3-p1",
+  "label": "蒸发冷却与辐射都是能量散失方式"
+ },
+ {
+  "from": "heat4-s1-p1",
+  "to": "heat4-s2-p1",
+  "label": "传导靠粒子振动，对流靠流体整体移动"
+ },
+ {
+  "from": "heat4-s2-p1",
+  "to": "heat4-s3-p1",
+  "label": "对流需要介质，辐射不需要"
+ },
+ {
+  "from": "heat4-s1-p3",
+  "to": "heat4-s3-p3",
+  "label": "保温瓶同时抑制传导、对流和辐射"
+ },
+ {
+  "from": "heat1-s1-p2",
+  "to": "heat4-s1-p2",
+  "label": "温度计和导热都依赖物质的物性"
+ },
+ {
+  "from": "heat5-s1-p1",
+  "to": "heat1-s1-p1",
+  "label": "气体定律里的温度必须用绝对温度"
+ },
+ {
+  "from": "heat5-s2-p2",
+  "to": "heat1-s1-p1",
+  "label": "温度的本质：分子平均动能的量度"
+ },
+ {
+  "from": "heat5-s1-p3",
+  "to": "heat3-s2-p1",
+  "label": "蒸发与气体分子逸出液面有关"
+ }
+]

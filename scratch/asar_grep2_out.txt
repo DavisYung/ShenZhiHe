@@ -1,0 +1,48 @@
+﻿=== genui : 47 檔
+       3  /dsh/node_modules/@deepseek-ai/dsh-tmux-context/lib/index.js
+       2  /dsh/node_modules/@deepseek-ai/dsh-compaction-basic/lib/index.js
+       2  /dsh/node_modules/@deepseek-ai/dsh-llm-pi-ai/lib/index.js
+       2  /dsh/node_modules/@deepseek-ai/dsh-permission-presets/README.md
+       2  /dsh/node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.js
+       2  /dsh/node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.js
+       2  /dsh/node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.js
+       1  /dsh/node_modules/@deepseek-ai/dsh-agent-instructions/lib/index.js
+       1  /dsh/node_modules/@deepseek-ai/dsh-authorization/lib/index.js
+       1  /dsh/node_modules/@deepseek-ai/dsh-authorization/lib/types/index.js
+       1  /dsh/node_modules/@deepseek-ai/dsh-client-ui-conversation/lib/client.js
+       1  /dsh/node_modules/@deepseek-ai/dsh-client-ui-directory-picker-browse/lib/client.js
+
+=== dsh-ui : 0 檔
+
+=== fence : 91 檔
+     318  /dsh/node_modules/@deepseek-ai/dsh-web-frontend/dist/assets/langs/mdx-Cmh6b_Ma.js
+     311  /dsh/node_modules/@deepseek-ai/dsh-web-frontend/dist/assets/langs/markdown-Cvjx9yec.js
+      63  /dsh/node_modules/@deepseek-ai/dsh-web-frontend/dist/assets/vendor-CCJJTK99.js
+      57  /dsh/node_modules/@deepseek-ai/dsh-client-ui-primitives/lib/index.js
+      24  /dsh/node_modules/@deepseek-ai/dsh-web-frontend/dist/assets/index-5SrrfWpU.js
+      16  /dsh/node_modules/turndown/dist/turndown.js
+      16  /dsh/node_modules/turndown/lib/turndown.browser.cjs.js
+      16  /dsh/node_modules/turndown/lib/turndown.browser.es.js
+      16  /dsh/node_modules/turndown/lib/turndown.browser.umd.js
+      16  /dsh/node_modules/turndown/lib/turndown.cjs.js
+      16  /dsh/node_modules/turndown/lib/turndown.es.js
+      16  /dsh/node_modules/turndown/lib/turndown.umd.js
+
+=== validate_dsh : 0 檔
+
+=== repair_failed : 0 檔
+
+=== repair : 96 檔
+      34  /dsh/node_modules/@deepseek-ai/dsh-sandbox-windows-acl/assets/diagnose-windows-sandbox-acl/scripts/diagnose-windows-sandbox-acl.ps1
+      23  /dsh/node_modules/typebox/build/value/repair/from_type.mjs
+      18  /dsh/node_modules/@deepseek-ai/dsh-session-persistence-jsonl/lib/worker.cjs
+      18  /dsh/node_modules/@earendil-works/pi-ai/dist/utils/json-parse.js
+      17  /dsh/node_modules/@deepseek-ai/dsh-sandbox-windows-acl/assets/diagnose-windows-sandbox-acl/SKILL.md
+      16  ?
+       9  /node_modules/@deepseek-ai/dsh-api-gateway/lib/client.js.map
+       9  /node_modules/@deepseek-ai/dsh-api-gateway/src/client/journal-stream.ts
+       8  /dsh/node_modules/@deepseek-ai/dsh-plugin-manager/lib/index.js
+       8  /dsh/node_modules/@deepseek-ai/dsh-plugin-manager/lib/types/operations.js
+       7  /dsh/node_modules/@deepseek-ai/dsh-sandbox-windows-acl/README.md
+       7  /dsh/node_modules/@deepseek-ai/dsh-session-format-v0-to-v1/lib/index.js
+

@@ -1,0 +1,1413 @@
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-agent-instructions/lib/index.js ########
+
+--- fragment ---
+ytes),
+		omitted,
+		truncated,
+		represented: []
+	};
+}
+/**
+* Render a baseline together with the exact source files semantically represented in it.
+* @param files - loaded files ordered from broadest to most specific.
+* @param options - rendering byte budget and whether this baseline supersedes a visible predecessor.
+* @returns bounded public rendering plus files with surviving content, including genuinely empty files.
+* @internal
+*/
+function renderAgentInstructionSet(files, options) {
+	const style = baselineRenderStyle(files, options.replacePreviousBaseline);
+	const { represented, ...rendered } = renderInstructionContext(files, options.maxBytes, style);
+	return {
+		rendered,
+		included: represented
+	};
+}
+/**
+* Render the baseline instruction chain with deterministic precedence budgeting.
+* @param files - loaded files ordered from broadest to most specific.
+* @param options - rendering byte budget and whether this baseline supersedes a visible predecessor.
+* @returns bounded baseline prompt text and budget diagnostics.
+*/
+function renderAgentInstructions(files, options) {
+	return ren
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-authorization/lib/index.js ########
+
+--- fragment ---
+r than
+* that the surface broke. An attempt whose flow fails after a prompt was
+* declined settles as `cancelled`, the same outcome as a withdrawn signal,
+* because the human saying no is a refusal, not a breakage. Only a human's
+* "no" may reject with this class: a prompt withdrawn by its own `signal` (a
+* flow retiring the losing question of a race) must reject with something
+* else, or a later genuine failure would be misread as a decline.
+*/
+var AuthorizationDeclinedError = class extends AuthorizationError {
+	constructor(message = "the authorization prompt was declined") {
+		super(message, "DECLINED");
+		this.name = "AuthorizationDeclinedError";
+	}
+};
+/**
+* `ctx.authorization`: a registry of credential-obtaining flows, one attempt at
+* a time per key.
+*/
+var AuthorizationService = class extends Service {
+	/** The commit this seam confirms is a credential-record write, so the store is required, not optional. */
+	static inject = ["credentials"];
+	flows = /* @__PURE__ */ new Map();
+	running = /* @__PURE__ */ new Map();
+	constructor(ctx) {
+		super(ctx, "authorization");
+	}
+	/**
+	* Of
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-authorization/lib/types/index.js ########
+
+--- fragment ---
+
+ * that the surface broke. An attempt whose flow fails after a prompt was
+ * declined settles as `cancelled`, the same outcome as a withdrawn signal,
+ * because the human saying no is a refusal, not a breakage. Only a human's
+ * "no" may reject with this class: a prompt withdrawn by its own `signal` (a
+ * flow retiring the losing question of a race) must reject with something
+ * else, or a later genuine failure would be misread as a decline.
+ */
+export class AuthorizationDeclinedError extends AuthorizationError {
+    constructor(message = 'the authorization prompt was declined') {
+        super(message, 'DECLINED');
+        this.name = 'AuthorizationDeclinedError';
+    }
+}
+/**
+ * `ctx.authorization`: a registry of credential-obtaining flows, one attempt at
+ * a time per key.
+ */
+export class AuthorizationService extends Service {
+    /** The commit this seam confirms is a credential-record write, so the store is required, not optional. */
+    static inject = ['credentials'];
+    flows = new Map();
+    running = new Map();
+    constructor(ctx) {
+        super(ctx, 'authorization');
+ 
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-client-ui-conversation/lib/client.js ########
+
+--- fragment ---
+ssion(session, text, attachmentIds, mode, signal);
+			}
+			/**
+			* Submit every still-pending queued message through QueueDock Steer, in FIFO
+			* request order — the same operation as the queue dock's per-row button.
+			* An Agent stopping before a command (`session/steer-unavailable`) or a row already
+			* claimed by the agent (`session/queue-item-not-found`) converges silently, while a
+			* genuine failure surfaces as one composer notice. Repeated triggers
+			* (e.g. two rapid empty-draft chords) rely on that `session/queue-item-not-found`
+			* convergence: the snapshot may still list a row the host already steered,
+			* and the duplicate Steer is a silent no-op.
+			* @param session - the addressed host session.
+			* @param shell - the resident shell (notice outlet).
+			*/
+			async steerQueue(session, shell) {
+				const queued = session.projections.faceOf("inbox").getSnapshot()?.["next-turn"] ?? [];
+				if (queued.length === 0) return;
+				for (const item of queued) {
+					const result = await session.updateQueue(item.id, { kind: "steer" });
+					if (result.ok) continue;
+					i
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-client-ui-directory-picker-browse/lib/client.js ########
+
+--- fragment ---
+cError.message === "string") return rpcError.message;
+			}
+			return error instanceof Error ? error.message : String(error);
+		}
+		/**
+		* How long a scan may stay visually silent before the floating "Loading…"
+		* pill appears. The stale view keeps rendering while a scan is in flight, so
+		* a listing that settles inside this window swaps the panes with no
+		* intermediate frame at all; only a genuinely slow host (a network mount, a
+		* cold disk) surfaces the indicator.
+		*/
+		const SLOW_SCAN_DELAY_MS = 300;
+		/**
+		* How long a navigation landing waits for its parent leg before committing
+		* the target alone. Inside the window both legs land as ONE two-pane frame —
+		* no single-pane flash between them; past it the target commits single-pane
+		* at once (an Enter-submitted navigation is never held hostage by a stalled
+		* parent) and the late parent leg upgrades the landing in place.
+		*/
+		const PARENT_LEG_WAIT_MS = 200;
+		/**
+		* How long a typed draft rests before the panes follow it to a directory no
+		* pane lists. The window absorbs the keystrokes that walk through
+		* 
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-client-ui-primitives/README.md ########
+
+--- fragment ---
+xed 24px. A card that stacks a name over a description is a different layout, and belongs in the feature package — `ui-settings-plugins`' `PluginCard` is the precedent and records why.
+- **`FoldToggle` against the exported surface.** It is package-internal and not exported; the output cards use it for their head-tail fold.
+
+Writing your own component in your own package is fine when the need is genuinely specific. What is not fine is copying a control that already exists here — and once a second package needs the same control, it belongs in this package ([decision](../../../.agents/notes/implemented/architecture/2026-09-05-shared-client-control-primitives.md)).
+
+### Controls and icons
+
+The catalog above lists what each export is for; this section covers the behavior that props alone do not show. Product icon names omit artboard sizes and end in `Regular` for the supplied one-pixel artwork or `Medium` for the same geometry at a 1.3px stroke; the `size` prop controls rendered dimensions ([decision](../../../.agents/notes/implemented/architecture/2026-09-16-size-neutral-product-icon
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-client-ui-primitives/lib/index.js ########
+
+--- fragment ---
+	text: line.slice(1)
+				});
+			}
+		}
+	}
+	return rows;
+}
+/**
+* Split a side's text into its content lines. Empty text is zero lines (a full
+* deletion's `newText` or a create's absent `oldText` side draws nothing), and a
+* single trailing newline is a line terminator rather than an extra empty line —
+* the same terminator rule TerminalBlock applies to command output. An interior
+* blank line (a genuine `\n\n`) survives.
+* @param text - the removed or added side's text.
+* @returns the content lines, without the terminating newline.
+*/
+function contentLines(text) {
+	if (text === "") return [];
+	return (text.endsWith("\n") ? text.slice(0, -1) : text).split("\n");
+}
+/**
+* Copy the full local diff, including folded rows: removed/added lines have
+* `- `/`+ ` prefixes, context has two spaces, and paths and gaps stay verbatim.
+* @param rows - the flattened body rows.
+* @returns the diff as plain text.
+*/
+function copyText$1(rows) {
+	return rows.map((row) => {
+		switch (row.kind) {
+			case "del": return `- ${row.text}`;
+			case "add": return `+ ${row.text}`;
+			case "context": return `  ${r
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-compaction-basic/README.md ########
+
+--- fragment ---
+rves idle admission, uses `turn: null`, accepts append-only context outside its selected span, flushes every closed attempt, and releases admission in `finally`.
+- **Summarization reuses the provider's warm prefix.** Replaying the system prompt held by the `system/message` at surface node 0, the last routed request's tools, and the shadowed-region messages byte-for-byte makes the auxiliary call a genuine prefix of the conversation, so only the trailing instruction and the summary output are uncached.
+- **`summarize()` is the sole subclass hook.** A template- or remote-summarizer subclass can override it while pressure, retention, cited source events, shrink validation, and shadowed-token accounting stay on the token meter.
+
+### Automatic triggers and overflow recovery
+
+With `auto: true`, a serial `agent/pre-step` listener checks pressure before request derivation: it prices the latest durable routed request envelope through `ctx.tokenMeter`, and when pressure crosses the routed model's threshold it prunes, then summarizes the oldest balanced span while keeping a priced recent tail. E
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-compaction-basic/lib/index.js ########
+
+--- fragment ---
+landed checkpoint node. */
+const SUMMARY_OPEN_TAG = "<compacted-summary>";
+const SUMMARY_CLOSE_TAG = "</compacted-summary>";
+/**
+* The summarization directive, delivered as the FINAL user message after the
+* replayed conversation rather than as a distinct summarizer system prompt.
+* Keeping the conversation's own system prompt, tools, and message prefix in
+* front of it makes the auxiliary call a genuine prefix of the last routed
+* request, so the provider's KV cache is reused instead of invalidated.
+*/
+const COMPACTION_INSTRUCTION = [
+	"You are now acting as a compaction engine for this AI coding assistant. Condense the conversation ABOVE into a structured checkpoint that lets another model resume the work with no loss of essential context.",
+	"",
+	"Output EXACTLY the Markdown structure below: keep every section, in order. Use terse bullets, not prose paragraphs. Write \"(none)\" for an empty section — never drop a section.",
+	"",
+	"## Primary Request and Intent",
+	"- [the user's original and evolving goals; quote verbatim where the exact wording matters]",
+	"",
+	"## Key Technical
+
+--- fragment ---
+nding, endEvent) {
+	return {
+		...pending,
+		endSeq: endEvent.seq
+	};
+}
+/**
+* Reconstruct the last routed request's cacheable prefix for the shadowed
+* region: the system prompt held by the `system/message` at surface node 0,
+* the header's tool schemas, then the region's own derived messages in surface
+* order. The summarizer appends only the compaction instruction after this, so
+* the call is a genuine prefix of the conversation and reuses the provider's
+* KV cache. A surface without a system head, or whose head projects to no
+* message, contributes no leading system message.
+* @param session - session supplying the surface head, request header, and per-node projection.
+* @param shadowedSeqs - the surface-node seqs, in order, being compacted.
+* @returns the replayed conversation prefix to condense.
+*/
+function buildSummarizationInput(session, shadowedSeqs) {
+	const header = session.requestHeader();
+	const head = systemHead(session, session.surface.nodes[0]);
+	const system = head === void 0 ? null : session.deriveEventMessage(head);
+	const regionMessages = shadowedSeqs.map((seq) => 
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-llm-pi-ai/lib/index.js ########
+
+--- fragment ---
+ hold become
+* null, exactly as `JSON.stringify` would render them. pi-ai credentials
+* idiomatically carry optional members as explicit `undefined` (a github.com
+* Copilot grant holds `enterpriseUrl: undefined`), which the credential
+* store's strict validator refuses as unrepresentable. Everything else —
+* non-finite numbers and foreign prototypes included — passes through
+* untouched, so a genuinely unstorable value still fails loud at the store.
+* @param value - the value to render.
+* @returns the value's JSON image.
+*/
+function jsonImage(value) {
+	if (Array.isArray(value)) return value.map((entry) => entry === void 0 ? null : jsonImage(entry));
+	if (typeof value === "object" && value !== null && Object.getPrototypeOf(value) === Object.prototype) {
+		const image = {};
+		for (const [key, member] of Object.entries(value)) if (member !== void 0) image[key] = jsonImage(member);
+		return image;
+	}
+	return value;
+}
+/**
+* Translate a stored record into the credential pi-ai expects.
+*
+* An `api-key` record is structural on both sides, so it is rebuilt field by
+* field. A `grant` payl
+
+--- fragment ---
+urn {
+		kind: "api-key",
+		...credential.key === void 0 ? {} : { key: credential.key },
+		...credential.env === void 0 ? {} : { env: { ...credential.env } }
+	};
+	return {
+		kind: "grant",
+		payload: jsonImage(credential)
+	};
+}
+/**
+* The credential service, or the failure that names what is missing. Reads
+* answer "nothing stored" without a service, because a composition with no
+* credential plane genuinely holds no credential; writes refuse, because a
+* login whose grant silently evaporated would report success and then fail
+* every request.
+* @param ctx - the plugin context.
+* @returns the live service.
+* @throws {LlmError} code `NO_CREDENTIAL_STORE` when none is mounted.
+*/
+function writableStore(ctx) {
+	const credentials = ctx.get("credentials");
+	if (credentials === void 0) throw new LlmError("llm-pi-ai: this composition mounts no credentials service, so there is nowhere to store the credential a sign-in produces; mount one (dsh-credentials-local) to sign in", "NO_CREDENTIAL_STORE");
+	return credentials;
+}
+/**
+* A pi-ai `CredentialStore` over the harness credential records.
+*
+* p
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-otel/node_modules/@opentelemetry/resources/node_modules/@opentelemetry/core/build/esm/common/time.js ########
+
+--- fragment ---
+performance.timeOrigin uses a monotonic clock that may be slightly ahead
+        // of Date.now() due to clock adjustments (see MDN docs). This means a
+        // real epoch-ms value (e.g. Date.now()) can land just below
+        // performance.timeOrigin, causing it to be misclassified as a relative
+        // performance.now() reading and doubled when timeOrigin is added.
+        //
+        // A genuine performance.now() value represents elapsed time since the
+        // document/process started, so it is bounded by system uptime. No real
+        // system has been running long enough for performance.now() to reach half
+        // the current epoch time (~1994 in ms terms). We therefore treat any value
+        // below half of performance.timeOrigin as a relative performance.now()
+        // reading, and everything else as an absolute epoch-millisecond timestamp.
+        if (time < performance.timeOrigin / 2) {
+            return hrTime(time);
+        }
+        else {
+            // epoch milliseconds or performance.timeOrigin
+            return millisToHrTime(time);
+        }
+    }
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-otel/node_modules/@opentelemetry/resources/node_modules/@opentelemetry/core/build/esnext/common/time.js ########
+
+--- fragment ---
+performance.timeOrigin uses a monotonic clock that may be slightly ahead
+        // of Date.now() due to clock adjustments (see MDN docs). This means a
+        // real epoch-ms value (e.g. Date.now()) can land just below
+        // performance.timeOrigin, causing it to be misclassified as a relative
+        // performance.now() reading and doubled when timeOrigin is added.
+        //
+        // A genuine performance.now() value represents elapsed time since the
+        // document/process started, so it is bounded by system uptime. No real
+        // system has been running long enough for performance.now() to reach half
+        // the current epoch time (~1994 in ms terms). We therefore treat any value
+        // below half of performance.timeOrigin as a relative performance.now()
+        // reading, and everything else as an absolute epoch-millisecond timestamp.
+        if (time < performance.timeOrigin / 2) {
+            return hrTime(time);
+        }
+        else {
+            // epoch milliseconds or performance.timeOrigin
+            return millisToHrTime(time);
+        }
+    }
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-otel/node_modules/@opentelemetry/resources/node_modules/@opentelemetry/core/build/src/common/time.js ########
+
+--- fragment ---
+performance.timeOrigin uses a monotonic clock that may be slightly ahead
+        // of Date.now() due to clock adjustments (see MDN docs). This means a
+        // real epoch-ms value (e.g. Date.now()) can land just below
+        // performance.timeOrigin, causing it to be misclassified as a relative
+        // performance.now() reading and doubled when timeOrigin is added.
+        //
+        // A genuine performance.now() value represents elapsed time since the
+        // document/process started, so it is bounded by system uptime. No real
+        // system has been running long enough for performance.now() to reach half
+        // the current epoch time (~1994 in ms terms). We therefore treat any value
+        // below half of performance.timeOrigin as a relative performance.now()
+        // reading, and everything else as an absolute epoch-millisecond timestamp.
+        if (time < platform_1.otperformance.timeOrigin / 2) {
+            return hrTime(time);
+        }
+        else {
+            // epoch milliseconds or performance.timeOrigin
+            return millisToHrTime(time);
+  
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-output-retention/lib/index.js ########
+
+--- fragment ---
+ew TextDecoder();
+/**
+* Drop a trailing incomplete UTF-8 sequence so a prefix cut never emits a
+* replacement char at the boundary. Walks back over continuation bytes
+* (`10xxxxxx`) to the lead byte; if fewer bytes follow it than the lead byte's
+* length declares, the sequence is incomplete and is trimmed. A complete tail,
+* or a run too long/short to be a valid lead, is returned untouched (any
+* genuinely malformed interior is left for the decoder to replace).
+*/
+function trimTrailingPartialUtf8(bytes) {
+	let i = bytes.length - 1;
+	while (i >= 0 && (bytes[i] & 192) === 128 && bytes.length - i <= 3) i--;
+	if (i < 0) return bytes;
+	const lead = bytes[i];
+	const expected = lead < 128 ? 1 : lead < 224 ? 2 : lead < 240 ? 3 : lead < 248 ? 4 : 0;
+	if (expected === 0) return bytes;
+	return bytes.length - i < expected ? bytes.subarray(0, i) : bytes;
+}
+/**
+* Drop leading continuation bytes (`10xxxxxx`) so a suffix cut starts on a
+* lead/ASCII byte instead of mid-codepoint.
+*/
+function trimLeadingContinuationUtf8(bytes) {
+	let i = 0;
+	while (i < bytes.length && (bytes[i] & 192) === 128) i++;
+	
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-permission-presets/README.md ########
+
+--- fragment ---
+zero selection appends nothing.
+
+### Read side and `custom`
+
+`current(session)` reads the required `permissions` projection, whose unit folds the three whole-value knob events over the composition defaults (`ctx.shell.sandboxMode` and the approval config). The host state also retains whether `session/end-seed` has occurred, so session pinning distinguishes an explicitly empty restored seed from a genuinely fresh session without rescanning the log. A still-matching last selection wins shared-bundle ties, and a recorded Auto selection also matches the `never` approval policy; otherwise the first configured match wins; otherwise the derived `CUSTOM_PRESET` is returned. A missing projection key fails explicitly.
+
+`optionOf(name)` returns a configured entry, the live Auto entry, or the display-only `custom` entry. It throws only when the name matches none of those; a withdrawn Auto entry is unavailable.
+
+### Session pinning and blank reuse
+
+Mounting pins every live and future session: a genuinely fresh session gains the configured default preset and both knob facts, while seeded or partia
+
+--- fragment ---
+rst configured match wins; otherwise the derived `CUSTOM_PRESET` is returned. A missing projection key fails explicitly.
+
+`optionOf(name)` returns a configured entry, the live Auto entry, or the display-only `custom` entry. It throws only when the name matches none of those; a withdrawn Auto entry is unavailable.
+
+### Session pinning and blank reuse
+
+Mounting pins every live and future session: a genuinely fresh session gains the configured default preset and both knob facts, while seeded or partially initialized sessions keep their effective knob values and gain only missing durable facts. The projection-owned seed marker makes this decision from the same incremental state as the knob values. A stored `auto` identity fails publication when the Auto integration is absent or rejects admission; the service neither rewrites it nor silently derives Full access.
+
+### Catalog, projection, and optional command
+
+The service requires `ctx.sessionProjections` and registers a `permissions` projection containing only `currentValue`. Its process-level `catalog()` Remote returns one complete selec
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-permission-presets/lib/index.js ########
+
+--- fragment ---
+box !== (knobs.sandbox ?? this.ctx.shell.sandboxMode)) setSandboxMode(session, spec.sandbox);
+				if (spec.approval !== (knobs.approval ?? this.ctx.approval.config.policy ?? "ask")) setApproval(spec.approval);
+			};
+			if (current !== name) session.append("permission/preset", { preset: name });
+			updateKnobs();
+		}
+		/**
+		* Fill every missing permission fact before a session is published. A
+		* genuinely fresh session uses the current user default; seeded or partially
+		* initialized sessions preserve their effective knob values and only gain
+		* the missing durable facts. A stored Auto identity requires its live
+		* integration and passes its admission check before
+		* publication.
+		*/
+		pinInitialPermission(session) {
+			const state = this.permissionState(session);
+			const { preset, sandbox, approval, seeded } = state;
+			if (preset === "auto") {
+				if (this.autoAdmit === void 0) throw new Error("permission: cannot restore preset \"auto\" without its active integration");
+				this.autoAdmit();
+			}
+			if (preset === null && sandbox === null && approval === null && !seeded) {
+	
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-permission-presets/lib/types/index.js ########
+
+--- fragment ---
+proval !== (knobs.approval ?? this.ctx.approval.config.policy ?? 'ask')) {
+                    setApproval(spec.approval);
+                }
+            };
+            if (current !== name)
+                session.append('permission/preset', { preset: name });
+            updateKnobs();
+        }
+        /**
+         * Fill every missing permission fact before a session is published. A
+         * genuinely fresh session uses the current user default; seeded or partially
+         * initialized sessions preserve their effective knob values and only gain
+         * the missing durable facts. A stored Auto identity requires its live
+         * integration and passes its admission check before
+         * publication.
+         */
+        pinInitialPermission(session) {
+            const state = this.permissionState(session);
+            const { preset, sandbox, approval, seeded } = state;
+            if (preset === AUTO_PRESET) {
+                if (this.autoAdmit === undefined) {
+                    throw new Error('permission: cannot restore preset "auto" without its active integration')
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-session-projection-cache/lib/index.js ########
+
+--- fragment ---
+ || !currentLifecycleMatches(record.identity, expected)) return void 0;
+		return this.viewRecord(record, keys);
+	}
+	/**
+	* Read only a predecessor checkpoint's title as a zero-I/O listing hint.
+	*
+	* The authoritative Session header supplies the lifecycle identity. A cache
+	* checkpoint can lag that log but cannot lead it because writes flush the
+	* log first, so a matching predecessor title is a genuine (possibly stale)
+	* fact from this Session. The registry still requires the current title
+	* projection's row version and schema. No other predecessor projection is
+	* exposed: format normalization can change their current meaning, and the
+	* {@link cachedSnapshot} / hydration paths continue to reject them.
+	* @param meta - authoritative listed Session header.
+	* @returns a title-only block at the stored title row's watermark, or
+	*   `undefined` when the record is current, newer, unrelated, missing, or
+	*   incompatible with the title unit.
+	*/
+	cachedPredecessorTitle(meta) {
+		const expected = lifecycleIdentityOf(meta);
+		const record = this.requireTable().get(meta.id);
+		if (recor
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-subprocess-local/lib/index.js ########
+
+--- fragment ---
+me;
+	return null;
+}
+/**
+* A local terminal whose native managed range or fallback process-session
+* ownership stays below the PTY backend.
+* The seam's terminate() promise — no write, inspection, or signal in flight
+* after settlement — holds here without operation tracking only because every
+* handle call completes synchronously under the hood (node-pty write, ps-based
+* inspection). A first genuinely asynchronous step in any handle call must add
+* the tracking a remote provider needs.
+*/
+var LocalTerminalHandle = class {
+	terminal;
+	inspector;
+	graceMs;
+	platform;
+	managedOwner;
+	resolveManagedOutcome;
+	shellActivity;
+	onQuiescence;
+	observeShellExit;
+	pid;
+	output = new PassThrough();
+	done;
+	outcome = Promise.withResolvers();
+	dataDisposable;
+	exitDisposable;
+	cleanup;
+	managedOwnerCleaned = false;
+	exited = false;
+	outputPaused = false;
+	trackedDescendants = [];
+	activityRevision = 0;
+	activityKey = "";
+	quiescent = false;
+	managedRangeEmpty = false;
+	/** The spawned shell's start identity; scans stop adopting members once the root pid no longer carries it. */
+	rootIdentity;
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tmux-context/lib/index.js ########
+
+--- fragment ---
+-preparation tmux-location context. Eligible step attempts
+* append durable, source-attributed context naming the tmux session, window,
+* and pane this agent process runs in, plus the window's pane-tree layout.
+*
+* The plugin pulls state once per turn, for the first request (`step === 1`), by
+* running one `tmux display-message` through the `ctx.shell` executor service. It
+* confirms this process genuinely runs inside the pane `$TMUX_PANE` names by
+* matching the pane's `#{pane_tty}` against this process's controlling terminal,
+* so a terminal that merely inherited `$TMUX`/`$TMUX_PANE` from a tmux ancestor
+* (e.g. a VS Code integrated terminal) reads as "not in tmux". It re-injects
+* only when the rendered tmux state changes since the last injection (a moved,
+* renamed, or re-laid-out pane), with an optional `refreshIntervalMs` floor
+* between injections. Absent tmux environment, an inherited-only environment,
+* absent `ctx.shell`, or a failed query is a no-op, never an error: an executor
+* rejection is contained and logged as a warning so the turn continues.
+*
+* @module @deepseek-ai
+
+--- fragment ---
+ "tmux location (turn ";
+/**
+* Field separator between tmux format fields. tmux does not interpret C escapes
+* in a format, so the literal two-character sequence `\t` is emitted verbatim
+* and split back out here; this avoids embedding raw whitespace in the command.
+*/
+const FIELD_SEP = "\\t";
+/**
+* Read this process's tmux location through the bash seam, or `undefined` when
+* this process is not genuinely running inside a tmux pane or the query fails.
+*
+* `$TMUX_PANE` alone is insufficient: a terminal launched from a tmux shell
+* (e.g. VS Code's integrated terminal, a desktop launcher) inherits `$TMUX` and
+* `$TMUX_PANE` from that ancestor, so the variables are present even though this
+* process does not live in that pane. The command therefore also compares the
+* pane's `#{pane_tty}` against this process's own controlling terminal
+* (`ps -o tty=` for {@link processId}); a genuine pane owns this process's tty,
+* an inherited environment names some other pane's tty. Fields are emitted only
+* on a match, so an inherited environment reads as "not in tmux" and injects
+* nothing.
+*
+* The
+
+--- fragment ---
+fficient: a terminal launched from a tmux shell
+* (e.g. VS Code's integrated terminal, a desktop launcher) inherits `$TMUX` and
+* `$TMUX_PANE` from that ancestor, so the variables are present even though this
+* process does not live in that pane. The command therefore also compares the
+* pane's `#{pane_tty}` against this process's own controlling terminal
+* (`ps -o tty=` for {@link processId}); a genuine pane owns this process's tty,
+* an inherited environment names some other pane's tty. Fields are emitted only
+* on a match, so an inherited environment reads as "not in tmux" and injects
+* nothing.
+*
+* The location is optional context, so an executor rejection is a failed query,
+* not a turn failure: `resolve()` may reject the command on policy grounds and
+* `run()` only promises to resolve for nonzero exits, timeouts, and aborts, so
+* both are contained and reported as a warning.
+*
+* @param bash - The executor service used to run the read-only tmux/ps commands.
+* @param logger - receives a warning when the executor rejects the query.
+* @param processId - this agent process's pid, wh
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tool-cordis/lib/types/api-catalog.js ########
+
+--- fragment ---
+           signature: 'cachedPredecessorTitle(meta: SessionHeader): ProjectionSnapshot | undefined',
+                description: 'Read only a predecessor checkpoint\'s title as a zero-I/O listing hint.\n\nThe authoritative Session header supplies the lifecycle identity. A cache checkpoint can lag that log but cannot lead it because writes flush the log first, so a matching predecessor title is a genuine (possibly stale) fact from this Session. The registry still requires the current title projection\'s row version and schema. No other predecessor projection is exposed: format normalization can change their current meaning, and the cachedSnapshot / hydration paths continue to reject them.',
+                parameters: [{ name: 'meta', description: 'authoritative listed Session header.' }],
+                returns: 'a title-only block at the stored title row\'s watermark, or `undefined` when the record is current, newer, unrelated, missing, or incompatible with the title unit.',
+            },
+            {
+                signature: 'hydratePrepared( session: Session, events: readonl
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tool-jobs/README.md ########
+
+--- fragment ---
+dependently registered prompt section.
+
+##### Background-job guidance
+
+```markdown
+Track every background job id you start. You are notified in-session when a job finishes — do not busy-poll or sleep on one; keep working on independent steps and do not duplicate a running job's work. Before giving a final answer, collect every still-relevant job with job_output (set wait: true only when you are genuinely blocked on it), and job_kill jobs that stopped mattering.
+```
+
+#### Token effect
+
+Small fixed input cost per request while active.
+
+#### KV Cache effect
+
+Prefix-stable while the plugin scope and guidance text are unchanged. Activation or disposal may invalidate reuse from this prompt section.
+
+### Tool schemas
+
+#### What the model sees
+
+The generated [`job_output`, `job_list`, and `job_kill` schemas](../../../docs/tool-catalog.md#deepseek-aidsh-tool-jobs) while this tool set is visible.
+
+#### Token effect
+
+Fixed schema cost on each request where the tools are visible.
+
+#### KV Cache effect
+
+Prefix-stable while tool definitions and visibility are unchanged. Registration lifecycle or
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tool-jobs/README.zh.md ########
+
+--- fragment ---
+�会移除独立注册的提示词区段。
+
+##### 后台任务指引
+
+```markdown
+Track every background job id you start. You are notified in-session when a job finishes — do not busy-poll or sleep on one; keep working on independent steps and do not duplicate a running job's work. Before giving a final answer, collect every still-relevant job with job_output (set wait: true only when you are genuinely blocked on it), and job_kill jobs that stopped mattering.
+```
+
+#### Token 影响
+
+激活期间，每次请求都会产生少量固定的输入 token 开销。
+
+#### KV Cache 影响
+
+只要插件 scope 与指引文本不变，前缀就保持稳定。激活或释放可能使从该提示词区段起的复用失效。
+
+### 工具 schema
+
+#### 模型看到什么
+
+该工具集可见时，会看到生成的 [`job_output`、`job_list` 和 `job_kill` schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-jobs)。
+
+#### Token 影响
+
+工具可见时，每次请求都会产生固定的 schema token 开销。
+
+#### KV Cache 影响
+
+只要工具定义与可见性不变，前缀就保持�
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tool-jobs/lib/index.js ########
+
+--- fragment ---
+ame: "tool:jobs",
+		order: ctx.systemPrompt.getSectionOrder("TOOL_JOBS"),
+		text: "Track every background job id you start. You are notified in-session when a job finishes — do not busy-poll or sleep on one; keep working on independent steps and do not duplicate a running job's work. Before giving a final answer, collect every still-relevant job with job_output (set wait: true only when you are genuinely blocked on it), and job_kill jobs that stopped mattering."
+	});
+	const killedByModel = /* @__PURE__ */ new Set();
+	ctx.jobs.events.subscribe({ owners: "scope" }, (event) => {
+		if (event.type === "removed") {
+			killedByModel.delete(event.job.id);
+			return;
+		}
+		if (event.type !== "settled") return;
+		if (killedByModel.delete(event.job.id) || event.awaited || event.cause === "teardown" || event.job.owner === void 0) return;
+		const owner = ctx.get("agents")?.get(event.job.owner);
+		if (owner === void 0) return;
+		const message = createUserMessage({
+			content: [{
+				type: "text",
+				text: fitCompletionNotice(event.job)
+			}],
+			source: {
+				kind: "tool-jobs",
+				form: "notic
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tool-ralph/lib/index.js ########
+
+--- fragment ---
+eployment ceiling. */
+function resolveMaxRounds(requested, ceiling) {
+	const value = requested ?? ceiling;
+	if (!Number.isSafeInteger(value) || value < 1) throw new TypeError("Ralph maxRounds must be a positive safe integer");
+	if (value > ceiling) throw new TypeError(`Ralph maxRounds ${value} exceeds the deployment ceiling ${ceiling}`);
+	return value;
+}
+/** Require the configured route to mean a genuinely fresh structured child. */
+function requireFreshProvider(ctx, name) {
+	const provider = ctx.subagents.getProvider(name);
+	if (provider === void 0) throw new Error(`Ralph subagent provider "${name}" is not registered`);
+	if (!provider.capabilities.outputSchema) throw new Error(`Ralph subagent provider "${name}" does not support structured output`);
+	if (provider.inheritsParentContext) throw new Error(`Ralph subagent provider "${name}" inherits parent context; Ralph requires a fresh provider`);
+	return provider;
+}
+function isRecord(value) {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+function normalizedText(value) {
+	return typeof value === "string
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tool-workflow/lib/index.js ########
+
+--- fragment ---
+ges): Promise<any[]>\` — run each item through the stages independently with NO barrier between stages (prefer this for multi-stage work). Each stage receives \`(prev, item, index)\`. A stage throw drops that ITEM to \`null\` and skips its remaining stages.
+- \`parallel(thunks): Promise<any[]>\` — run zero-argument functions concurrently and await ALL of them (a barrier; use only when a stage genuinely needs every prior result together). A throwing thunk resolves to \`null\`.
+- \`phase(title)\` — start a progress phase; \`log(message)\` — narrate progress; \`args\` — the tool call's \`args\` input, verbatim.
+
+Misused hooks (bad arguments, unknown options, unsupported schemas, tripped caps) end the whole script instead of producing \`null\`. The script has no filesystem, network, timer, or Node.js APIs; the agents do the work.`;
+/** The pending-state card: a generic card titled by the workflow's meta name. */
+function presentWorkflowCall(args) {
+	return {
+		card: "generic",
+		title: `workflow: ${args.meta.name}`,
+		rawInput: args.script
+	};
+}
+/** The completed-state card: ke
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tool-workflow/lib/types/index.js ########
+
+--- fragment ---
+ges): Promise<any[]>\` — run each item through the stages independently with NO barrier between stages (prefer this for multi-stage work). Each stage receives \`(prev, item, index)\`. A stage throw drops that ITEM to \`null\` and skips its remaining stages.
+- \`parallel(thunks): Promise<any[]>\` — run zero-argument functions concurrently and await ALL of them (a barrier; use only when a stage genuinely needs every prior result together). A throwing thunk resolves to \`null\`.
+- \`phase(title)\` — start a progress phase; \`log(message)\` — narrate progress; \`args\` — the tool call's \`args\` input, verbatim.
+
+Misused hooks (bad arguments, unknown options, unsupported schemas, tripped caps) end the whole script instead of producing \`null\`. The script has no filesystem, network, timer, or Node.js APIs; the agents do the work.`;
+/** The pending-state card: a generic card titled by the workflow's meta name. */
+function presentWorkflowCall(args) {
+    return {
+        card: 'generic',
+        title: `workflow: ${args.meta.name}`,
+        rawInput: args.script,
+    };
+}
+/** The
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tools/lib/types/index.js ########
+
+--- fragment ---
+ [];
+        const token = createExecutionToken();
+        const callId = exec.callId;
+        const rootCallId = exec.rootCallId ?? callId;
+        const name = exec.name;
+        const agent = exec.agent;
+        const parent = exec.parent;
+        const signal = exec.signal;
+        // Distinguish a mode-collapsed call (visible in the scope, denied only by
+        // the `ptc` collapse) from a genuinely unknown tool. A collapsed call is
+        // deterministically denied, so it terminates BEFORE the extensible policy
+        // pipeline: pre-execute listeners, approval `ask`, and guards must never
+        // observe — or worse, approve — a call that can only fail. An unknown tool
+        // keeps the historical dispatch-stage `UNKNOWN_TOOL` path so policy
+        // listeners still see every name that reaches the registry.
+        const visible = this.get(name, agent);
+        const collapsed = visible !== undefined && this.collapses(name, agent, parent !== undefined);
+        const concludingExecutions = this.concludingExecutions;
+        const base = {
+            token,
+  
+
+
+######## /dsh/node_modules/@deepseek-ai/dsh-tools/lib/types/ptc.js ########
+
+--- fragment ---
+lready in progress when the program returned.
+                await drive();
+                // Every settle event is appended inside the open run_code turn
+                // (tasks self-remove on settlement).
+                while (logWork.size > 0)
+                    await Promise.allSettled([...logWork]);
+            };
+            // Read through a call, not a bare property: the abort state genuinely
+            // changes across awaits, and a direct `.aborted` re-check after one
+            // would be narrowed away by control flow analysis.
+            const runOver = () => runController.signal.aborted;
+            const binding = (schema) => async (rawArgs) => {
+                const { name } = schema;
+                if (runOver()) {
+                    throw new Error(`run_code run is over (${String(runController.signal.reason)}); ${name} not dispatched`);
+                }
+                const normalized = jsonNormalizeArgs(rawArgs);
+                const n = ++dispatches;
+                const subCallId = brandString(`${String(exec.callId)}:ptc:${n}`);
+                c
+
+
+######## /dsh/node_modules/@modelcontextprotocol/client/dist/index.cjs ########
+
+--- fragment ---
+rt carries its guard to GC).
+*/
+const pendingSpentCloseGuards = /* @__PURE__ */ new WeakMap();
+/**
+* Disarm a failed negotiation's spent-close guard once the cleanup `close()`
+* has settled. Any re-delivery of the spent mid-window close happens DURING
+* that close (HTTP transports re-fire `onclose` there; stdio transports never
+* do — their close event already fired), so after it every close is genuine
+* and must reach the caller's pre-set observer.
+*/
+function disarmSpentCloseGuard(transport) {
+	const disarm = pendingSpentCloseGuards.get(transport);
+	pendingSpentCloseGuards.delete(transport);
+	disarm?.();
+}
+/** Build the probe request: `server/discover` carrying the full per-request `_meta` envelope. */
+function buildProbeRequest(id, protocolVersion, clientInfo, capabilities) {
+	return {
+		jsonrpc: "2.0",
+		id,
+		method: "server/discover",
+		params: { _meta: require_src.codecForVersion(protocolVersion).outboundEnvelope({
+			protocolVersion,
+			clientInfo,
+			clientCapabilities: capabilities
+		}) }
+	};
+}
+function normalizeReply(reply, timeoutMs) {
+	switch (reply.kind) {
+		case "res
+
+
+######## /dsh/node_modules/@modelcontextprotocol/client/dist/index.mjs ########
+
+--- fragment ---
+rt carries its guard to GC).
+*/
+const pendingSpentCloseGuards = /* @__PURE__ */ new WeakMap();
+/**
+* Disarm a failed negotiation's spent-close guard once the cleanup `close()`
+* has settled. Any re-delivery of the spent mid-window close happens DURING
+* that close (HTTP transports re-fire `onclose` there; stdio transports never
+* do — their close event already fired), so after it every close is genuine
+* and must reach the caller's pre-set observer.
+*/
+function disarmSpentCloseGuard(transport) {
+	const disarm = pendingSpentCloseGuards.get(transport);
+	pendingSpentCloseGuards.delete(transport);
+	disarm?.();
+}
+/** Build the probe request: `server/discover` carrying the full per-request `_meta` envelope. */
+function buildProbeRequest(id, protocolVersion, clientInfo, capabilities) {
+	return {
+		jsonrpc: "2.0",
+		id,
+		method: "server/discover",
+		params: { _meta: codecForVersion(protocolVersion).outboundEnvelope({
+			protocolVersion,
+			clientInfo,
+			clientCapabilities: capabilities
+		}) }
+	};
+}
+function normalizeReply(reply, timeoutMs) {
+	switch (reply.kind) {
+		case "response": retu
+
+
+######## /dsh/node_modules/@opentelemetry/core/build/esm/common/time.js ########
+
+--- fragment ---
+performance.timeOrigin uses a monotonic clock that may be slightly ahead
+        // of Date.now() due to clock adjustments (see MDN docs). This means a
+        // real epoch-ms value (e.g. Date.now()) can land just below
+        // performance.timeOrigin, causing it to be misclassified as a relative
+        // performance.now() reading and doubled when timeOrigin is added.
+        //
+        // A genuine performance.now() value represents elapsed time since the
+        // document/process started, so it is bounded by system uptime. No real
+        // system has been running long enough for performance.now() to reach half
+        // the current epoch time (~1994 in ms terms). We therefore treat any value
+        // below half of performance.timeOrigin as a relative performance.now()
+        // reading, and everything else as an absolute epoch-millisecond timestamp.
+        if (time < performance.timeOrigin / 2) {
+            return hrTime(time);
+        }
+        else {
+            // epoch milliseconds or performance.timeOrigin
+            return millisToHrTime(time);
+        }
+    }
+
+
+######## /dsh/node_modules/@opentelemetry/core/build/esnext/common/time.js ########
+
+--- fragment ---
+performance.timeOrigin uses a monotonic clock that may be slightly ahead
+        // of Date.now() due to clock adjustments (see MDN docs). This means a
+        // real epoch-ms value (e.g. Date.now()) can land just below
+        // performance.timeOrigin, causing it to be misclassified as a relative
+        // performance.now() reading and doubled when timeOrigin is added.
+        //
+        // A genuine performance.now() value represents elapsed time since the
+        // document/process started, so it is bounded by system uptime. No real
+        // system has been running long enough for performance.now() to reach half
+        // the current epoch time (~1994 in ms terms). We therefore treat any value
+        // below half of performance.timeOrigin as a relative performance.now()
+        // reading, and everything else as an absolute epoch-millisecond timestamp.
+        if (time < performance.timeOrigin / 2) {
+            return hrTime(time);
+        }
+        else {
+            // epoch milliseconds or performance.timeOrigin
+            return millisToHrTime(time);
+        }
+    }
+
+
+######## /dsh/node_modules/@opentelemetry/core/build/src/common/time.js ########
+
+--- fragment ---
+performance.timeOrigin uses a monotonic clock that may be slightly ahead
+        // of Date.now() due to clock adjustments (see MDN docs). This means a
+        // real epoch-ms value (e.g. Date.now()) can land just below
+        // performance.timeOrigin, causing it to be misclassified as a relative
+        // performance.now() reading and doubled when timeOrigin is added.
+        //
+        // A genuine performance.now() value represents elapsed time since the
+        // document/process started, so it is bounded by system uptime. No real
+        // system has been running long enough for performance.now() to reach half
+        // the current epoch time (~1994 in ms terms). We therefore treat any value
+        // below half of performance.timeOrigin as a relative performance.now()
+        // reading, and everything else as an absolute epoch-millisecond timestamp.
+        if (time < platform_1.otperformance.timeOrigin / 2) {
+            return hrTime(time);
+        }
+        else {
+            // epoch milliseconds or performance.timeOrigin
+            return millisToHrTime(time);
+  
+
+
+######## /dsh/node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.js ########
+
+--- fragment ---
+DEL_NAME = 'host.cpu.model.name';
+/**
+ * Stepping or core revisions.
+ *
+ * @example 1
+ * @example r1p1
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+export const ATTR_HOST_CPU_STEPPING = 'host.cpu.stepping';
+/**
+ * Processor manufacturer identifier. A maximum 12-character string.
+ *
+ * @example GenuineIntel
+ *
+ * @note [CPUID](https://wiki.osdev.org/CPUID) command returns the vendor ID string in EBX, EDX and ECX registers. Writing these to memory in this order results in a 12-character string.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+export const ATTR_HOST_CPU_VENDOR_ID = 'host.cpu.vendor.id';
+/**
+ * Unique host ID. For Cloud, this must be the instance_id assigned by the cloud provider. For non-containerized systems, this should be the `machine-id`. See the table below for the sources to use to determine the `machine-id` based on operating system.
+ *
+ * @example fdbf79e8af94
+
+--- fragment ---
+**MAY** be derived from the contents of the `user_agent.original` attribute. Components that populate the attribute are responsible for determining what they consider to be synthetic bot or test traffic. This attribute can either be set for self-identification purposes, or on telemetry detected to be generated as a result of a synthetic request. This attribute is useful for distinguishing between genuine client traffic and synthetic traffic generated by bots or tests.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+export const ATTR_USER_AGENT_SYNTHETIC_TYPE = 'user_agent.synthetic.type';
+/**
+ * Enum value "bot" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ *
+ * Bot source.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+export const USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT = "bot";
+/**
+ * Enum value "test" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ *
+ * Synthetic te
+
+
+######## /dsh/node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.js ########
+
+--- fragment ---
+DEL_NAME = 'host.cpu.model.name';
+/**
+ * Stepping or core revisions.
+ *
+ * @example 1
+ * @example r1p1
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+export const ATTR_HOST_CPU_STEPPING = 'host.cpu.stepping';
+/**
+ * Processor manufacturer identifier. A maximum 12-character string.
+ *
+ * @example GenuineIntel
+ *
+ * @note [CPUID](https://wiki.osdev.org/CPUID) command returns the vendor ID string in EBX, EDX and ECX registers. Writing these to memory in this order results in a 12-character string.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+export const ATTR_HOST_CPU_VENDOR_ID = 'host.cpu.vendor.id';
+/**
+ * Unique host ID. For Cloud, this must be the instance_id assigned by the cloud provider. For non-containerized systems, this should be the `machine-id`. See the table below for the sources to use to determine the `machine-id` based on operating system.
+ *
+ * @example fdbf79e8af94
+
+--- fragment ---
+**MAY** be derived from the contents of the `user_agent.original` attribute. Components that populate the attribute are responsible for determining what they consider to be synthetic bot or test traffic. This attribute can either be set for self-identification purposes, or on telemetry detected to be generated as a result of a synthetic request. This attribute is useful for distinguishing between genuine client traffic and synthetic traffic generated by bots or tests.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+export const ATTR_USER_AGENT_SYNTHETIC_TYPE = 'user_agent.synthetic.type';
+/**
+ * Enum value "bot" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ *
+ * Bot source.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+export const USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT = "bot";
+/**
+ * Enum value "test" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ *
+ * Synthetic te
+
+
+######## /dsh/node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.js ########
+
+--- fragment ---
+PU_MODEL_NAME = 'host.cpu.model.name';
+/**
+ * Stepping or core revisions.
+ *
+ * @example 1
+ * @example r1p1
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+exports.ATTR_HOST_CPU_STEPPING = 'host.cpu.stepping';
+/**
+ * Processor manufacturer identifier. A maximum 12-character string.
+ *
+ * @example GenuineIntel
+ *
+ * @note [CPUID](https://wiki.osdev.org/CPUID) command returns the vendor ID string in EBX, EDX and ECX registers. Writing these to memory in this order results in a 12-character string.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+exports.ATTR_HOST_CPU_VENDOR_ID = 'host.cpu.vendor.id';
+/**
+ * Unique host ID. For Cloud, this must be the instance_id assigned by the cloud provider. For non-containerized systems, this should be the `machine-id`. See the table below for the sources to use to determine the `machine-id` based on operating system.
+ *
+ * @example fdbf79e8af94cb7f9
+
+--- fragment ---
+**MAY** be derived from the contents of the `user_agent.original` attribute. Components that populate the attribute are responsible for determining what they consider to be synthetic bot or test traffic. This attribute can either be set for self-identification purposes, or on telemetry detected to be generated as a result of a synthetic request. This attribute is useful for distinguishing between genuine client traffic and synthetic traffic generated by bots or tests.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+exports.ATTR_USER_AGENT_SYNTHETIC_TYPE = 'user_agent.synthetic.type';
+/**
+ * Enum value "bot" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ *
+ * Bot source.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+exports.USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT = "bot";
+/**
+ * Enum value "test" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ *
+ * Synthetic test source.
+
+
+######## /dsh/node_modules/diff/dist/diff.js ########
+
+--- fragment ---
+he underlying file paths includes the substring ` b/`
+         * In this scenario, we do not know which occurrence of ` b/` indicates the
+         * start of the new file path, so the header is inherently ambiguous. We thus
+         * select a possible interpretation arbitrarily and return that.
+         *
+         * Fortunately, this ambiguity should never matter, because in any patch
+         * genuinely output by Git in which this pathological scenario occurs, there
+         * must also be `rename from`/`rename to` or `copy from`/`copy to` extended
+         * headers present below the `diff --git` header. `parseIndex` will parse
+         * THOSE headers, from which we CAN unambiguously determine the filenames,
+         * and will discard the result returned by this function.
+         *
+         * Returns null if the header can't be parsed at all — e.g. a quoted filename
+         * has an unterminated quote, or if the unquoted header doesn't match the
+         * expected `a/... b/...` format. In that case, the caller (parseIndex)
+         * skips setting oldFileName/newFileName f
+
+
+######## /dsh/node_modules/diff/libcjs/patch/parse.js ########
+
+--- fragment ---
+   * - at least one of the underlying file paths includes the substring ` b/`
+     * In this scenario, we do not know which occurrence of ` b/` indicates the
+     * start of the new file path, so the header is inherently ambiguous. We thus
+     * select a possible interpretation arbitrarily and return that.
+     *
+     * Fortunately, this ambiguity should never matter, because in any patch
+     * genuinely output by Git in which this pathological scenario occurs, there
+     * must also be `rename from`/`rename to` or `copy from`/`copy to` extended
+     * headers present below the `diff --git` header. `parseIndex` will parse
+     * THOSE headers, from which we CAN unambiguously determine the filenames,
+     * and will discard the result returned by this function.
+     *
+     * Returns null if the header can't be parsed at all — e.g. a quoted filename
+     * has an unterminated quote, or if the unquoted header doesn't match the
+     * expected `a/... b/...` format. In that case, the caller (parseIndex)
+     * skips setting oldFileName/newFileName from this header, but they may
+     *
+
+
+######## /dsh/node_modules/diff/libesm/patch/parse.js ########
+
+--- fragment ---
+   * - at least one of the underlying file paths includes the substring ` b/`
+     * In this scenario, we do not know which occurrence of ` b/` indicates the
+     * start of the new file path, so the header is inherently ambiguous. We thus
+     * select a possible interpretation arbitrarily and return that.
+     *
+     * Fortunately, this ambiguity should never matter, because in any patch
+     * genuinely output by Git in which this pathological scenario occurs, there
+     * must also be `rename from`/`rename to` or `copy from`/`copy to` extended
+     * headers present below the `diff --git` header. `parseIndex` will parse
+     * THOSE headers, from which we CAN unambiguously determine the filenames,
+     * and will discard the result returned by this function.
+     *
+     * Returns null if the header can't be parsed at all — e.g. a quoted filename
+     * has an unterminated quote, or if the unquoted header doesn't match the
+     * expected `a/... b/...` format. In that case, the caller (parseIndex)
+     * skips setting oldFileName/newFileName from this header, but they may
+     *
+
+
+######## /dsh/node_modules/typebox/build/schema/resolve/resolve.mjs ########
+
+--- fragment ---
+--------------------------------------------------------
+function RemoteRetrievedResource(context, canonical, schema) {
+    const remoteRoot = context[canonical];
+    if (!Schema.IsSchemaObject(remoteRoot))
+        return undefined;
+    return { target: schema, base: canonical, root: remoteRoot };
+}
+// ------------------------------------------------------------------
+// RetrievedResource
+//
+// A genuinely remote document frame always wins over a same-document
+// legacy one: only one frame is ever entered per ref.
+// ------------------------------------------------------------------
+function FindRetrievedResource(stackframe, ref, schema, canonical, isRemote) {
+    const remote = isRemote ? RemoteRetrievedResource(stackframe.context, canonical, schema) : undefined;
+    if (!Guard.IsUndefined(remote))
+        return remote;
+    return LegacyRetrievedResource(stackframe.root, stackframe.lexicalSchema, stackframe.referenceBase, ref, schema);
+}
+// ------------------------------------------------------------------
+// ResolvedResource: FindResolvedResource
+//
+// The ref crossed into a diffe
+
+
+######## /dsh/node_modules/zod/src/v4/classic/tests/instanceof.test.ts ########
+
+--- fragment ---
+iteral("x"), b: z.literal("y") }));
+  expect(
+    z
+      .object({ a: z.string() })
+      .check(...z.properties({ a: z.string(), b: z.literal("y") }))
+      .safeParse({ a: "ok" })
+      .error!.issues.map((i) => [i.code, i.path])
+  ).toEqual([["invalid_value", ["b"]]]);
+
+  // literal and enum inputs widen to their primitive, so a `string`/`boolean` property accepts them without a cast, while a genuine type mismatch or an unknown key still fails to compile
+  z.instanceof(URL).check(z.property("protocol", z.literal("https:")));
+  z.instanceof(Request).check(...z.properties({ method: z.enum(["POST", "PUT"]), bodyUsed: z.literal(false) }));
+  // @ts-expect-error length is a number
+  z.string().check(z.property("length", z.string()));
+  // @ts-expect-error no such key
+  z.instanceof(URL).check(z.property("nope", z.string()));
+
+  // the check feeds the property value into its schema, so it is typed over the input side rather than the output
+  const stringToLength = z.property(
+    "a",
+    z.string().transform((s) => s.length)
+  );
+  z.object({ a: z.string() }).check(stringToLength);
+  
+
+
+######## /dsh/node_modules/zod/src/v4/classic/tests/number.test.ts ########
+
+--- fragment ---
+pts exact decimal multiples", () => {
+  // 2.03 === 29 * 0.07, but the quotient lands 2 ULP below 29, so the old tolerance rejected it while the neighbouring multiples 1.96 and 2.10 passed.
+  const schema = z.number().multipleOf(0.07);
+  expect(schema.safeParse(2.03).success).toBe(true);
+  expect(schema.safeParse(4.06).success).toBe(true);
+  expect(schema.safeParse(8.54).success).toBe(true);
+  // genuine non-multiples must still be rejected
+  expect(schema.safeParse(2.04).success).toBe(false);
+});
+
+test(".multipleOf() with positive divisor", () => {
+  const schema = z.number().multipleOf(5);
+  expect(schema.parse(15)).toEqual(15);
+  expect(schema.parse(-15)).toEqual(-15);
+  expect(() => schema.parse(7.5)).toThrow();
+  expect(() => schema.parse(-7.5)).toThrow();
+});
+
+test(".multipleOf() with negative divisor", () => {
+  const schema = z.number().multipleOf(-5);
+  expect(schema.parse(-15)).toEqual(-15);
+  expect(schema.parse(15)).toEqual(15);
+  expect(() => schema.parse(-7.5)).toThrow();
+  expect(() => schema.parse(7.5)).toThrow();
+});
+
+test(".multipleOf() with scientific notation (mul
+
+
+######## /dsh/node_modules/zod/src/v4/core/compile.ts ########
+
+--- fragment ---
+ache the property read: the runtime reads input[key] exactly once, so a getter must not be re-read by checks or output assembly.
+    const inputVar = newVar(ctx);
+    doc.write(`const ${inputVar} = ${accessor}[${kx}];`);
+
+    if (propSchema._zod.optin !== undefined) {
+      // Any optin rung means the key may be omitted. The runtime runs the property anyway and ignores issues only when the key is genuinely absent, which is what makes exactOptional compositional.
+      const outputVar = newVar(ctx);
+      doc.write(`let ${outputVar} = (() => {`);
+      doc.indented((d) => {
+        const outputAccessor = compileChild(d, ctx, propSchema, inputVar);
+        d.write(`return ${outputAccessor};`);
+      });
+      doc.write(`})();`);
+
+      if (propSchema._zod.optout === "optional") {
+        doc.write(`if (${outputVar} === INVALID) {`);
+        doc.indented((d) => {
+          d.write(`if (${kx} in ${accessor}) return INVALID;`);
+          d.write(`${outputVar} = undefined;`);
+        });
+        doc.write(`}`);
+      } else {
+        doc.write(`if (${outputVar} === INVALID) return INVALID;
+
+
+######## /dsh/node_modules/zod/src/v4/core/util.ts ########
+
+--- fragment ---
+   : ToZodKeyMismatch<T[K], Shape[K]["_zod"]["output"]>
+      : ToZodKeyMismatch<never, Shape[K]["_zod"]["output"]>
+    : Shape[K];
+} & { [K in Exclude<keyof T, keyof Shape>]: ToZodKeyMismatch<T[K], never> };
+
+// Forces the mapped type to display expanded, so the error prints the keys rather than the alias name.
+type ToZodExpand<X> = { [K in keyof X]: X[K] } & {};
+
+// Only localizes when a key is genuinely at fault. A whole-type difference the per-key walk cannot see — a `readonly` modifier, an intersection versus the flat object with the same keys — leaves every key agreeing, and reporting nothing there would silently accept what the top-level check rejected.
+type ToZodTarget<S extends schemas.$ZodType, T> = S extends schemas.$ZodObject<infer Shape, infer Config>
+  ? T extends object
+    ? AssertEqual<ToZodExpand<ToZodShape<Shape, T>>, ToZodExpand<Shape>> extends true
+      ? S & ToZodMismatch<T, S>
+      : schemas.$ZodObject<ToZodExpand<ToZodShape<Shape, T>>, Config>
+    : S & ToZodMismatch<T, S>
+  : S & ToZodMismatch<T, S>;
+export type IsAny<T> = 0 extends 1 & T ? true : false
+
+
+######## /dsh/node_modules/zod/v4/core/compile.cjs ########
+
+--- fragment ---
+ read: the runtime reads input[key] exactly once, so a getter must not be re-read by checks or output assembly.
+        const inputVar = newVar(ctx);
+        doc.write(`const ${inputVar} = ${accessor}[${kx}];`);
+        if (propSchema._zod.optin !== undefined) {
+            // Any optin rung means the key may be omitted. The runtime runs the property anyway and ignores issues only when the key is genuinely absent, which is what makes exactOptional compositional.
+            const outputVar = newVar(ctx);
+            doc.write(`let ${outputVar} = (() => {`);
+            doc.indented((d) => {
+                const outputAccessor = compileChild(d, ctx, propSchema, inputVar);
+                d.write(`return ${outputAccessor};`);
+            });
+            doc.write(`})();`);
+            if (propSchema._zod.optout === "optional") {
+                doc.write(`if (${outputVar} === INVALID) {`);
+                doc.indented((d) => {
+                    d.write(`if (${kx} in ${accessor}) return INVALID;`);
+                    d.write(`${outputVar} = undefined;`);
+                });
+        
+
+
+######## /dsh/node_modules/zod/v4/core/compile.js ########
+
+--- fragment ---
+ read: the runtime reads input[key] exactly once, so a getter must not be re-read by checks or output assembly.
+        const inputVar = newVar(ctx);
+        doc.write(`const ${inputVar} = ${accessor}[${kx}];`);
+        if (propSchema._zod.optin !== undefined) {
+            // Any optin rung means the key may be omitted. The runtime runs the property anyway and ignores issues only when the key is genuinely absent, which is what makes exactOptional compositional.
+            const outputVar = newVar(ctx);
+            doc.write(`let ${outputVar} = (() => {`);
+            doc.indented((d) => {
+                const outputAccessor = compileChild(d, ctx, propSchema, inputVar);
+                d.write(`return ${outputAccessor};`);
+            });
+            doc.write(`})();`);
+            if (propSchema._zod.optout === "optional") {
+                doc.write(`if (${outputVar} === INVALID) {`);
+                doc.indented((d) => {
+                    d.write(`if (${kx} in ${accessor}) return INVALID;`);
+                    d.write(`${outputVar} = undefined;`);
+                });
+        

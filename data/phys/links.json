@@ -1,0 +1,127 @@
+[
+ {
+  "from": "heat1-s1-p1",
+  "to": "heat2-s1-p2",
+  "label": "溫度的微觀意義：分子平均動能"
+ },
+ {
+  "from": "heat1-s1-p2",
+  "to": "heat2-s1-p2",
+  "label": "溫度計測的是溫度，內能是另一回事"
+ },
+ {
+  "from": "heat1-s2-p2",
+  "to": "heat3-s1-p1",
+  "label": "0 °C 與 100 °C 正是水的熔點和沸點"
+ },
+ {
+  "from": "heat1-s1-p1",
+  "to": "heat3-s1-p2",
+  "label": "加熱曲線的平台對應物態變化"
+ },
+ {
+  "from": "heat2-s1-p2",
+  "to": "heat2-s2-p1",
+  "label": "內能變化用比熱容量計算"
+ },
+ {
+  "from": "heat2-s2-p1",
+  "to": "heat3-s1-p3",
+  "label": "潛熱與比熱容量都是能量的計算方式"
+ },
+ {
+  "from": "heat2-s2-p1",
+  "to": "heat3-s2-p3",
+  "label": "水的比熱容量大，蒸發冷卻效應才顯著"
+ },
+ {
+  "from": "heat2-s2-p1",
+  "to": "heat4-s2-p1",
+  "label": "對流靠流體受熱膨脹，與水的高比熱容量有關"
+ },
+ {
+  "from": "heat2-s2-p5",
+  "to": "heat4-s3-p4",
+  "label": "水的高比熱容量影響氣候與溫室效應"
+ },
+ {
+  "from": "heat3-s1-p2",
+  "to": "heat4-s1-p1",
+  "label": "熔化和沸騰都需要持續供熱"
+ },
+ {
+  "from": "heat3-s1-p3",
+  "to": "heat4-s1-p4",
+  "label": "潛熱與傳導都涉及分子能量的傳遞"
+ },
+ {
+  "from": "heat3-s2-p3",
+  "to": "heat4-s3-p1",
+  "label": "蒸發冷卻與輻射都是能量散失方式"
+ },
+ {
+  "from": "heat4-s1-p1",
+  "to": "heat4-s2-p1",
+  "label": "傳導靠粒子振動，對流靠流體整體移動"
+ },
+ {
+  "from": "heat4-s2-p1",
+  "to": "heat4-s3-p1",
+  "label": "對流需要介質，輻射不需要"
+ },
+ {
+  "from": "heat4-s1-p3",
+  "to": "heat4-s3-p3",
+  "label": "保溫瓶同時抑制傳導、對流和輻射"
+ },
+ {
+  "from": "heat4-s1-p4",
+  "to": "heat2-s1-p2",
+  "label": "傳導的微觀圖像就是分子動能的傳遞"
+ },
+ {
+  "from": "heat1-s1-p2",
+  "to": "heat4-s1-p2",
+  "label": "溫度計和導熱都依賴物質的物性"
+ },
+ {
+  "from": "heat5-s1-p4",
+  "to": "heat1-s1-p1",
+  "label": "氣體定律裡的溫度必須用絕對溫度"
+ },
+ {
+  "from": "heat5-s2-p3",
+  "to": "heat2-s1-p2",
+  "label": "分子運動論正是內能的微觀基礎"
+ },
+ {
+  "from": "heat5-s2-p3",
+  "to": "heat1-s1-p1",
+  "label": "溫度的本質：分子平均動能的量度"
+ },
+ {
+  "from": "heat5-s2-p5",
+  "to": "heat5-s1-p3",
+  "label": "用分子運動論解釋波義耳定律"
+ },
+ {
+  "from": "heat5-s1-p6",
+  "to": "heat5-s1-p3",
+  "label": "理想氣體方程統合三個氣體定律"
+ },
+ {
+  "from": "heat5-s1-p4",
+  "to": "heat5-s1-p5",
+  "label": "氣壓定律與查理定律都用絕對溫度"
+ },
+ {
+  "from": "heat5-s1-p3",
+  "to": "heat3-s2-p1",
+  "label": "蒸發是分子逸出液面，與氣體壓強有關"
+ },
+ {
+  "from": "heat5-s2-p4",
+  "to": "heat2-s2-p1",
+  "label": "方均根速率與溫度的平方根成正比"
+ }
+]

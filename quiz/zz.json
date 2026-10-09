@@ -1,0 +1,5 @@
+{"topic": "zz", "questions": [
+  {"id": "zz-q1", "type": "mc", "point": "zz-s1-p1", "q": "下列哪種物質屬於強酸？", "options": ["CH3COOH", "HCl", "NH3", "NaOH"], "answer": 1, "explanation": "HCl 在水中完全電離，是強酸；醋酸是弱酸。"},
+  {"id": "zz-q2", "type": "tf", "point": "zz-s1-p2", "q": "pH = 3 的溶液呈鹼性。", "answer": false, "explanation": "pH < 7 為酸性。"},
+  {"id": "zz-q3", "type": "fill", "point": "zz-s2-p1", "q": "中和反應中，酸與鹽基反應生成鹽和____。", "answer": ["水", "H2O"], "explanation": "酸 + 鹽基 → 鹽 + 水。"}
+]}

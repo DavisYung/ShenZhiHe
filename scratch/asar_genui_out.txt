@@ -1,0 +1,51 @@
+﻿scan time 0.2s fragments=55
+
+承載檔案：
+   /dsh/node_modules/@deepseek-ai/dsh-agent-instructions/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-authorization/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-authorization/lib/types/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-client-ui-conversation/lib/client.js
+   /dsh/node_modules/@deepseek-ai/dsh-client-ui-directory-picker-browse/lib/client.js
+   /dsh/node_modules/@deepseek-ai/dsh-client-ui-primitives/README.md
+   /dsh/node_modules/@deepseek-ai/dsh-client-ui-primitives/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-compaction-basic/README.md
+   /dsh/node_modules/@deepseek-ai/dsh-compaction-basic/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-llm-pi-ai/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-otel/node_modules/@opentelemetry/resources/node_modules/@opentelemetry/core/build/esm/common/time.js
+   /dsh/node_modules/@deepseek-ai/dsh-otel/node_modules/@opentelemetry/resources/node_modules/@opentelemetry/core/build/esnext/common/time.js
+   /dsh/node_modules/@deepseek-ai/dsh-otel/node_modules/@opentelemetry/resources/node_modules/@opentelemetry/core/build/src/common/time.js
+   /dsh/node_modules/@deepseek-ai/dsh-output-retention/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-permission-presets/README.md
+   /dsh/node_modules/@deepseek-ai/dsh-permission-presets/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-permission-presets/lib/types/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-session-projection-cache/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-subprocess-local/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-tmux-context/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-tool-cordis/lib/types/api-catalog.js
+   /dsh/node_modules/@deepseek-ai/dsh-tool-jobs/README.md
+   /dsh/node_modules/@deepseek-ai/dsh-tool-jobs/README.zh.md
+   /dsh/node_modules/@deepseek-ai/dsh-tool-jobs/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-tool-ralph/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-tool-workflow/lib/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-tool-workflow/lib/types/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-tools/lib/types/index.js
+   /dsh/node_modules/@deepseek-ai/dsh-tools/lib/types/ptc.js
+   /dsh/node_modules/@modelcontextprotocol/client/dist/index.cjs
+   /dsh/node_modules/@modelcontextprotocol/client/dist/index.mjs
+   /dsh/node_modules/@opentelemetry/core/build/esm/common/time.js
+   /dsh/node_modules/@opentelemetry/core/build/esnext/common/time.js
+   /dsh/node_modules/@opentelemetry/core/build/src/common/time.js
+   /dsh/node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.js
+   /dsh/node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.js
+   /dsh/node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.js
+   /dsh/node_modules/diff/dist/diff.js
+   /dsh/node_modules/diff/libcjs/patch/parse.js
+   /dsh/node_modules/diff/libesm/patch/parse.js
+   /dsh/node_modules/typebox/build/schema/resolve/resolve.mjs
+   /dsh/node_modules/zod/src/v4/classic/tests/instanceof.test.ts
+   /dsh/node_modules/zod/src/v4/classic/tests/number.test.ts
+   /dsh/node_modules/zod/src/v4/core/compile.ts
+   /dsh/node_modules/zod/src/v4/core/util.ts
+   /dsh/node_modules/zod/v4/core/compile.cjs
+   /dsh/node_modules/zod/v4/core/compile.js
+dumped -> scratch/genui_frag.txt
