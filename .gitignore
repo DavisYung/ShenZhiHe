@@ -69,6 +69,8 @@ desktop.ini
 ~$*
 
 # ---------- 依賴與快取 ----------
+# node_modules 不提交（体积大、可由 package.json 重装）；
+# 但 package.json 與 package-lock.json 要提交，才能鎖定版本、重現環境。
 node_modules/
 .pytest_cache/
 .ruff_cache/

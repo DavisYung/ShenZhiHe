@@ -103,7 +103,8 @@ self.addEventListener('fetch', function (e) {
   var url;
   try {
     url = new URL(req.url);
-  } catch (err) {
+  } catch {
+    /* req.url 不是合法 URL（極少見），放行不干預 */
     return;
   }
   if (url.origin !== self.location.origin) return;
