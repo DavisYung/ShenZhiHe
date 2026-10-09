@@ -73,6 +73,8 @@ def main():
     else:
         results.append(("化学回归", run("6/9 化學回歸（headless Chrome）",
                                        [PY, "_t_v015.py"])))
+        results.append(("PIP 行为", run("6b/9 PIP 開關行為（獨立驗證）",
+                                       [NODE, "_t_pip.mjs", "."])))
         results.append(("科目切换", run("7/9 科目切換（Playwright）",
                                        [NODE, "_t_switch_pw.cjs", ".", os.environ.get("TEMP", ".")])))
         results.append(("单元导航", run("8/9 單元導航（真實 Chrome）",

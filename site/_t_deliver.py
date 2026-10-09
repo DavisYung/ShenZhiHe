@@ -8,6 +8,14 @@ import io, json, os, re, sys
 sys.stdout.reconfigure(encoding="utf-8")
 PKG = os.path.abspath(sys.argv[1])
 
+# 版本号从 version.json 动态读取——避免写死版本号，改版后测试不会过期
+_HERE = os.path.dirname(os.path.abspath(__file__))
+try:
+    with io.open(os.path.join(_HERE, "version.json"), encoding="utf-8") as _f:
+        SITE_VER = json.load(_f).get("version", "")
+except Exception:
+    SITE_VER = ""
+
 results = []
 def check(name, ok, detail=""):
     results.append((name, ok, detail))
@@ -69,7 +77,8 @@ m = json.loads(read(os.path.join(PKG, "manifest.json")))
 check("start_url 相对", m.get("start_url") == "./")
 check("图标路径相对", all(i["src"].startswith("./") for i in m.get("icons", [])))
 sw = read(os.path.join(PKG, "service-worker.js"))
-check("SW 版本已替换", "__SW_VERSION__" not in sw and "V0.0.16" in sw)
+check("SW 版本已替换", "__SW_VERSION__" not in sw and (not SITE_VER or SITE_VER in sw),
+      "SW_VERSION=%s" % SITE_VER)
 check("SW 用相对路径", "./index.html" in sw)
 
 print("\n[5] 站点自包含")
@@ -84,12 +93,21 @@ check("收尾完整", idx.rstrip().endswith("</html>"))
 print("\n[6] 部署指南数字与实际一致")
 g = read(os.path.join(PKG, "部署指南.md"))
 sz = os.path.getsize(os.path.join(PKG, "index.html")) / 1024.0 / 1024.0
-check("指南提到 4.7 MB", "4.7 MB" in g, "实际 %.2f MB" % sz)
 check("指南提到加到主画面", "加到主畫面" in g or "加到主画面" in g)
 check("指南提到 iOS 7 天清缓存", "7 天" in g)
-check("指南含 V0.0.16", "V0.0.16" in g)
-# 表格里声明的图标大小要与实际一致
-for fn, label in [("icon-192.png", "16.5 KB"), ("manifest.json", "861 B")]:
+check("指南含当前版本号 %s" % SITE_VER, (not SITE_VER) or (SITE_VER in g),
+      "指南未含 %s" % SITE_VER if SITE_VER and SITE_VER not in g else "")
+check("指南含版權聲明", "請勿商用" in g or "勿商用" in g)
+# 指南表格里声明的 index.html 大小要与实际相符（允许 0.2MB 误差）
+m_sz = re.search(r"`index\.html`\s*\|\s*([\d.]+)\s*MB", g)
+if m_sz:
+    declared = float(m_sz.group(1))
+    check("指南中 index.html 大小正确", abs(declared - sz) < 0.25,
+          "指南=%s MB 实际=%.2f MB" % (m_sz.group(1), sz))
+else:
+    check("指南有 index.html 大小欄位", False)
+# 表格里声明的图标/配置大小要与实际一致（值动态计算，不写死）
+for fn in ("icon-192.png", "manifest.json"):
     real = os.path.getsize(os.path.join(PKG, fn.replace("/", os.sep)))
     human = ("%d B" % real) if real < 1024 else ("%.1f KB" % (real / 1024.0))
     check("指南中 %s 大小正确" % fn, human in g, "实际=%s" % human)

@@ -17,7 +17,13 @@ SITE = os.path.join(BASE, "site")
 BAD = re.compile("\u6e29\u5ea6")      # 温度
 ALL = re.compile("\u6e29")            # 所有「温」
 
-for name in ("神智核.html", "神智核-V0.0.16.html"):
+# 動態找出構建產物（神智核.html + 當前版本檔），不寫死版本號
+import json
+_ver = json.loads(io.open(os.path.join(SITE, "version.json"), encoding="utf-8").read()).get("version", "")
+_names = ["神智核.html"]
+if _ver:
+    _names.append("神智核-%s.html" % _ver)
+for name in _names:
     p = os.path.join(SITE, name)
     if not os.path.exists(p):
         print("  缺少 %s" % name)

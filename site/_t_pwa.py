@@ -63,8 +63,11 @@ print("\n[4] service-worker.js")
 sw = read(os.path.join(OUT, "service-worker.js"))
 check("版本占位符已替换", "__SW_VERSION__" not in sw)
 vm = re.search(r"var SW_VERSION = '([^']+)'", sw)
-check("版本号正确", bool(vm) and vm.group(1) == "V0.0.16",
-      "SW_VERSION=%s" % (vm.group(1) if vm else "?"))
+# 版本号从 version.json 动态读取，避免改版后测试写死过期
+_SITE_VER = json.load(io.open(os.path.join(BASE, "version.json"), encoding="utf-8")).get("version", "")
+check("版本号正确（與 version.json 一致）",
+      bool(vm) and (not _SITE_VER or vm.group(1) == _SITE_VER),
+      "SW_VERSION=%s  期望=%s" % (vm.group(1) if vm else "?", _SITE_VER))
 check("含 install 事件", "addEventListener('install'" in sw)
 check("含 fetch 事件", "addEventListener('fetch'" in sw)
 check("含 activate 事件", "addEventListener('activate'" in sw)

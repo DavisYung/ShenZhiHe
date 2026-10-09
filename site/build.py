@@ -23,8 +23,15 @@ QUIZ = os.path.join(ROOT, "quiz")
 EXTRAS = os.path.join(ROOT, "extras")
 VER_PATH = os.path.join(BASE, "version.json")
 # 舊檔名：留轉址頁，讓既有書籤／桌面捷徑還能用
+# 註：這是歷史檔名（早期叫「F6筆記整合網」），刻意保留原字串，
+#     因為舊書籤／桌面捷徑指向的就是這幾個檔名，改名會讓轉址失效。
 LEGACY_NAMES = ("F6筆記整合網.html", "F6化學筆記整合網.html")
-OLD_TITLE = "F6 筆記整合網"
+
+# 版權與免責聲明的預設內容（version.json 的 copyright 欄位可覆寫）
+DEFAULT_COPYRIGHT = (
+    "本網站一切資源僅供學習用途，請勿商用。"
+    "筆記內容整理自公開教材，版權歸原作者及出版方所有。"
+)
 
 
 def site_meta():
@@ -40,6 +47,9 @@ def site_meta():
         "out_name": "%s-%s.html" % (name, ver),
         "stable_name": "%s.html" % name,
         "note": v.get("note") or "",
+        # 版權與免責聲明：由 version.json 提供，注入模板頁尾與「關於」區
+        "copyright": v.get("copyright") or DEFAULT_COPYRIGHT,
+        "disclaimer": v.get("disclaimer") or [],
     }
 
 # 這些檔名不是課題內容，掃描時要跳過
@@ -318,6 +328,15 @@ def main():
     tpl = tpl.replace("/*__SITE_NAME__*/", site["name"])
     tpl = tpl.replace("/*__SITE_VERSION__*/", site["version"])
     tpl = tpl.replace("/*__SITE_SUBTITLE__*/", site["subtitle"])
+    # 版權／免責聲明（version.json 的 copyright 欄位；缺省時給一份通用聲明）
+    _copy = site.get("copyright") or DEFAULT_COPYRIGHT
+    tpl = tpl.replace("/*__SITE_COPYRIGHT__*/", _copy)
+    # 逐條免責聲明 → HTML 清單項目（注入頁尾的展開區）
+    _disc = site.get("disclaimer") or []
+    if isinstance(_disc, str):
+        _disc = [_disc]
+    _disc_html = "".join("<li>%s</li>" % d for d in _disc)
+    tpl = tpl.replace("/*__SITE_DISCLAIMER__*/", _disc_html)
 
     # 額外資訊的前端程式碼放在 extras.js，build 時注入 template 的佔位符
     ex_path = os.path.join(BASE, "extras.js")

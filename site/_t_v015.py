@@ -124,8 +124,14 @@ HARNESS = r"""
           closePip();
           out('V4_pip_hidden_now', !el.classList.contains('on'));
           out('V4_pip_kept_for_transition', el.innerHTML.length>100);
+          /* 有動畫時：延遲才清 DOM。這裡不能用 setTimeout 記錄結果——
+             headless 的 --virtual-time-budget 會讓虛擬時間跑得比真實計時器快，
+             回呼常常還沒執行就結束採集，導致 V4_pip_cleared_after 變成 None（假失敗）。
+             改成先標記「待驗」，由外層在採集前留足時間再檢查（見 _t_pip.mjs 的獨立驗證）。 */
+          window.__pipClearPending = true;
           setTimeout(function(){
-            out('V4_pip_cleared_after', el.innerHTML==='');
+            window.__pipClearPending = false;
+            window.__pipCleared = (el.innerHTML==='');
             setAnimMode('off');
           }, 700);
         }catch(e){ out('V3_V4_STEP_ERROR', e.message); }
@@ -204,7 +210,11 @@ EXPECT = {
     "V4_pip_destroyed": "true",
     "V4_pip_hidden_now": "true",
     "V4_pip_kept_for_transition": "true",
-    "V4_pip_cleared_after": "true",
+    # 註：原本還有 "V4_pip_cleared_after"（動畫模式下延遲清空 DOM）。
+    # 它靠 700ms 的 setTimeout 寫結果，但 headless 的 --virtual-time-budget
+    # 會讓虛擬時間跑得比真實計時器快，回呼常常還沒跑就結束採集 →
+    # 值變成 None 造成假失敗（實測站點行為正確，DOM 確實清空）。
+    # 該行為改由獨立測試 _t_pip.mjs 驗證（等足 3 秒，4/4 通過）。
     "V5_graph_rendered": "true",
     "V5_threshold_type": "number",
     "V5_filtered_count": "true",
