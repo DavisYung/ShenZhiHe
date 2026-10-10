@@ -75,9 +75,13 @@ const cardInfo = JSON.parse(await evalJs(`JSON.stringify({
   cards: document.querySelectorAll('.tcard').length,
   texts: Array.from(document.querySelectorAll('.tcard h3')).map(h=>h.textContent.trim())
 })`));
-check("首页只显示单元卡片（不是 5 个课题）", cardInfo.cards === 1, "卡片数=" + cardInfo.cards + " " + JSON.stringify(cardInfo.texts));
-check("单元卡片含统计（5 課題 / 50 知識點）",
-  /5 課題/.test(t) && /50 知識點/.test(t), "");
+// 单元数动态读取（热学 + 力学 + 未来的分區），断言「卡片数 = 单元数」而非写死 1
+const unitCount = await evalJs("((SUB&&SUB.units&&SUB.units.length)||0)");
+check("首页只显示单元卡片（卡片数=单元数）",
+  cardInfo.cards === unitCount,
+  "卡片数=" + cardInfo.cards + " 单元数=" + unitCount + " " + JSON.stringify(cardInfo.texts));
+check("单元卡片含统计（5/10 課題、50/80 知識點）",
+  /5 課題/.test(t) && /50 知識點/.test(t) && /10 課題/.test(t) && /80 知識點/.test(t), "");
 await shot("u_home.png");
 
 // 2. 点单元卡片 → 进入热学页，列出 5 个课题

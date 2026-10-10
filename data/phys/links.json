@@ -123,5 +123,105 @@
   "from": "heat5-s2-p4",
   "to": "heat2-s2-p1",
   "label": "方均根速率與溫度的平方根成正比"
+ },
+ {
+  "from": "mech1-s1-p1",
+  "to": "mech2-s1-p1",
+  "label": "線圖的斜率就是 mech1 學的加速度與速度"
+ },
+ {
+  "from": "mech1-s1-p1",
+  "to": "mech2-s3-p1",
+  "label": "自由落體是勻加速運動的特例（a = g）"
+ },
+ {
+  "from": "mech2-s3-p1",
+  "to": "mech8-s1-p1",
+  "label": "平拋的豎直分量就是自由落體"
+ },
+ {
+  "from": "mech1-s1-p1",
+  "to": "mech8-s1-p1",
+  "label": "拋體分解：水平勻速 × 豎直落體"
+ },
+ {
+  "from": "mech3-s3-p1",
+  "to": "mech4-s2-p1",
+  "label": "牛二 F = ma 在平衡時退化為 ΣF = 0"
+ },
+ {
+  "from": "mech3-s4-p1",
+  "to": "mech4-s1-p1",
+  "label": "摩擦力的方向判斷要先畫隔離體圖"
+ },
+ {
+  "from": "mech3-s1-p1",
+  "to": "mech4-s1-p1",
+  "label": "隔離體圖是力的合成與分解的起點"
+ },
+ {
+  "from": "mech3-s3-p1",
+  "to": "mech5-s1-p1",
+  "label": "力的轉動效應（力矩）是牛二在轉動上的對應"
+ },
+ {
+  "from": "mech5-s2-p4",
+  "to": "mech4-s2-p1",
+  "label": "剛體平衡 = 平移平衡 + 轉動平衡，缺一不可"
+ },
+ {
+  "from": "mech6-s1-p1",
+  "to": "mech7-s1-p1",
+  "label": "功與能量 vs 動量：兩種守恆量的分工"
+ },
+ {
+  "from": "mech7-s1-p1",
+  "to": "mech6-s3-p5",
+  "label": "彈性碰撞：動量必守恆，動能也守恆"
+ },
+ {
+  "from": "mech7-s2-p3",
+  "to": "mech6-s4-p8",
+  "label": "衝力 F = Δp/Δt 本身就是動量定義的變形"
+ },
+ {
+  "from": "mech7-s2-p3",
+  "to": "mech6-s1-p1",
+  "label": "緩衝（安全帶）= 用更長的力程換更小的衝力"
+ },
+ {
+  "from": "mech6-s2-p3",
+  "to": "mech10-s1-p1",
+  "label": "重力勢能 E_p = mgh 是萬有引力勢能的近似"
+ },
+ {
+  "from": "mech9-s2-p1",
+  "to": "mech10-s2-p1",
+  "label": "引力圓周運動：萬有引力提供向心力"
+ },
+ {
+  "from": "mech9-s2-p1",
+  "to": "mech8-s2-p1",
+  "label": "斜拋最高點之後是曲線運動，可對照圓周思考"
+ },
+ {
+  "from": "mech6-s2-p3",
+  "to": "mech6-s3-p5",
+  "label": "動能與勢能互相轉換是能量守恆的具體形式"
+ },
+ {
+  "from": "mech6-s1-p1",
+  "to": "heat2-s2-p1",
+  "label": "能量是兩區共用的概念：J 是功也是熱的單位"
+ },
+ {
+  "from": "mech1-s1-p1",
+  "to": "heat1-s1-p3",
+  "label": "測量與校準：長度時間和溫度計都靠定點與刻度"
+ },
+ {
+  "from": "mech3-s4-p1",
+  "to": "heat4-s1-p2",
+  "label": "摩擦生熱：摩擦力做功最終變為內能"
  }
 ]
