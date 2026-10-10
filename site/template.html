@@ -187,6 +187,12 @@ section.sblock>h3{font-size:20px;margin:0 0 4px;padding-left:12px;border-left:5p
 .mdfig{margin:10px 0;text-align:center}
 .mdfig img{max-width:100%;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:#fff;display:block;margin:0 auto}
 .mdfig figcaption{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+/* 代碼塊（``` 區塊）——流程圖／公式推導用，保留換行與空格 */
+pre.mdcodewrap{position:relative;margin:10px 0;padding:10px 12px;background:#f6f4ee;border:1px solid var(--line);border-left:3px solid #0f766e;border-radius:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+pre.mdcodewrap code{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:13px;line-height:1.65;white-space:pre;color:#3d3a33;background:none;padding:0;border:0;overflow-wrap:normal}
+pre.mdcodewrap[data-lang]::before{content:attr(data-lang);position:absolute;top:4px;right:8px;font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+/* 行內代碼 */
+.md code,.pipbody code{background:#f1efe8;border:1px solid var(--line);border-radius:4px;padding:0 4px;font-size:.94em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .tags{margin-top:8px}
 .tag{display:inline-block;background:var(--amber-soft);color:var(--amber);border-radius:999px;padding:1px 10px;font-size:12px;margin:2px 6px 2px 0}
 .xlinks{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px;font-size:14px}
@@ -785,20 +791,42 @@ function mdLite(src,keywords){
   let html='', i=0;
   const isTableRow=l=>/^\s*\|.*\|\s*$/.test(l);
   // 圖片行：![說明](src)——src 為 build 注入的 data URI；連續圖片行併成一個 figure
-  const IMG_RE=/^\s*!\[([^\]]*)\]\(([^)\s]+)\)\s*$/;
+  // 支援單圖 ![](a.webp) 與多圖 ![](a.webp, b.webp, c.webp)（逗號分隔任意張數）
+  const IMG_LINE_RE=/^\s*!\[([^\]]*)\]\(([^)]*)\)\s*$/;
+  const splitSrcs=s=>String(s).split(',').map(x=>x.trim()).filter(Boolean);
   while(i<lines.length){
     let line=lines[i];
     if(!line.trim()){i++;continue;}
-    if(IMG_RE.test(line)){
-      const figs=[];
-      while(i<lines.length){
-        const m=lines[i].match(IMG_RE);
-        if(!m)break;
-        figs.push(m); i++;
+    {
+      const im=line.match(IMG_LINE_RE);
+      if(im){
+        // 收集連續的圖片行（含多圖行），全部併進同一個 figure
+        const allSrcs=[]; let cap='';
+        while(i<lines.length){
+          const m2=lines[i].match(IMG_LINE_RE);
+          if(!m2)break;
+          if(!cap&&m2[1].trim())cap=m2[1].trim();
+          for(const s of splitSrcs(m2[2]))allSrcs.push(s);
+          i++;
+        }
+        if(allSrcs.length){
+          html+='<figure class="mdfig">'+allSrcs.map(s=>
+            '<img loading="lazy" src="'+esc(s)+'" alt="'+esc(cap)+'" title="'+esc(cap)+'">'
+          ).join('')+(cap?'<figcaption>'+esc(cap)+'</figcaption>':'')+'</figure>';
+        }
+        continue;
       }
-      html+='<figure class="mdfig">'+figs.map(f=>
-        '<img loading="lazy" src="'+esc(f[2])+'" alt="'+esc(f[1])+'" title="'+esc(f[1])+'">'+
-        (f[1]?'<figcaption>'+esc(f[1])+'</figcaption>':'')).join('')+'</figure>';
+    }
+    if(/^```/.test(line)){
+      let code='';
+      const lang=line.slice(3).trim();
+      i++;
+      while(i<lines.length&&!/^```/.test(lines[i].trim())){
+        code+=lines[i]+'\n';
+        i++;
+      }
+      if(i<lines.length)i++;
+      html+='<pre class="mdcodewrap"'+(lang?' data-lang="'+esc(lang)+'"':'')+'><code>'+esc(code)+'</code></pre>';
       continue;
     }
     if(isTableRow(line)){
@@ -827,7 +855,7 @@ function mdLite(src,keywords){
     if(/^\s*#{1,4}\s+/.test(line)){html+='<p><strong>'+inline(line.replace(/^\s*#{1,4}\s+/,''))+'</strong></p>';i++;continue;}
     if(/^\s*>\s?/.test(line)){html+='<p style="color:#7a756a">'+inline(line.replace(/^\s*>\s?/,''))+'</p>';i++;continue;}
     let para=[];
-    while(i<lines.length&&lines[i].trim()&&!isTableRow(lines[i])&&!/^\s*[-*]\s+/.test(lines[i])&&!/^\s*\d+[.)]\s+/.test(lines[i])&&!/^\s*#{1,4}\s+/.test(lines[i])&&!/^\s*>\s?/.test(lines[i])){para.push(lines[i]);i++;}
+    while(i<lines.length&&lines[i].trim()&&!isTableRow(lines[i])&&!IMG_LINE_RE.test(lines[i])&&!/^```/.test(lines[i].trim())&&!/^\s*[-*]\s+/.test(lines[i])&&!/^\s*\d+[.)]\s+/.test(lines[i])&&!/^\s*#{1,4}\s+/.test(lines[i])&&!/^\s*>\s?/.test(lines[i])){para.push(lines[i]);i++;}
     html+='<p>'+para.map(inline).join('<br>')+'</p>';
   }
   return keywords ? markKeywords(html,keywords) : html;

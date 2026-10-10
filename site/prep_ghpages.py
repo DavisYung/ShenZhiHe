@@ -107,7 +107,9 @@ NOJEKYLL = ""
 def load(path, default=None):
     if not os.path.exists(path):
         return default
-    with io.open(path, encoding="utf-8") as f:
+    # 用 utf-8-sig 讀取：本專案部分 JSON 帶 UTF-8 BOM，
+    # 純 utf-8 會拋 "Unexpected UTF-8 BOM"，而 build.py 端已自行剝離 BOM。
+    with io.open(path, encoding="utf-8-sig") as f:
         return json.load(f)
 
 
