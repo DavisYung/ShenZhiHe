@@ -56,16 +56,33 @@ iOS Safari 會清掉「7 天以上沒打開」的網站的 localStorage，
 
 ## 物理區（已完成）
 
-牛津《新高中生活與物理（第二版）》課堂工作紙，分**熱學**、**力學**與**波動學**三個分區：
+牛津《新高中生活與物理（第二版）》課堂工作紙，分**熱學**、**力學**、**波動學**、**電學**與**核物理**五個分區：
 
 - **熱學**：溫度與溫度計、內能與比熱容量、物態的改變、傳熱方式、氣體定律與分子運動論
 - **力學**：長度時間與運動描述、直線運動線圖、牛頓三定律、力矩平衡、功與能量、動量、拋體、圓周運動、萬有引力
 - **波動學**：光線與反射、折射與全內反射、透鏡成像、波動基礎、水波與波的現象、光的波動本質與電磁波、縱波與聲音
+- **電學**：靜電與電場、電路與電阻、電功率與家居電學、磁場與磁力、電磁感應、交流電與變壓器
+- **核物理**：輻射與放射現象、原子結構與放射衰變、核能
 
 - **{PNPTS}** 個知識點（全部附原 PDF 頁碼與筆記原圖）
 - **{PNQ}** 道測驗題（全部點選作答）
 - **{PNL}** 條跨課題知識串連
 - {PNT} 個課題：{PTOPLIST}
+
+## 核物理區（新增）
+
+新高中生活與物理《課堂工作紙5》核物理章節，**36 頁 PDF 全覆蓋**：
+
+- **{NUCPTS}** 個知識點（全部附原 PDF 頁碼與筆記原圖）
+- **{NUCQ}** 道測驗題（選擇 {NUCMC} / 是非 {NUCTF}）
+- **{NUCL}** 條跨課題知識串連
+- 3 個課題：輻射與放射現象、原子結構與放射衰變、核能
+
+課題內容：
+
+- **nuclear1**：致電離輻射、X 射線、核輻射（α/β/γ 完整比較表）、本底輻射、安全措施、致電離能力、擴散雲室、蓋革-彌勒管、射程和穿透能力、在電場和磁場中的偏轉
+- **nuclear2**：原子模型、原子中的粒子、原子序數/質量數/中子數、核素與同位素、放射衰變、α/β/γ 衰變、衰變系、放射衰變的特性、半衰期與衰變公式、指數衰變與衰變常數、放射性同位素的應用、碳-14 年代測定法、示蹤物、輻射安全、核廢料
+- **nuclear3**：核裂變、核聚變、連鎖反應與臨界質量、原子質量單位、電子伏、質能對等（E=mc²）、核反應能量計算例題、核能、核聚變發電、核聚變能量計算、核武
 
 整站**零第三方依賴**（不連任何外部網址），進度與錯題記錄存在瀏覽器 localStorage。
 筆記圖片放在 `img/` 目錄按需載入並由 Service Worker 緩存——HTML 只約 2 MB，
@@ -134,6 +151,30 @@ def phys_readme_stats():
     links = load(os.path.join(base, "data", "phys", "links.json"), []) or []
     return dict(PNPTS=n_pts, PNQ=n_q, PNL=len(links),
                 PNT=len(topics), PTOPLIST="、".join(titles))
+
+
+def nuclear_readme_stats():
+    """核物理區統計（nuclear1~3 三個課題）。"""
+    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    nuc = ["nuclear1", "nuclear2", "nuclear3"]
+    n_pts = n_mc = n_tf = 0
+    for tid in nuc:
+        t = load(os.path.join(base, "data", "phys", tid + ".json"), None)
+        if t:
+            n_pts += sum(len(s.get("points", [])) for s in t.get("sections", []))
+        q = load(os.path.join(base, "quiz", "phys", tid + ".json"), None) or {}
+        for x in q.get("questions", []):
+            if x.get("type") == "mc":
+                n_mc += 1
+            elif x.get("type") == "tf":
+                n_tf += 1
+    links = load(os.path.join(base, "data", "phys", "links.json"), []) or []
+    n_nl = len([l for l in links
+                if str(l.get("from", "")).startswith("nuclear")
+                or str(l.get("to", "")).startswith("nuclear")])
+    # 注意：前綴 NUC，避免與 chem_readme_stats 的 NPTS/NQ/NMC/NTF/NL 撞名
+    return dict(NUCPTS=n_pts, NUCQ=n_mc + n_tf, NUCMC=n_mc,
+                NUCTF=n_tf, NUCL=n_nl)
 
 NOTFOUND = """<!doctype html>
 <html lang="zh-Hant"><head><meta charset="utf-8">
@@ -293,6 +334,7 @@ def main():
     shutil.copy2(src, os.path.join(OUT, "index.html"))
     _stats = chem_readme_stats()
     _stats.update(phys_readme_stats())
+    _stats.update(nuclear_readme_stats())
     with io.open(os.path.join(OUT, "README.md"), "w", encoding="utf-8") as f:
         f.write(README.format(**_stats))
     with io.open(os.path.join(OUT, ".nojekyll"), "w", encoding="utf-8") as f:

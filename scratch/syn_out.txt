@@ -1,6 +1,0 @@
-﻿script chars: 64329
-node --check exit: 0
-U+FFFD count: 0
-  subject chem  化學   ready=True  topics=11 points=597 links=89 quiz=375
-  subject phys  物理   ready=False topics= 0 points=  0 links= 0 quiz=  0
-  subject bio   生物   ready=False topics= 0 points=  0 links= 0 quiz=  0

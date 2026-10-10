@@ -1,8 +1,0 @@
-﻿fetching wheel metadata ...
-downloading https://files.pythonhosted.org/packages/4a/61/d563bbccba262f9dd6d2d35ccb72593648184d886188efb12d9ce8f34dd6/pymupdf-1.28.2-cp310-abi3-win_amd64.whl
-extracted
-warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
-pages in pdf: 20
-rendered -> C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\pages\3c 20 files
-meta.json updated: ['1a', '1b', '1c', '2a', '2b', '3a', '3b', '3c', '4a', '4b', '6', '8']
-sample size: (1071, 1517)

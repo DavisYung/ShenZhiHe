@@ -1,9 +1,0 @@
-﻿科目：
-  chem  化學   課題 11 · 章節 157 · 知識點 597 · 串連 89 · 題目 375
-  phys  物理   課題  0 · 章節   0 · 知識點   0 · 串連  0 · 題目   0  (內容準備中)
-  bio   生物   課題  0 · 章節   0 · 知識點   0 · 串連  0 · 題目   0  (內容準備中)
-
-合計 課題 11 · 章節 157 · 知識點 597 · 串連 89 · 題目 375
-站名：神智核 V0.0.6
-written: C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\site\神智核-V0.0.6.html 668434 bytes
-stable : C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\site\神智核.html 668434 bytes

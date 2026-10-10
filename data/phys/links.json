@@ -1,672 +1,707 @@
-[
- {
-  "from": "heat1-s1-p1",
-  "to": "heat2-s1-p2",
-  "label": "溫度的微觀意義：分子平均動能"
- },
- {
-  "from": "heat1-s1-p2",
-  "to": "heat2-s1-p2",
-  "label": "溫度計測的是溫度，內能是另一回事"
- },
- {
-  "from": "heat1-s2-p2",
-  "to": "heat3-s1-p1",
-  "label": "0 °C 與 100 °C 正是水的熔點和沸點"
- },
- {
-  "from": "heat1-s1-p1",
-  "to": "heat3-s1-p2",
-  "label": "加熱曲線的平台對應物態變化"
- },
- {
-  "from": "heat2-s1-p2",
-  "to": "heat2-s2-p1",
-  "label": "內能變化用比熱容量計算"
- },
- {
-  "from": "heat2-s2-p1",
-  "to": "heat3-s1-p3",
-  "label": "潛熱與比熱容量都是能量的計算方式"
- },
- {
-  "from": "heat2-s2-p1",
-  "to": "heat3-s2-p3",
-  "label": "水的比熱容量大，蒸發冷卻效應才顯著"
- },
- {
-  "from": "heat2-s2-p1",
-  "to": "heat4-s2-p1",
-  "label": "對流靠流體受熱膨脹，與水的高比熱容量有關"
- },
- {
-  "from": "heat2-s2-p5",
-  "to": "heat4-s3-p4",
-  "label": "水的高比熱容量影響氣候與溫室效應"
- },
- {
-  "from": "heat3-s1-p2",
-  "to": "heat4-s1-p1",
-  "label": "熔化和沸騰都需要持續供熱"
- },
- {
-  "from": "heat3-s1-p3",
-  "to": "heat4-s1-p4",
-  "label": "潛熱與傳導都涉及分子能量的傳遞"
- },
- {
-  "from": "heat3-s2-p3",
-  "to": "heat4-s3-p1",
-  "label": "蒸發冷卻與輻射都是能量散失方式"
- },
- {
-  "from": "heat4-s1-p1",
-  "to": "heat4-s2-p1",
-  "label": "傳導靠粒子振動，對流靠流體整體移動"
- },
- {
-  "from": "heat4-s2-p1",
-  "to": "heat4-s3-p1",
-  "label": "對流需要介質，輻射不需要"
- },
- {
-  "from": "heat4-s1-p3",
-  "to": "heat4-s3-p3",
-  "label": "保溫瓶同時抑制傳導、對流和輻射"
- },
- {
-  "from": "heat4-s1-p4",
-  "to": "heat2-s1-p2",
-  "label": "傳導的微觀圖像就是分子動能的傳遞"
- },
- {
-  "from": "heat1-s1-p2",
-  "to": "heat4-s1-p2",
-  "label": "溫度計和導熱都依賴物質的物性"
- },
- {
-  "from": "heat5-s1-p4",
-  "to": "heat1-s1-p1",
-  "label": "氣體定律裡的溫度必須用絕對溫度"
- },
- {
-  "from": "heat5-s2-p3",
-  "to": "heat2-s1-p2",
-  "label": "分子運動論正是內能的微觀基礎"
- },
- {
-  "from": "heat5-s2-p3",
-  "to": "heat1-s1-p1",
-  "label": "溫度的本質：分子平均動能的量度"
- },
- {
-  "from": "heat5-s2-p5",
-  "to": "heat5-s1-p3",
-  "label": "用分子運動論解釋波義耳定律"
- },
- {
-  "from": "heat5-s1-p6",
-  "to": "heat5-s1-p3",
-  "label": "理想氣體方程統合三個氣體定律"
- },
- {
-  "from": "heat5-s1-p4",
-  "to": "heat5-s1-p5",
-  "label": "氣壓定律與查理定律都用絕對溫度"
- },
- {
-  "from": "heat5-s1-p3",
-  "to": "heat3-s2-p1",
-  "label": "蒸發是分子逸出液面，與氣體壓強有關"
- },
- {
-  "from": "heat5-s2-p4",
-  "to": "heat2-s2-p1",
-  "label": "方均根速率與溫度的平方根成正比"
- },
- {
-  "from": "mech1-s1-p1",
-  "to": "mech2-s1-p1",
-  "label": "線圖的斜率就是 mech1 學的加速度與速度"
- },
- {
-  "from": "mech1-s1-p1",
-  "to": "mech2-s3-p1",
-  "label": "自由落體是勻加速運動的特例（a = g）"
- },
- {
-  "from": "mech2-s3-p1",
-  "to": "mech8-s1-p1",
-  "label": "平拋的豎直分量就是自由落體"
- },
- {
-  "from": "mech1-s1-p1",
-  "to": "mech8-s1-p1",
-  "label": "拋體分解：水平勻速 × 豎直落體"
- },
- {
-  "from": "mech3-s3-p1",
-  "to": "mech4-s2-p1",
-  "label": "牛二 F = ma 在平衡時退化為 ΣF = 0"
- },
- {
-  "from": "mech3-s4-p1",
-  "to": "mech4-s1-p1",
-  "label": "摩擦力的方向判斷要先畫隔離體圖"
- },
- {
-  "from": "mech3-s1-p1",
-  "to": "mech4-s1-p1",
-  "label": "隔離體圖是力的合成與分解的起點"
- },
- {
-  "from": "mech3-s3-p1",
-  "to": "mech5-s1-p1",
-  "label": "力的轉動效應（力矩）是牛二在轉動上的對應"
- },
- {
-  "from": "mech5-s2-p4",
-  "to": "mech4-s2-p1",
-  "label": "剛體平衡 = 平移平衡 + 轉動平衡，缺一不可"
- },
- {
-  "from": "mech6-s1-p1",
-  "to": "mech7-s1-p1",
-  "label": "功與能量 vs 動量：兩種守恆量的分工"
- },
- {
-  "from": "mech7-s1-p1",
-  "to": "mech6-s3-p5",
-  "label": "彈性碰撞：動量必守恆，動能也守恆"
- },
- {
-  "from": "mech7-s2-p3",
-  "to": "mech6-s4-p8",
-  "label": "衝力 F = Δp/Δt 本身就是動量定義的變形"
- },
- {
-  "from": "mech7-s2-p3",
-  "to": "mech6-s1-p1",
-  "label": "緩衝（安全帶）= 用更長的力程換更小的衝力"
- },
- {
-  "from": "mech6-s2-p3",
-  "to": "mech10-s1-p1",
-  "label": "重力勢能 E_p = mgh 是萬有引力勢能的近似"
- },
- {
-  "from": "mech9-s2-p1",
-  "to": "mech10-s2-p1",
-  "label": "引力圓周運動：萬有引力提供向心力"
- },
- {
-  "from": "mech9-s2-p1",
-  "to": "mech8-s2-p1",
-  "label": "斜拋最高點之後是曲線運動，可對照圓周思考"
- },
- {
-  "from": "mech6-s2-p3",
-  "to": "mech6-s3-p5",
-  "label": "動能與勢能互相轉換是能量守恆的具體形式"
- },
- {
-  "from": "mech6-s1-p1",
-  "to": "heat2-s2-p1",
-  "label": "能量是兩區共用的概念：J 是功也是熱的單位"
- },
- {
-  "from": "mech1-s1-p1",
-  "to": "heat1-s1-p3",
-  "label": "測量與校準：長度時間和溫度計都靠定點與刻度"
- },
- {
-  "from": "mech3-s4-p1",
-  "to": "heat4-s1-p2",
-  "label": "摩擦生熱：摩擦力做功最終變為內能"
- },
- {
-  "from": "wave1-s1-p1",
-  "to": "wave1-s2-p1",
-  "label": "光沿直線傳播，遇到介面才發生反射"
- },
- {
-  "from": "wave1-s2-p1",
-  "to": "wave1-s3-p1",
-  "label": "平面鏡成像的本質就是反射定律"
- },
- {
-  "from": "wave1-s2-p1",
-  "to": "wave2-s1-p1",
-  "label": "同一界面常同時發生反射與折射"
- },
- {
-  "from": "wave2-s1-p1",
-  "to": "wave2-s2-p1",
-  "label": "全內反射是折射的極端情形（臨界角）"
- },
- {
-  "from": "wave2-s1-p1",
-  "to": "wave3-s1-p1",
-  "label": "透鏡靠折射改變光路"
- },
- {
-  "from": "wave3-s1-p1",
-  "to": "wave3-s2-p1",
-  "label": "凸透鏡成像規則建立在透鏡光學上"
- },
- {
-  "from": "wave4-s1-p1",
-  "to": "wave1-s1-p1",
-  "label": "光本質是波，直線傳播只是波長極短的近似"
- },
- {
-  "from": "wave4-s1-p1",
-  "to": "wave4-s3-p1",
-  "label": "s-d 與 s-t 線圖是描述橫波的兩種視角"
- },
- {
-  "from": "wave4-s1-p1",
-  "to": "wave5-s1-p1",
-  "label": "水波槽用可見的波研究通用波動規律"
- },
- {
-  "from": "wave1-s2-p1",
-  "to": "wave5-s2-p1",
-  "label": "水波的反射與光的反射遵循同一角度關係"
- },
- {
-  "from": "wave5-s3-p1",
-  "to": "wave5-s4-p1",
-  "label": "衍射與干涉同為波動的本徵現象"
- },
- {
-  "from": "wave5-s4-p1",
-  "to": "wave5-s5-p1",
-  "label": "駐波 = 兩列反向同頻波的干涉疊加"
- },
- {
-  "from": "wave5-s3-p1",
-  "to": "wave6-s1-p1",
-  "label": "光的衍射直接證明光的波動性"
- },
- {
-  "from": "wave6-s1-p1",
-  "to": "wave6-s2-p1",
-  "label": "楊氏雙縫把干涉做成可測量的條紋"
- },
- {
-  "from": "wave4-s1-p1",
-  "to": "wave6-s3-p1",
-  "label": "電磁波是不需要介質的波（對比水波）"
- },
- {
-  "from": "wave4-s1-p1",
-  "to": "wave7-s1-p1",
-  "label": "聲波是縱波，與水波的橫波對照"
- },
- {
-  "from": "wave7-s1-p1",
-  "to": "wave7-s2-p1",
-  "label": "聲音靠介質粒子的縱向振動傳播"
- },
- {
-  "from": "wave7-s2-p1",
-  "to": "wave7-s3-p1",
-  "label": "頻率決定音調、振幅決定響度"
- },
- {
-  "from": "wave6-s3-p1",
-  "to": "heat4-s3-p1",
-  "label": "紅外輻射就是電磁波譜中熱輻射的那段"
- },
- {
-  "from": "wave7-s3-p1",
-  "to": "heat1-s1-p2",
-  "label": "空氣溫度越高，聲速越快（與時間量度同場景）"
- },
- {
-  "from": "wave4-s3-p1",
-  "to": "mech2-s1-p1",
-  "label": "波的線圖與力學的運動線圖是同一套讀圖法"
- },
- {
-  "from": "elec1-s1-p1",
-  "to": "elec1-s1-p4",
-  "label": "电子是起电時轉移的粒子"
- },
- {
-  "from": "elec1-s1-p4",
-  "to": "elec1-s1-p5",
-  "label": "電荷守恒是三种起电方式的共同基礎"
- },
- {
-  "from": "elec1-s1-p3",
-  "to": "elec1-s1-p5",
-  "label": "感生電荷與感應起电是同一機制"
- },
- {
-  "from": "elec1-s1-p2",
-  "to": "elec2-s1-p1",
-  "label": "金屬的自由电子就是电路里的載流子"
- },
- {
-  "from": "elec1-s1-p5",
-  "to": "elec1-s3-p1",
-  "label": "起电量多少由庫倫定律決定"
- },
- {
-  "from": "elec1-s2-p1",
-  "to": "elec1-s4-p1",
-  "label": "電場力線的疏密正是電場強度的几何意義"
- },
- {
-  "from": "elec1-s3-p1",
-  "to": "elec1-s4-p1",
-  "label": "由庫倫力推出点電荷的電場強度"
- },
- {
-  "from": "elec1-s4-p1",
-  "to": "elec1-s5-p1",
-  "label": "電荷在電場中移動就有电勢能變化"
- },
- {
-  "from": "elec1-s4-p3",
-  "to": "elec1-s5-p1",
-  "label": "勻強電場中静电力平衡重力"
- },
- {
-  "from": "elec1-s4-p1",
-  "to": "elec2-s2-p1",
-  "label": "E = V/d 把電場與电路電壓連起来"
- },
- {
-  "from": "elec1-s1-p1",
-  "to": "elec1-s4-p2",
-  "label": "电子的电量與質量用於電場計算"
- },
- {
-  "from": "elec2-s1-p1",
-  "to": "elec2-s2-p1",
-  "label": "電流是電荷流率，電壓是每单位電荷的能量"
- },
- {
-  "from": "elec2-s1-p2",
-  "to": "elec2-s4-p1",
-  "label": "串聯電流相等是串聯合並电阻的前提"
- },
- {
-  "from": "elec2-s2-p2",
-  "to": "elec2-s3-p1",
-  "label": "由 V 和 I 的定義直接得 R = V/I"
- },
- {
-  "from": "elec2-s3-p2",
-  "to": "elec2-s3-p3",
-  "label": "歐姆定律的定值前提與电阻率公式都是定值电阻"
- },
- {
-  "from": "elec2-s3-p3",
-  "to": "elec2-s4-p1",
-  "label": "R = ρl/A 解釋了為何串聯等效电阻变長变大"
- },
- {
-  "from": "elec2-s3-p3",
-  "to": "elec2-s4-p2",
-  "label": "R = ρl/A 解釋了為何並聯等效电阻变粗变小"
- },
- {
-  "from": "elec2-s4-p1",
-  "to": "elec2-s4-p3",
-  "label": "串聯與並聯公式是解混合电路的积木"
- },
- {
-  "from": "elec2-s4-p2",
-  "to": "elec2-s4-p4",
-  "label": "並聯电阻愈小電流愈大正是短路的原因"
- },
- {
-  "from": "elec2-s5-p2",
-  "to": "elec2-s3-p1",
-  "label": "內电阻讓 R = V/I 量到的不是定值"
- },
- {
-  "from": "elec2-s5-p1",
-  "to": "elec2-s5-p2",
-  "label": "儀表與电源的內电阻是同一類系统誤差"
- },
- {
-  "from": "elec3-s1-p1",
-  "to": "elec3-s1-p2",
-  "label": "P = VI 代入 V = IR 得另兩個功率公式"
- },
- {
-  "from": "elec3-s1-p2",
-  "to": "elec3-s1-p4",
-  "label": "功率乘以時間就是电能"
- },
- {
-  "from": "elec3-s1-p3",
-  "to": "elec3-s2-p2",
-  "label": "由额定功率算额定電流才能選保险絲"
- },
- {
-  "from": "elec3-s1-p3",
-  "to": "elec6-s1-p2",
-  "label": "市电功率用方均根電壓與電流計算"
- },
- {
-  "from": "elec3-s1-p4",
-  "to": "elec6-s2-p3",
-  "label": "千瓦時計量的电能正是高壓輸电要減少損耗的那部分"
- },
- {
-  "from": "elec3-s2-p1",
-  "to": "elec6-s1-p1",
-  "label": "市电就是220V、50Hz的正弦交流电"
- },
- {
-  "from": "elec3-s2-p3",
-  "to": "elec3-s2-p4",
-  "label": "地線與環形干線都是家居安全布置"
- },
- {
-  "from": "elec3-s1-p1",
-  "to": "elec4-s4-p3",
-  "label": "電流的热效应與磁力計算都從電流出發"
- },
- {
-  "from": "elec4-s1-p1",
-  "to": "elec4-s1-p2",
-  "label": "磁力線是描述磁場方向與強弱的工具"
- },
- {
-  "from": "elec4-s1-p2",
-  "to": "elec4-s2-p1",
-  "label": "磁力線與电力線的畫法與性質完全平行"
- },
- {
-  "from": "elec4-s2-p1",
-  "to": "elec4-s2-p2",
-  "label": "由長直導線的右手定則推廣到螺線管"
- },
- {
-  "from": "elec4-s2-p2",
-  "to": "elec4-s3-p1",
-  "label": "螺線管結構與 B = μ₀NI/l 一一對应"
- },
- {
-  "from": "elec4-s3-p1",
-  "to": "elec4-s4-p4",
-  "label": "兩條導線的磁力由 B = μ₀I/2πr 算出"
- },
- {
-  "from": "elec4-s4-p1",
-  "to": "elec4-s4-p3",
-  "label": "左手定則定方向，F = BIl sin θ 定量值"
- },
- {
-  "from": "elec4-s4-p3",
-  "to": "elec4-s5-p1",
-  "label": "BIl 與 BQv 是同一力的宏觀與微觀表述"
- },
- {
-  "from": "elec4-s5-p1",
-  "to": "elec4-s5-p2",
-  "label": "磁力提供向心力使電荷作圓周運動"
- },
- {
-  "from": "elec4-s4-p5",
-  "to": "elec4-s5-p2",
-  "label": "電動機的力偶與移動電荷的圓周運動都源於同一磁力"
- },
- {
-  "from": "elec4-s1-p2",
-  "to": "elec4-s4-p2",
-  "label": "平板形磁铁間的勻強磁場是電流天平的標准裝置"
- },
- {
-  "from": "elec5-s1-p1",
-  "to": "elec5-s1-p2",
-  "label": "磁通量變化是現象，法拉第定律是它的量度"
- },
- {
-  "from": "elec5-s1-p2",
-  "to": "elec5-s1-p3",
-  "label": "法拉第定大小，楞次定方向"
- },
- {
-  "from": "elec5-s1-p2",
-  "to": "elec5-s2-p1",
-  "label": "變化率快慢要用磁通量来表述"
- },
- {
-  "from": "elec5-s2-p1",
-  "to": "elec5-s2-p2",
-  "label": "磁通匝链数 NΦ 正是法拉第公式里的量"
- },
- {
-  "from": "elec5-s2-p2",
-  "to": "elec5-s3-p1",
-  "label": "感應電動勢抵不過恒定磁場，故探察線圈只能測變化磁場"
- },
- {
-  "from": "elec5-s3-p1",
-  "to": "elec5-s3-p2",
-  "label": "探察線圈測频率，發电機正是產生交流电的裝置"
- },
- {
-  "from": "elec4-s4-p5",
-  "to": "elec5-s3-p2",
-  "label": "電動機與發电機結構相同、原理相反"
- },
- {
-  "from": "elec5-s3-p2",
-  "to": "elec6-s1-p1",
-  "label": "發电機產生的正是方向周期性改变的交流电"
- },
- {
-  "from": "elec4-s1-p2",
-  "to": "elec4-s5-p2",
-  "label": "粒子走半圓的磁場来自勻強磁場"
- },
- {
-  "from": "elec5-s2-p1",
-  "to": "elec4-s5-p1",
-  "label": "磁通量與磁力都是 B 的兩种表現"
- },
- {
-  "from": "elec5-s2-p1",
-  "to": "elec4-s3-p1",
-  "label": "磁通量與 B 通過 Φ = BA 換算"
- },
- {
-  "from": "elec5-s2-p2",
-  "to": "elec5-s3-p2",
-  "label": "法拉第定律是發电機產生電動勢的原理"
- },
- {
-  "from": "elec2-s4-p2",
-  "to": "elec5-s2-p1",
-  "label": "並聯电阻愈小電流愈大正是短路的原因"
- },
- {
-  "from": "elec2-s5-p2",
-  "to": "mech6-s1-p1",
-  "label": "ε = V + Ir 與端電壓都是電壓的分配"
- },
- {
-  "from": "elec1-s5-p1",
-  "to": "mech6-s1-p1",
-  "label": "电勢能變化 = 外力所作的功，與功的定義一致"
- },
- {
-  "from": "elec3-s1-p1",
-  "to": "mech6-s1-p1",
-  "label": "功率 = 能量/時間，與力學功率同一定義"
- },
- {
-  "from": "elec3-s1-p1",
-  "to": "heat2-s2-p1",
-  "label": "電流的热效应使導体獲得內能"
- },
- {
-  "from": "elec3-s1-p4",
-  "to": "heat2-s1-p2",
-  "label": "电能以焦耳或千瓦小時計量"
- },
- {
-  "from": "elec3-s2-p4",
-  "to": "mech5-s1-p1",
-  "label": "斷路口與力矩平衡都涉及自動切斷機制"
- },
- {
-  "from": "elec4-s5-p2",
-  "to": "mech4-s1-p1",
-  "label": "磁力提供向心力，與圓周運動同學"
- },
- {
-  "from": "elec2-s3-p2",
-  "to": "heat2-s1-p2",
-  "label": "金屬电阻隨温度升高而增大（温度影響电阻）"
- },
- {
-  "from": "elec2-s3-p3",
-  "to": "heat3-s1-p2",
-  "label": "電流的热效应令導体温度上升"
- },
- {
-  "from": "elec3-s1-p2",
-  "to": "heat3-s1-p2",
-  "label": "电功率通過 I²R 轉為內能（热效应）"
- },
- {
-  "from": "elec5-s3-p2",
-  "to": "heat3-s1-p2",
-  "label": "渦電流的热效应用於电磁爐加热"
- },
- {
-  "from": "elec6-s2-p2",
-  "to": "heat4-s3-p1",
-  "label": "变壓器铁心發热就是能量以热形式散失"
- },
- {
-  "from": "elec1-s5-p1",
-  "to": "mech6-s1-p2",
-  "label": "電勢能變化 = 外力所作的功，與功的定義一致"
- },
- {
-  "from": "elec4-s4-p2",
-  "to": "mech5-s1-p1",
-  "label": "電流量度裝置是運用電磁感應原理"
- },
- {
-  "from": "elec5-s2-p2",
-  "to": "mech6-s1-p2",
-  "label": "電磁阻尼把動能轉為電能再轉為熱"
- },
- {
-  "from": "elec4-s4-p5",
-  "to": "mech5-s1-p3",
-  "label": "電動機的力偶是力矩與力偶的應用"
- }
+﻿[
+    {
+        "from":  "heat1-s1-p1",
+        "to":  "heat2-s1-p2",
+        "label":  "溫度的微觀意義：分子平均動能"
+    },
+    {
+        "from":  "heat1-s1-p2",
+        "to":  "heat2-s1-p2",
+        "label":  "溫度計測的是溫度，內能是另一回事"
+    },
+    {
+        "from":  "heat1-s2-p2",
+        "to":  "heat3-s1-p1",
+        "label":  "0 °C 與 100 °C 正是水的熔點和沸點"
+    },
+    {
+        "from":  "heat1-s1-p1",
+        "to":  "heat3-s1-p2",
+        "label":  "加熱曲線的平台對應物態變化"
+    },
+    {
+        "from":  "heat2-s1-p2",
+        "to":  "heat2-s2-p1",
+        "label":  "內能變化用比熱容量計算"
+    },
+    {
+        "from":  "heat2-s2-p1",
+        "to":  "heat3-s1-p3",
+        "label":  "潛熱與比熱容量都是能量的計算方式"
+    },
+    {
+        "from":  "heat2-s2-p1",
+        "to":  "heat3-s2-p3",
+        "label":  "水的比熱容量大，蒸發冷卻效應才顯著"
+    },
+    {
+        "from":  "heat2-s2-p1",
+        "to":  "heat4-s2-p1",
+        "label":  "對流靠流體受熱膨脹，與水的高比熱容量有關"
+    },
+    {
+        "from":  "heat2-s2-p5",
+        "to":  "heat4-s3-p4",
+        "label":  "水的高比熱容量影響氣候與溫室效應"
+    },
+    {
+        "from":  "heat3-s1-p2",
+        "to":  "heat4-s1-p1",
+        "label":  "熔化和沸騰都需要持續供熱"
+    },
+    {
+        "from":  "heat3-s1-p3",
+        "to":  "heat4-s1-p4",
+        "label":  "潛熱與傳導都涉及分子能量的傳遞"
+    },
+    {
+        "from":  "heat3-s2-p3",
+        "to":  "heat4-s3-p1",
+        "label":  "蒸發冷卻與輻射都是能量散失方式"
+    },
+    {
+        "from":  "heat4-s1-p1",
+        "to":  "heat4-s2-p1",
+        "label":  "傳導靠粒子振動，對流靠流體整體移動"
+    },
+    {
+        "from":  "heat4-s2-p1",
+        "to":  "heat4-s3-p1",
+        "label":  "對流需要介質，輻射不需要"
+    },
+    {
+        "from":  "heat4-s1-p3",
+        "to":  "heat4-s3-p3",
+        "label":  "保溫瓶同時抑制傳導、對流和輻射"
+    },
+    {
+        "from":  "heat4-s1-p4",
+        "to":  "heat2-s1-p2",
+        "label":  "傳導的微觀圖像就是分子動能的傳遞"
+    },
+    {
+        "from":  "heat1-s1-p2",
+        "to":  "heat4-s1-p2",
+        "label":  "溫度計和導熱都依賴物質的物性"
+    },
+    {
+        "from":  "heat5-s1-p4",
+        "to":  "heat1-s1-p1",
+        "label":  "氣體定律裡的溫度必須用絕對溫度"
+    },
+    {
+        "from":  "heat5-s2-p3",
+        "to":  "heat2-s1-p2",
+        "label":  "分子運動論正是內能的微觀基礎"
+    },
+    {
+        "from":  "heat5-s2-p3",
+        "to":  "heat1-s1-p1",
+        "label":  "溫度的本質：分子平均動能的量度"
+    },
+    {
+        "from":  "heat5-s2-p5",
+        "to":  "heat5-s1-p3",
+        "label":  "用分子運動論解釋波義耳定律"
+    },
+    {
+        "from":  "heat5-s1-p6",
+        "to":  "heat5-s1-p3",
+        "label":  "理想氣體方程統合三個氣體定律"
+    },
+    {
+        "from":  "heat5-s1-p4",
+        "to":  "heat5-s1-p5",
+        "label":  "氣壓定律與查理定律都用絕對溫度"
+    },
+    {
+        "from":  "heat5-s1-p3",
+        "to":  "heat3-s2-p1",
+        "label":  "蒸發是分子逸出液面，與氣體壓強有關"
+    },
+    {
+        "from":  "heat5-s2-p4",
+        "to":  "heat2-s2-p1",
+        "label":  "方均根速率與溫度的平方根成正比"
+    },
+    {
+        "from":  "mech1-s1-p1",
+        "to":  "mech2-s1-p1",
+        "label":  "線圖的斜率就是 mech1 學的加速度與速度"
+    },
+    {
+        "from":  "mech1-s1-p1",
+        "to":  "mech2-s3-p1",
+        "label":  "自由落體是勻加速運動的特例（a = g）"
+    },
+    {
+        "from":  "mech2-s3-p1",
+        "to":  "mech8-s1-p1",
+        "label":  "平拋的豎直分量就是自由落體"
+    },
+    {
+        "from":  "mech1-s1-p1",
+        "to":  "mech8-s1-p1",
+        "label":  "拋體分解：水平勻速 × 豎直落體"
+    },
+    {
+        "from":  "mech3-s3-p1",
+        "to":  "mech4-s2-p1",
+        "label":  "牛二 F = ma 在平衡時退化為 ΣF = 0"
+    },
+    {
+        "from":  "mech3-s4-p1",
+        "to":  "mech4-s1-p1",
+        "label":  "摩擦力的方向判斷要先畫隔離體圖"
+    },
+    {
+        "from":  "mech3-s1-p1",
+        "to":  "mech4-s1-p1",
+        "label":  "隔離體圖是力的合成與分解的起點"
+    },
+    {
+        "from":  "mech3-s3-p1",
+        "to":  "mech5-s1-p1",
+        "label":  "力的轉動效應（力矩）是牛二在轉動上的對應"
+    },
+    {
+        "from":  "mech5-s2-p4",
+        "to":  "mech4-s2-p1",
+        "label":  "剛體平衡 = 平移平衡 + 轉動平衡，缺一不可"
+    },
+    {
+        "from":  "mech6-s1-p1",
+        "to":  "mech7-s1-p1",
+        "label":  "功與能量 vs 動量：兩種守恆量的分工"
+    },
+    {
+        "from":  "mech7-s1-p1",
+        "to":  "mech6-s3-p5",
+        "label":  "彈性碰撞：動量必守恆，動能也守恆"
+    },
+    {
+        "from":  "mech7-s2-p3",
+        "to":  "mech6-s4-p8",
+        "label":  "衝力 F = Δp/Δt 本身就是動量定義的變形"
+    },
+    {
+        "from":  "mech7-s2-p3",
+        "to":  "mech6-s1-p1",
+        "label":  "緩衝（安全帶）= 用更長的力程換更小的衝力"
+    },
+    {
+        "from":  "mech6-s2-p3",
+        "to":  "mech10-s1-p1",
+        "label":  "重力勢能 E_p = mgh 是萬有引力勢能的近似"
+    },
+    {
+        "from":  "mech9-s2-p1",
+        "to":  "mech10-s2-p1",
+        "label":  "引力圓周運動：萬有引力提供向心力"
+    },
+    {
+        "from":  "mech9-s2-p1",
+        "to":  "mech8-s2-p1",
+        "label":  "斜拋最高點之後是曲線運動，可對照圓周思考"
+    },
+    {
+        "from":  "mech6-s2-p3",
+        "to":  "mech6-s3-p5",
+        "label":  "動能與勢能互相轉換是能量守恆的具體形式"
+    },
+    {
+        "from":  "mech6-s1-p1",
+        "to":  "heat2-s2-p1",
+        "label":  "能量是兩區共用的概念：J 是功也是熱的單位"
+    },
+    {
+        "from":  "mech1-s1-p1",
+        "to":  "heat1-s1-p3",
+        "label":  "測量與校準：長度時間和溫度計都靠定點與刻度"
+    },
+    {
+        "from":  "mech3-s4-p1",
+        "to":  "heat4-s1-p2",
+        "label":  "摩擦生熱：摩擦力做功最終變為內能"
+    },
+    {
+        "from":  "wave1-s1-p1",
+        "to":  "wave1-s2-p1",
+        "label":  "光沿直線傳播，遇到介面才發生反射"
+    },
+    {
+        "from":  "wave1-s2-p1",
+        "to":  "wave1-s3-p1",
+        "label":  "平面鏡成像的本質就是反射定律"
+    },
+    {
+        "from":  "wave1-s2-p1",
+        "to":  "wave2-s1-p1",
+        "label":  "同一界面常同時發生反射與折射"
+    },
+    {
+        "from":  "wave2-s1-p1",
+        "to":  "wave2-s2-p1",
+        "label":  "全內反射是折射的極端情形（臨界角）"
+    },
+    {
+        "from":  "wave2-s1-p1",
+        "to":  "wave3-s1-p1",
+        "label":  "透鏡靠折射改變光路"
+    },
+    {
+        "from":  "wave3-s1-p1",
+        "to":  "wave3-s2-p1",
+        "label":  "凸透鏡成像規則建立在透鏡光學上"
+    },
+    {
+        "from":  "wave4-s1-p1",
+        "to":  "wave1-s1-p1",
+        "label":  "光本質是波，直線傳播只是波長極短的近似"
+    },
+    {
+        "from":  "wave4-s1-p1",
+        "to":  "wave4-s3-p1",
+        "label":  "s-d 與 s-t 線圖是描述橫波的兩種視角"
+    },
+    {
+        "from":  "wave4-s1-p1",
+        "to":  "wave5-s1-p1",
+        "label":  "水波槽用可見的波研究通用波動規律"
+    },
+    {
+        "from":  "wave1-s2-p1",
+        "to":  "wave5-s2-p1",
+        "label":  "水波的反射與光的反射遵循同一角度關係"
+    },
+    {
+        "from":  "wave5-s3-p1",
+        "to":  "wave5-s4-p1",
+        "label":  "衍射與干涉同為波動的本徵現象"
+    },
+    {
+        "from":  "wave5-s4-p1",
+        "to":  "wave5-s5-p1",
+        "label":  "駐波 = 兩列反向同頻波的干涉疊加"
+    },
+    {
+        "from":  "wave5-s3-p1",
+        "to":  "wave6-s1-p1",
+        "label":  "光的衍射直接證明光的波動性"
+    },
+    {
+        "from":  "wave6-s1-p1",
+        "to":  "wave6-s2-p1",
+        "label":  "楊氏雙縫把干涉做成可測量的條紋"
+    },
+    {
+        "from":  "wave4-s1-p1",
+        "to":  "wave6-s3-p1",
+        "label":  "電磁波是不需要介質的波（對比水波）"
+    },
+    {
+        "from":  "wave4-s1-p1",
+        "to":  "wave7-s1-p1",
+        "label":  "聲波是縱波，與水波的橫波對照"
+    },
+    {
+        "from":  "wave7-s1-p1",
+        "to":  "wave7-s2-p1",
+        "label":  "聲音靠介質粒子的縱向振動傳播"
+    },
+    {
+        "from":  "wave7-s2-p1",
+        "to":  "wave7-s3-p1",
+        "label":  "頻率決定音調、振幅決定響度"
+    },
+    {
+        "from":  "wave6-s3-p1",
+        "to":  "heat4-s3-p1",
+        "label":  "紅外輻射就是電磁波譜中熱輻射的那段"
+    },
+    {
+        "from":  "wave7-s3-p1",
+        "to":  "heat1-s1-p2",
+        "label":  "空氣溫度越高，聲速越快（與時間量度同場景）"
+    },
+    {
+        "from":  "wave4-s3-p1",
+        "to":  "mech2-s1-p1",
+        "label":  "波的線圖與力學的運動線圖是同一套讀圖法"
+    },
+    {
+        "from":  "elec1-s1-p1",
+        "to":  "elec1-s1-p4",
+        "label":  "电子是起电時轉移的粒子"
+    },
+    {
+        "from":  "elec1-s1-p4",
+        "to":  "elec1-s1-p5",
+        "label":  "電荷守恒是三种起电方式的共同基礎"
+    },
+    {
+        "from":  "elec1-s1-p3",
+        "to":  "elec1-s1-p5",
+        "label":  "感生電荷與感應起电是同一機制"
+    },
+    {
+        "from":  "elec1-s1-p2",
+        "to":  "elec2-s1-p1",
+        "label":  "金屬的自由电子就是电路里的載流子"
+    },
+    {
+        "from":  "elec1-s1-p5",
+        "to":  "elec1-s3-p1",
+        "label":  "起电量多少由庫倫定律決定"
+    },
+    {
+        "from":  "elec1-s2-p1",
+        "to":  "elec1-s4-p1",
+        "label":  "電場力線的疏密正是電場強度的几何意義"
+    },
+    {
+        "from":  "elec1-s3-p1",
+        "to":  "elec1-s4-p1",
+        "label":  "由庫倫力推出点電荷的電場強度"
+    },
+    {
+        "from":  "elec1-s4-p1",
+        "to":  "elec1-s5-p1",
+        "label":  "電荷在電場中移動就有电勢能變化"
+    },
+    {
+        "from":  "elec1-s4-p3",
+        "to":  "elec1-s5-p1",
+        "label":  "勻強電場中静电力平衡重力"
+    },
+    {
+        "from":  "elec1-s4-p1",
+        "to":  "elec2-s2-p1",
+        "label":  "E = V/d 把電場與电路電壓連起来"
+    },
+    {
+        "from":  "elec1-s1-p1",
+        "to":  "elec1-s4-p2",
+        "label":  "电子的电量與質量用於電場計算"
+    },
+    {
+        "from":  "elec2-s1-p1",
+        "to":  "elec2-s2-p1",
+        "label":  "電流是電荷流率，電壓是每单位電荷的能量"
+    },
+    {
+        "from":  "elec2-s1-p2",
+        "to":  "elec2-s4-p1",
+        "label":  "串聯電流相等是串聯合並电阻的前提"
+    },
+    {
+        "from":  "elec2-s2-p2",
+        "to":  "elec2-s3-p1",
+        "label":  "由 V 和 I 的定義直接得 R = V/I"
+    },
+    {
+        "from":  "elec2-s3-p2",
+        "to":  "elec2-s3-p3",
+        "label":  "歐姆定律的定值前提與电阻率公式都是定值电阻"
+    },
+    {
+        "from":  "elec2-s3-p3",
+        "to":  "elec2-s4-p1",
+        "label":  "R = ρl/A 解釋了為何串聯等效电阻变長变大"
+    },
+    {
+        "from":  "elec2-s3-p3",
+        "to":  "elec2-s4-p2",
+        "label":  "R = ρl/A 解釋了為何並聯等效电阻变粗变小"
+    },
+    {
+        "from":  "elec2-s4-p1",
+        "to":  "elec2-s4-p3",
+        "label":  "串聯與並聯公式是解混合电路的积木"
+    },
+    {
+        "from":  "elec2-s4-p2",
+        "to":  "elec2-s4-p4",
+        "label":  "並聯电阻愈小電流愈大正是短路的原因"
+    },
+    {
+        "from":  "elec2-s5-p2",
+        "to":  "elec2-s3-p1",
+        "label":  "內电阻讓 R = V/I 量到的不是定值"
+    },
+    {
+        "from":  "elec2-s5-p1",
+        "to":  "elec2-s5-p2",
+        "label":  "儀表與电源的內电阻是同一類系统誤差"
+    },
+    {
+        "from":  "elec3-s1-p1",
+        "to":  "elec3-s1-p2",
+        "label":  "P = VI 代入 V = IR 得另兩個功率公式"
+    },
+    {
+        "from":  "elec3-s1-p2",
+        "to":  "elec3-s1-p4",
+        "label":  "功率乘以時間就是电能"
+    },
+    {
+        "from":  "elec3-s1-p3",
+        "to":  "elec3-s2-p2",
+        "label":  "由额定功率算额定電流才能選保险絲"
+    },
+    {
+        "from":  "elec3-s1-p3",
+        "to":  "elec6-s1-p2",
+        "label":  "市电功率用方均根電壓與電流計算"
+    },
+    {
+        "from":  "elec3-s1-p4",
+        "to":  "elec6-s2-p3",
+        "label":  "千瓦時計量的电能正是高壓輸电要減少損耗的那部分"
+    },
+    {
+        "from":  "elec3-s2-p1",
+        "to":  "elec6-s1-p1",
+        "label":  "市电就是220V、50Hz的正弦交流电"
+    },
+    {
+        "from":  "elec3-s2-p3",
+        "to":  "elec3-s2-p4",
+        "label":  "地線與環形干線都是家居安全布置"
+    },
+    {
+        "from":  "elec3-s1-p1",
+        "to":  "elec4-s4-p3",
+        "label":  "電流的热效应與磁力計算都從電流出發"
+    },
+    {
+        "from":  "elec4-s1-p1",
+        "to":  "elec4-s1-p2",
+        "label":  "磁力線是描述磁場方向與強弱的工具"
+    },
+    {
+        "from":  "elec4-s1-p2",
+        "to":  "elec4-s2-p1",
+        "label":  "磁力線與电力線的畫法與性質完全平行"
+    },
+    {
+        "from":  "elec4-s2-p1",
+        "to":  "elec4-s2-p2",
+        "label":  "由長直導線的右手定則推廣到螺線管"
+    },
+    {
+        "from":  "elec4-s2-p2",
+        "to":  "elec4-s3-p1",
+        "label":  "螺線管結構與 B = μ₀NI/l 一一對应"
+    },
+    {
+        "from":  "elec4-s3-p1",
+        "to":  "elec4-s4-p4",
+        "label":  "兩條導線的磁力由 B = μ₀I/2πr 算出"
+    },
+    {
+        "from":  "elec4-s4-p1",
+        "to":  "elec4-s4-p3",
+        "label":  "左手定則定方向，F = BIl sin θ 定量值"
+    },
+    {
+        "from":  "elec4-s4-p3",
+        "to":  "elec4-s5-p1",
+        "label":  "BIl 與 BQv 是同一力的宏觀與微觀表述"
+    },
+    {
+        "from":  "elec4-s5-p1",
+        "to":  "elec4-s5-p2",
+        "label":  "磁力提供向心力使電荷作圓周運動"
+    },
+    {
+        "from":  "elec4-s4-p5",
+        "to":  "elec4-s5-p2",
+        "label":  "電動機的力偶與移動電荷的圓周運動都源於同一磁力"
+    },
+    {
+        "from":  "elec4-s1-p2",
+        "to":  "elec4-s4-p2",
+        "label":  "平板形磁铁間的勻強磁場是電流天平的標准裝置"
+    },
+    {
+        "from":  "elec5-s1-p1",
+        "to":  "elec5-s1-p2",
+        "label":  "磁通量變化是現象，法拉第定律是它的量度"
+    },
+    {
+        "from":  "elec5-s1-p2",
+        "to":  "elec5-s1-p3",
+        "label":  "法拉第定大小，楞次定方向"
+    },
+    {
+        "from":  "elec5-s1-p2",
+        "to":  "elec5-s2-p1",
+        "label":  "變化率快慢要用磁通量来表述"
+    },
+    {
+        "from":  "elec5-s2-p1",
+        "to":  "elec5-s2-p2",
+        "label":  "磁通匝链数 NΦ 正是法拉第公式里的量"
+    },
+    {
+        "from":  "elec5-s2-p2",
+        "to":  "elec5-s3-p1",
+        "label":  "感應電動勢抵不過恒定磁場，故探察線圈只能測變化磁場"
+    },
+    {
+        "from":  "elec5-s3-p1",
+        "to":  "elec5-s3-p2",
+        "label":  "探察線圈測频率，發电機正是產生交流电的裝置"
+    },
+    {
+        "from":  "elec4-s4-p5",
+        "to":  "elec5-s3-p2",
+        "label":  "電動機與發电機結構相同、原理相反"
+    },
+    {
+        "from":  "elec5-s3-p2",
+        "to":  "elec6-s1-p1",
+        "label":  "發电機產生的正是方向周期性改变的交流电"
+    },
+    {
+        "from":  "elec4-s1-p2",
+        "to":  "elec4-s5-p2",
+        "label":  "粒子走半圓的磁場来自勻強磁場"
+    },
+    {
+        "from":  "elec5-s2-p1",
+        "to":  "elec4-s5-p1",
+        "label":  "磁通量與磁力都是 B 的兩种表現"
+    },
+    {
+        "from":  "elec5-s2-p1",
+        "to":  "elec4-s3-p1",
+        "label":  "磁通量與 B 通過 Φ = BA 換算"
+    },
+    {
+        "from":  "elec5-s2-p2",
+        "to":  "elec5-s3-p2",
+        "label":  "法拉第定律是發电機產生電動勢的原理"
+    },
+    {
+        "from":  "elec2-s4-p2",
+        "to":  "elec5-s2-p1",
+        "label":  "並聯电阻愈小電流愈大正是短路的原因"
+    },
+    {
+        "from":  "elec2-s5-p2",
+        "to":  "mech6-s1-p1",
+        "label":  "ε = V + Ir 與端電壓都是電壓的分配"
+    },
+    {
+        "from":  "elec1-s5-p1",
+        "to":  "mech6-s1-p1",
+        "label":  "电勢能變化 = 外力所作的功，與功的定義一致"
+    },
+    {
+        "from":  "elec3-s1-p1",
+        "to":  "mech6-s1-p1",
+        "label":  "功率 = 能量/時間，與力學功率同一定義"
+    },
+    {
+        "from":  "elec3-s1-p1",
+        "to":  "heat2-s2-p1",
+        "label":  "電流的热效应使導体獲得內能"
+    },
+    {
+        "from":  "elec3-s1-p4",
+        "to":  "heat2-s1-p2",
+        "label":  "电能以焦耳或千瓦小時計量"
+    },
+    {
+        "from":  "elec3-s2-p4",
+        "to":  "mech5-s1-p1",
+        "label":  "斷路口與力矩平衡都涉及自動切斷機制"
+    },
+    {
+        "from":  "elec4-s5-p2",
+        "to":  "mech4-s1-p1",
+        "label":  "磁力提供向心力，與圓周運動同學"
+    },
+    {
+        "from":  "elec2-s3-p2",
+        "to":  "heat2-s1-p2",
+        "label":  "金屬电阻隨温度升高而增大（温度影響电阻）"
+    },
+    {
+        "from":  "elec2-s3-p3",
+        "to":  "heat3-s1-p2",
+        "label":  "電流的热效应令導体温度上升"
+    },
+    {
+        "from":  "elec3-s1-p2",
+        "to":  "heat3-s1-p2",
+        "label":  "电功率通過 I²R 轉為內能（热效应）"
+    },
+    {
+        "from":  "elec5-s3-p2",
+        "to":  "heat3-s1-p2",
+        "label":  "渦電流的热效应用於电磁爐加热"
+    },
+    {
+        "from":  "elec6-s2-p2",
+        "to":  "heat4-s3-p1",
+        "label":  "变壓器铁心發热就是能量以热形式散失"
+    },
+    {
+        "from":  "elec1-s5-p1",
+        "to":  "mech6-s1-p2",
+        "label":  "電勢能變化 = 外力所作的功，與功的定義一致"
+    },
+    {
+        "from":  "elec4-s4-p2",
+        "to":  "mech5-s1-p1",
+        "label":  "電流量度裝置是運用電磁感應原理"
+    },
+    {
+        "from":  "elec5-s2-p2",
+        "to":  "mech6-s1-p2",
+        "label":  "電磁阻尼把動能轉為電能再轉為熱"
+    },
+    {
+        "from":  "elec4-s4-p5",
+        "to":  "mech5-s1-p3",
+        "label":  "電動機的力偶是力矩與力偶的應用"
+    },
+    {
+        "label":  "核裂變釋放的能量最終轉化為熱能",
+        "from":  "nuclear3-s1-p1",
+        "to":  "heat4-s3-p1"
+    },
+    {
+        "label":  "質能關係 ΔE=Δmc²：質量與能量可互相轉化",
+        "from":  "nuclear3-s2-p3",
+        "to":  "heat2-s2-p1"
+    },
+    {
+        "label":  "核聚變：太陽能量的來源",
+        "from":  "nuclear3-s1-p2",
+        "to":  "heat2-s1-p2"
+    },
+    {
+        "label":  "原子核由質子與中子組成",
+        "from":  "nuclear2-s1-p1",
+        "to":  "wave6-s1-p1"
+    },
+    {
+        "label":  "核輻射穿透能力與電磁波比較",
+        "from":  "nuclear1-s2-p6",
+        "to":  "wave4-s1-p1"
+    },
+    {
+        "label":  "放射性同位素與內能：熱效應",
+        "from":  "nuclear2-s3-p1",
+        "to":  "heat1-s1-p2"
+    },
+    {
+        "label":  "核能發電與電功率：能量轉換",
+        "from":  "nuclear3-s3-p1",
+        "to":  "elec3-s1-p4"
+    }
 ]
