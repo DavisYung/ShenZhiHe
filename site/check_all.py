@@ -65,7 +65,11 @@ def main():
     results.append(("PWA 静态", run("4/9 PWA 靜態檢查", [PY, "_t_pwa.py"])))
 
     # ---- 构建 ----
+    # build 后必须接 prep：gh-pages/（index.html + img/ + PWA 资源）是浏览器
+    # 与交付测试的被测对象，不重跑 prep 会测到上一次的旧产物。
     results.append(("构建站点", run("5/9 構建站點", [PY, "build.py"])))
+    results.append(("准备发布目录", run("5b/9 準備 gh-pages（含 img/ 外置圖）",
+                                        [PY, "prep_ghpages.py"])))
 
     # ---- 浏览器项 ----
     if QUICK:
@@ -80,6 +84,9 @@ def main():
         results.append(("单元导航", run("8/9 單元導航（真實 Chrome）",
                                        [NODE, os.path.join(ROOT, "scratch", "_t_units.mjs"),
                                         ".", os.environ.get("TEMP", ".")])))
+        results.append(("圖片外置離線", run("8b/9 圖片外置後離線完整性（真實 Chrome）",
+                                          [NODE, "_t_extimg.mjs", os.path.join("..", "gh-pages"),
+                                           os.environ.get("TEMP", ".")])))
 
     # ---- 静态代码检查 ----
     results.append(("ESLint", run("9/9a ESLint",

@@ -74,21 +74,41 @@ GUIDE = """# 部署到 GitHub Pages
 
 點 **Create repository**。
 
-### 2. 上傳檔案
+### 2. 上傳檔案（推薦用 git，一鍵搞定）
 
-在倉庫頁面點 **Add file** → **Upload files**，把這個資料夾裡的**所有檔案**一起拖進去。
+**🚀 推薦：方式 A · git 一鍵部署**（首次多兩步，以後每次更新就 3 條命令）
 
-> ✅ **圖示都平鋪在根目錄，沒有子資料夾，全選拖進去就對了。**
-> 以前圖示放在 `icons/` 子資料夾，用網頁拖曳時整個資料夾容易漏掉，
-> 而圖示連結一旦 404，iPhone 不會用根目錄的圖示，會自己生成一個
-> 「主題色底 + 標題第一個字」的佔位圖示（看起來完全不是你設計的那個）。
-> 現在改成平鋪，就沒有這個風險了。
+```powershell
+cd "這個資料夾的路徑"
+git init -b main
+git remote add origin https://github.com/你的用戶名/神智核.git
+git add .
+git commit -m "部署 神智核"
+git push -u origin main
+```
 
-拖完點 **Commit changes**。
+以後更新：重新生成部署包後，進這個資料夾跑 `git add . && git commit -m "更新" && git push` 就行。
+好處：**不會漏任何檔案**（img/ 圖片目錄、.nojekyll 都會被正確跟蹤）。
 
-> ⚠️ 兩個小坑：
-> 1. `.nojekyll` 以點開頭，網頁上傳時可能傳不上去。傳不上也沒關係，網站照樣能用（我們的檔名沒有以 `_` 開頭）。
-> 2. `index.html` 有 4.7 MB，上傳要等十幾秒，進度條不動是正常的。
+**方式 B · 網頁上傳**（不用命令行的替代方案）
+
+在倉庫頁面點 **Add file** → **Upload files**，把這個資料夾裡的**所有東西**一起拖進去：
+**根目錄的全部文件 + `img` 整個資料夾**（全選即可）。
+
+> ⚠️ **上傳後必須核對**：文件清單裡要有 **`img/…` 開頭的約 255 個圖片文件**。
+> 筆記頁圖全部走 `img/` 相對路徑（這樣 HTML 才保持 2 MB），
+> 漏傳資料夾 = 網站能打開但所有筆記圖片 404。
+> 核對方法：Commit 前看 GitHub 列出的文件清單，或上傳後開網站隨便進一課看有沒有圖。
+
+> ✅ 圖示檔都平鋪在根目錄（沒有子資料夾），全選拖進去就對了。
+> 以前圖示放 `icons/` 子資料夾，拖曳漏掉後 iOS 不會回退到根目錄圖示，
+> 而是生成「主題色底 + 一個字」的佔位圖示——已改成平鋪根除這個風險。
+> **筆記圖 `img/` 不同**：它是自己 HTML 的相對引用，放目錄沒問題，
+> 但上傳時資料夾必須一起拖（上面說的核對方法）。兩個規則不衝突。
+
+其他小坑：
+1. `.nojekyll` 以點開頭，網頁上傳時可能傳不上去。傳不上也沒關係，網站照樣能用（我們的檔名沒有以 `_` 開頭）。
+2. `index.html` 約 2 MB，加圖片後整包約 11 MB，上傳要等一會兒，進度條不動是正常的。
 
 ### 3. 開啟 Pages
 
@@ -237,7 +257,8 @@ iOS／Android 會快取 App 圖示，換圖後不會馬上更新。這樣處理�
 |---|---|---|
 {TABLE}
 
-網站本身零外部依賴，所有筆記圖片都已經內嵌在 HTML 裡，不連任何外部網址。
+網站**零第三方依賴**：不連任何外部網址，所有筆記圖片放在 `img/` 目錄由本站自己提供
+（HTML 因此只約 2 MB，按需載入、隨看隨緩存，離線後看過的頁面圖片照樣能顯示）。
 `manifest.json`、`service-worker.js` 和圖示檔是讓它能「加到主畫面」與離線使用的必要檔案。
 
 ---
@@ -331,6 +352,12 @@ def main():
             continue
         desc = desc.format(pts=n_pts, q=n_q, links=n_links)
         rows.append("| `%s` | %s | %s |" % (rp, human(os.path.getsize(ap)), desc))
+    # 筆記原圖目錄（255 張不逐列）
+    img_files = [rp for rp, _ap in files if rp.startswith("img/")]
+    if img_files:
+        img_total = sum(os.path.getsize(ap) for rp, ap in files if rp.startswith("img/"))
+        rows.append("| `img/` | %.1f MB | 筆記原圖 %d 張（HTML 以相對路徑引用，**必須整個目錄一起上傳**）"
+                    % (img_total / 1024.0 / 1024.0, len(img_files)))
     rows.append("| `部署指南.md` | 這份 | 你正在看的 |")
     guide = GUIDE.replace("{VER}", VER).replace("{TABLE}", "\n".join(rows))
     with io.open(os.path.join(PKG, "部署指南.md"), "w", encoding="utf-8") as f:
@@ -347,13 +374,20 @@ def main():
                 z.write(ap, rp)
 
     print("交付目錄：%s" % PKG)
-    total = 0
+    total, img_n, img_bytes = 0, 0, 0
     for root, _dirs, fs in os.walk(PKG):
         for n in sorted(fs):
             ap = os.path.join(root, n)
             rp = os.path.relpath(ap, PKG).replace("\\", "/")
-            total += os.path.getsize(ap)
-            print("  %-30s %9s" % (rp, human(os.path.getsize(ap))))
+            sz = os.path.getsize(ap)
+            total += sz
+            if rp.startswith("img/"):
+                img_n += 1
+                img_bytes += sz
+                continue   # 255 張不逐列，最後彙總一行
+            print("  %-30s %9s" % (rp, human(sz)))
+    if img_n:
+        print("  %-30s %9s  (%d 張)" % ("img/", human(img_bytes), img_n))
     print("\n合計 %.1f MB" % (total / 1024.0 / 1024.0))
     print("壓縮包：%s（%.2f MB）" % (ZIP, os.path.getsize(ZIP) / 1024.0 / 1024.0))
 
@@ -365,6 +399,10 @@ def main():
                  "icon-maskable-512.png", "favicon.ico", "404.html"):
         if must not in names:
             sys.exit("zip 缺少必要檔案：%s" % must)
+    n_img_zip = sum(1 for n in names if n.startswith("img/") and n.endswith(".webp"))
+    if n_img_zip < 250:
+        sys.exit("zip 的 img/ 圖片只有 %d 張（預期約 255）" % n_img_zip)
+    print("  img/ 圖片 %d 張 ✓" % n_img_zip)
     if any(n.startswith("icons/") for n in names):
         sys.exit("zip 內不應有 icons/ 子資料夾（圖示已改為平鋪根目錄）")
     print("zip 內容檢查通過（%d 個檔案，含 .nojekyll，圖示平鋪根目錄）" % len(names))

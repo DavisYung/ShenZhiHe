@@ -64,7 +64,17 @@ for root, _d, fs in os.walk(PKG):
 bad = [f for f in allf if f.startswith("_t_") or f.endswith(".py") or f.startswith("__pycache__")]
 check("无测试/脚本文件", not bad, "泄漏=%s" % bad if bad else "")
 check("无 headless 截图", not any("shot" in f for f in allf))
-check("文件数合理", 10 <= len(allf) <= 20, "共 %d 个" % len(allf))
+check("文件数合理", 10 <= len(allf) <= 320, "共 %d 个" % len(allf))
+
+print("\n[2b] 图片外置完整性（路线三核心）")
+idx0 = read(os.path.join(PKG, "index.html"))
+refs = sorted(set(re.findall(r"img/([A-Za-z0-9_]+\.webp)", idx0)))
+check("HTML 引用图片", len(refs) >= 250, "引用 %d 张" % len(refs))
+check("HTML 无 data:image 残留", "data:image" not in idx0)
+img_dir = os.path.join(PKG, "img")
+missing = [r for r in refs if not os.path.isfile(os.path.join(img_dir, r))]
+check("引用的图片全部存在", not missing,
+      "缺 %d 张: %s" % (len(missing), missing[:3]) if missing else "全部 %d 张就位" % len(refs))
 
 print("\n[3] 404 子路径跳转（源头已修）")
 h = read(os.path.join(PKG, "404.html"))

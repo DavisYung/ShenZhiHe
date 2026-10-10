@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 """準備 GitHub Pages 發布目錄。
 
-做五件事：
+做六件事：
 1. 把離線單檔網站複製成 ASCII 檔名 index.html（GitHub Pages 對非 ASCII 檔名連結不友好）
 2. 生成 .nojekyll（避免 Jekyll 處理 _ 開頭檔案）
 3. 附一個精簡的 README 與 404 提示頁
-4. 附上 PWA 資源（manifest.json、service-worker.js、icons/、favicon.ico），
-   讓使用者可以「加到主畫面」——這同時是 iOS 不清空學習進度的前提
+4. 附上 PWA 資源（manifest.json、service-worker.js、favicon.ico、圖示檔），讓使用者
+   可以「加到主畫面」——這同時是 iOS 不清空學習進度的前提
 5. 把 service-worker.js 裡的 __SW_VERSION__ 換成站點版號（改版即換快取名）
+6. 複製 index.html 引用到的筆記原圖到 img/（圖片外置：HTML 保持 ~2 MB，
+   SW 同源緩存天然覆蓋，離線體驗不變）
 """
 import io, json, os, re, shutil, sys
 sys.stdout.reconfigure(encoding="utf-8")
@@ -64,7 +66,9 @@ iOS Safari 會清掉「7 天以上沒打開」的網站的 localStorage，
 - **{PNL}** 條跨課題知識串連
 - {PNT} 個課題：{PTOPLIST}
 
-整站是**單一 HTML 檔**，無外部依賴，進度與錯題記錄存在瀏覽器 localStorage。
+整站**零第三方依賴**（不連任何外部網址），進度與錯題記錄存在瀏覽器 localStorage。
+筆記圖片放在 `img/` 目錄按需載入並由 Service Worker 緩存——HTML 只約 2 MB，
+首次打開看過的頁面，之後斷網也照樣能看圖。
 
 ## 版權與免責聲明
 
@@ -229,6 +233,43 @@ def copy_pwa():
     return copied
 
 
+def copy_note_images():
+    """把 index.html 引用到的筆記原圖複製到 gh-pages/img/（路線三：圖片外置）。
+
+    圖片走同域相對路徑 img/<file>.webp：
+      · HTML 單檔從 16 MB 降到 ~2 MB
+      · Service Worker 同源緩存天然覆蓋，離線體驗與內嵌一致
+      · GitHub Pages 1GB 上限對 15 MB 級部署量有 70 倍餘量
+
+    與「圖示平鋪」鐵律不衝突：圖示是 <link> 指向、404 時 iOS 不回退必須放根目錄；
+    筆記圖是自家 HTML 的相對引用，放 img/ 子目錄沒問題——但上傳時**整個 img/ 資料夾
+    必須一起傳**（強烈建議 git push 而非網頁拖拽）。
+    """
+    with io.open(os.path.join(OUT, "index.html"), encoding="utf-8") as f:
+        html = f.read()
+    refs = sorted(set(re.findall(r"img/([A-Za-z0-9_]+\.webp)", html)))
+    if not refs:
+        print("  note: index.html 未引用任何 img/*.webp（圖片外置未啟用？）")
+        return 0
+    dst_dir = os.path.join(OUT, "img")
+    if not os.path.isdir(dst_dir):
+        os.makedirs(dst_dir)
+    copied, miss = 0, []
+    for name in refs:
+        src = os.path.join(SITE, "img", name)
+        if os.path.exists(src):
+            shutil.copy2(src, os.path.join(dst_dir, name))
+            copied += 1
+        else:
+            miss.append(name)
+    if miss:
+        print("  warning: %d 個引用圖片在 site/img/ 找不到: %s"
+              % (len(miss), ", ".join(miss[:5])))
+    total = sum(os.path.getsize(os.path.join(dst_dir, n)) for n in os.listdir(dst_dir))
+    print("  筆記原圖：外置 %d 張 → img/（%.2f MB）" % (copied, total / 1024.0 / 1024.0))
+    return copied
+
+
 def main():
     rmtree_soft(OUT)
     if not os.path.isdir(OUT):
@@ -258,6 +299,7 @@ def main():
     with io.open(os.path.join(OUT, "404.html"), "w", encoding="utf-8") as f:
         f.write(NOTFOUND)
     pwa = copy_pwa()
+    n_img = copy_note_images()
 
     print("站名：%s" % SITE_TITLE)
     print("來源：%s" % os.path.basename(src))
@@ -267,6 +309,7 @@ def main():
         if os.path.isfile(p):
             print("  %-18s %8.1f KB" % (n, os.path.getsize(p) / 1024.0))
     print("  PWA 資源：%d 個（%s）" % (len(pwa), "、".join(pwa[:3]) + ("…" if len(pwa) > 3 else "")))
+    print("  筆記原圖：img/ %d 張" % n_img)
 
     total = 0
     for root, _dirs, files in os.walk(OUT):

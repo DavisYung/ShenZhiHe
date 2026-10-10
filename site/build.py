@@ -57,10 +57,10 @@ RESERVED = {"subject", "links", "index"}
 
 
 def inline_body_images(payload):
-    """把各課題 body 中的 ](img/<file>) 轉成 data URI。
+    """（回退模式，EMBED_IMG=1 時使用）把 ](img/<file>) 轉成 data URI 內嵌。
 
-    圖檔放 site/img/（WebP）。找不到圖檔時保留原引用並計數回報，
-    不中斷建置——殘缺部署不該讓整站構建失敗。
+    內嵌讓單檔自足，但會把 HTML 撐到 16 MB+——外置模式（預設）見 check_body_images。
+    找不到圖檔時保留原引用並計數回報，不中斷建置。
     """
     import base64
     IMG_DIR = os.path.join(BASE, "img")
@@ -88,6 +88,34 @@ def inline_body_images(payload):
     if miss:
         print("  warning: %d 個圖片缺失（引用保留）: %s" % (len(miss), ", ".join(sorted(set(miss))[:5])))
     return n, miss
+
+
+def check_body_images(payload):
+    """外置模式（預設）：保留 ](img/<file>) 相對引用，只校驗檔案存在。
+
+    圖片隨部署包放在 img/ 目錄，HTML 單檔因此保持 ~3 MB；
+    Service Worker 的同源緩存天然覆蓋 img/，離線體驗與內嵌一致。
+    圖檔缺失照樣回報但不中斷構建（殘缺部署不該讓整站失敗）。
+    """
+    pat = re.compile(r"\]\(img/([^)\s]+)\)")
+    IMG_DIR = os.path.join(BASE, "img")
+    files, miss = set(), []
+    for s in payload.get("subjects", []):
+        for t in s.get("topics", []):
+            for sec in t.get("sections", []):
+                for p in sec.get("points", []):
+                    body = p.get("body") or ""
+                    if "](img/" not in body:
+                        continue
+                    for m in pat.finditer(body):
+                        name = m.group(1)
+                        if os.path.exists(os.path.join(IMG_DIR, name)):
+                            files.add(name)
+                        else:
+                            miss.append(name)
+    if miss:
+        print("  warning: %d 個圖片缺失（引用保留）: %s" % (len(miss), ", ".join(sorted(set(miss))[:5])))
+    return len(files), miss, files
 
 
 def load(path, default=None):
@@ -362,8 +390,14 @@ def main():
     else:
         tpl = tpl.replace("/*__SEARCH_WORKER__*/", "var __SEARCH_WORKER_URL__ = null;")
 
-    # 筆記原圖：body 裡的 ](img/<file>) 引用 → data URI（單檔離線自足）
-    n_img, miss = inline_body_images(payload)
+    # 筆記原圖：預設外置（保留 ](img/…) 相對路徑，HTML 單檔保持 ~3 MB；
+    # EMBED_IMG=1 回退成 data URI 內嵌（單檔自足但 16 MB+）
+    if os.environ.get("EMBED_IMG") == "1":
+        n_img, miss = inline_body_images(payload)
+        img_mode = "內嵌 data URI"
+    else:
+        n_img, miss, _img_files = check_body_images(payload)
+        img_mode = "外置 img/ 相對路徑"
 
     blob = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     # 防止 </script> 破壞注入
@@ -403,7 +437,7 @@ def main():
            ("topics", "sections", "points", "links", "questions")}
     print("\n合計 課題 %d · 章節 %d · 知識點 %d · 串連 %d · 題目 %d"
           % (tot["topics"], tot["sections"], tot["points"], tot["links"], tot["questions"]))
-    print("筆記原圖：內嵌 %d 張" % n_img)
+    print("筆記原圖：%s %d 張" % (img_mode, n_img))
     print("站名：%s %s" % (site["name"], site["version"]))
     print("written:", dst, os.path.getsize(dst), "bytes")
     print("stable :", dst_stable, os.path.getsize(dst_stable), "bytes")
