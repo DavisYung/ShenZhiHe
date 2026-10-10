@@ -6,8 +6,8 @@
   "color": "#2563eb",
   "order": 2,
   "ready": true,
-  "description": "熱學與力學分區的物理筆記。熱學（溫度、內能、物態、傳熱、氣體）與力學（運動描述、牛頓定律、力矩、能量、動量、拋體、圓周、引力）已完成，波動學待補。",
-  "source": "牛津《新高中生活與物理（第二版）》課堂工作紙 · Heat notes（第1–5課）＋ Book 2 mechanic notes（第1–10課）＋ 配套答案本",
+  "description": "熱學、力學、波動學與電學四個分區的物理筆記：熱學（溫度、內能、物態、傳熱、氣體）、力學（運動描述、牛頓定律、力矩、能量、動量、拋體、圓周、引力）、波動學（光的反射折射、透鏡、波動與水波現象、光的波動本質與電磁波、聲音）、電學（靜電與電場、電路與電阻、電功率與家居電學、磁場與磁力、電磁感應、交流電與變壓器）。",
+  "source": "牛津《新高中生活與物理（第二版）》課堂工作紙 · Heat notes（第1–5課）＋ Book 2 mechanic notes（第1–10課）＋ ws 3A3B notes（第1–7課 光學與波動）＋ Book 4 Electric notes（第1–6課 靜電學至輸電）＋ 四本配套答案本",
   "units": [
     {
       "id": "thermal",
@@ -39,6 +39,35 @@
         "mech9",
         "mech10"
       ]
+    },
+    {
+      "id": "waves",
+      "title": "波動學",
+      "emoji": "🌊",
+      "description": "光線與反射、折射與全內反射、透鏡成像、波動基礎、水波與波的現象（衍射、干涉、駐波）、光的波動本質與電磁波、縱波與聲音。",
+      "topics": [
+        "wave1",
+        "wave2",
+        "wave3",
+        "wave4",
+        "wave5",
+        "wave6",
+        "wave7"
+      ]
+    },
+    {
+      "id": "electricity",
+      "title": "電學",
+      "emoji": "⚡",
+      "description": "靜電與電場、電路與電阻、電功率與市電、磁場與磁力、電磁感應、交流電與變壓器。",
+      "topics": [
+        "elec1",
+        "elec2",
+        "elec3",
+        "elec4",
+        "elec5",
+        "elec6"
+      ]
     }
   ],
   "topics": [
@@ -56,6 +85,19 @@
     "mech7",
     "mech8",
     "mech9",
-    "mech10"
+    "mech10",
+    "wave1",
+    "wave2",
+    "wave3",
+    "wave4",
+    "wave5",
+    "wave6",
+    "wave7",
+    "elec1",
+    "elec2",
+    "elec3",
+    "elec4",
+    "elec5",
+    "elec6"
   ]
 }

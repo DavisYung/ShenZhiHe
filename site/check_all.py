@@ -62,6 +62,10 @@ def main():
                                              [PY, "_t_schema_probe.py"])))
     results.append(("物理內容審計", run("3/9 物理內容獨立審計",
                                        [PY, os.path.join(ROOT, "scratch", "_phys_audit.py")])))
+    results.append(("物理內容校驗", run("3b/9 物理內容逐點校驗",
+                                       [PY, os.path.join(ROOT, "scratch", "_phys_check.py")])))
+    results.append(("電學獨立審計", run("3c/9 電學獨立審計",
+                                       [PY, os.path.join(ROOT, "scratch", "_elec_audit.py")])))
     results.append(("PWA 静态", run("4/9 PWA 靜態檢查", [PY, "_t_pwa.py"])))
 
     # ---- 构建 ----

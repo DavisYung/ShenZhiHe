@@ -40,6 +40,9 @@ scratch/phys_bundles/
 # 力學的提取中間產物（mech_extract/ 是 PDF 文字提取，mech_pagemap 是頁面映射）
 scratch/mech_extract/
 scratch/mech_pagemap.txt
+# 波動學的提取中間產物（同上）
+scratch/waves_extract/
+scratch/waves_pagemap.txt
 
 # ---------- 原始 PDF 頁圖（97 MB；data/ 已記錄 page，site/img/ 才是內嵌用）----------
 pages/

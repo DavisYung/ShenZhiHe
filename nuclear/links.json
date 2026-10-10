@@ -1,0 +1,22 @@
+[
+ {
+  "from": "nuclear1-s1-p1",
+  "to": "nuclear2-s1-p1",
+  "label": "由輻射過渡到核素構成"
+ },
+ {
+  "from": "nuclear2-s1-p2",
+  "to": "nuclear3-s1-p1",
+  "label": "由衰變過渡到核反應"
+ },
+ {
+  "from": "nuclear3-s1-p1",
+  "to": "mech6-s1-p1",
+  "label": "能量守恆定律：核分裂釋放的能量可轉化為機械能與熱能"
+ },
+ {
+  "from": "nuclear1-s1-p1",
+  "to": "chem1-s1-p1",
+  "label": "電離輻射會破壞分子結構，屬核物理範疇，非化學變化"
+ }
+]
