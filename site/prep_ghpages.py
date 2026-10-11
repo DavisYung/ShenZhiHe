@@ -56,18 +56,34 @@ iOS Safari 會清掉「7 天以上沒打開」的網站的 localStorage，
 
 ## 物理區（已完成）
 
-牛津《新高中生活與物理（第二版）》課堂工作紙，分**熱學**、**力學**、**波動學**、**電學**與**核物理**五個分區：
+牛津《新高中生活與物理（第二版）》課堂工作紙，分**熱學**、**力學**、**波動學**、**電學**、**核物理**與**原子世界**六個分區：
 
 - **熱學**：溫度與溫度計、內能與比熱容量、物態的改變、傳熱方式、氣體定律與分子運動論
 - **力學**：長度時間與運動描述、直線運動線圖、牛頓三定律、力矩平衡、功與能量、動量、拋體、圓周運動、萬有引力
 - **波動學**：光線與反射、折射與全內反射、透鏡成像、波動基礎、水波與波的現象、光的波動本質與電磁波、縱波與聲音
 - **電學**：靜電與電場、電路與電阻、電功率與家居電學、磁場與磁力、電磁感應、交流電與變壓器
 - **核物理**：輻射與放射現象、原子結構與放射衰變、核能
+- **原子世界**：盧瑟福原子模型與散射實驗、光電效應與愛因斯坦光子模型、原子光譜與玻爾模型、波粒二象性、納米材料與顯微技術
 
 - **{PNPTS}** 個知識點（全部附原 PDF 頁碼與筆記原圖）
 - **{PNQ}** 道測驗題（全部點選作答）
 - **{PNL}** 條跨課題知識串連
 - {PNT} 個課題：{PTOPLIST}
+
+## 原子世界區（新增）
+
+新高中物理選修二《原子世界》課堂工作紙 E2，**39 頁 PDF 全覆蓋**：
+
+- **{ATOPTS}** 個知識點（全部附原 PDF 頁碼與筆記原圖）
+- **{ATOQ}** 道測驗題（選擇 {ATOMC} / 是非 {ATOTF}）
+- **{ATOL}** 條跨課題知識串連
+- 3 個課題：邁向現代原子模型 I、邁向現代原子模型 II、納米材料
+
+課題內容：
+
+- **atomic1**：蓋革—馬斯登散射實驗、盧瑟福原子模型、盧瑟福模型的局限性、散射實驗的重要性、光電效應與光電子、用光電池研究光電效應、波動理論的困難、光子與光強度、功函數和臨界頻率、光子與電子的相互作用、愛因斯坦光電方程、V_s–f 線圖、波粒二象性
+- **atomic2**：發射光譜和吸收光譜、玻爾的氫原子模型、能級與量子化、解釋發射光譜和吸收光譜、玻爾模型的局限性、光和物質的波粒二象性、德布羅意波長、電子的駐波
+- **atomic3**：不同形態的納米材料、納米材料的物理特性、表面面積與體積之比、光學顯微鏡與瑞利判據、穿透電子顯微鏡、掃描穿隧顯微鏡、兩種顯微鏡比較、蓮花效應、日常生活的應用、潛在危險
 
 ## 核物理區（新增）
 
@@ -177,6 +193,30 @@ def nuclear_readme_stats():
     # 注意：前綴 NUC，避免與 chem_readme_stats 的 NPTS/NQ/NMC/NTF/NL 撞名
     return dict(NUCPTS=n_pts, NUCQ=n_mc + n_tf, NUCMC=n_mc,
                 NUCTF=n_tf, NUCL=n_nl)
+
+
+def atomic_readme_stats():
+    """原子世界區統計（atomic1~3 三個課題）。"""
+    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ato = ["atomic1", "atomic2", "atomic3"]
+    n_pts = n_mc = n_tf = 0
+    for tid in ato:
+        t = load(os.path.join(base, "data", "phys", tid + ".json"), None)
+        if t:
+            n_pts += sum(len(s.get("points", [])) for s in t.get("sections", []))
+        q = load(os.path.join(base, "quiz", "phys", tid + ".json"), None) or {}
+        for x in q.get("questions", []):
+            if x.get("type") == "mc":
+                n_mc += 1
+            elif x.get("type") == "tf":
+                n_tf += 1
+    links = load(os.path.join(base, "data", "phys", "links.json"), []) or []
+    n_al = len([l for l in links
+                if str(l.get("from", "")).startswith("atomic")
+                or str(l.get("to", "")).startswith("atomic")])
+    # 注意：前綴 ATO，避免與 chem_readme_stats 的 NPTS/NQ/NMC/NTF/NL 撞名
+    return dict(ATOPTS=n_pts, ATOQ=n_mc + n_tf, ATOMC=n_mc,
+                ATOTF=n_tf, ATOL=n_al)
 
 NOTFOUND = """<!doctype html>
 <html lang="zh-Hant"><head><meta charset="utf-8">
@@ -337,6 +377,7 @@ def main():
     _stats = chem_readme_stats()
     _stats.update(phys_readme_stats())
     _stats.update(nuclear_readme_stats())
+    _stats.update(atomic_readme_stats())
     with io.open(os.path.join(OUT, "README.md"), "w", encoding="utf-8") as f:
         f.write(README.format(**_stats))
     with io.open(os.path.join(OUT, ".nojekyll"), "w", encoding="utf-8") as f:
