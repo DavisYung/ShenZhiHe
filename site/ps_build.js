@@ -207,23 +207,26 @@ payload.subjects.sort((a, b) => {
 });
 
 // 读取模板并替换
+// ⚠ 必须用全局替换：模板里同一占位符出现多次（如 /*__SITE_NAME__*/ 在
+// title/brandname/ftop 各一处），String.replace(str, x) 只换第一次，
+// 会导致页脚残留未替换的占位符「乱码」。
 let tpl = fs.readFileSync(path.join(siteDir, 'template.html'), 'utf8');
-tpl = tpl.replace('/*__SITE_NAME__*/', siteName);
-tpl = tpl.replace('/*__SITE_VERSION__*/', siteVer);
-tpl = tpl.replace('/*__SITE_SUBTITLE__*/', version.subtitle || '');
-tpl = tpl.replace('/*__SITE_COPYRIGHT__*/', version.copyright || '');
+tpl = tpl.split('/*__SITE_NAME__*/').join(siteName);
+tpl = tpl.split('/*__SITE_VERSION__*/').join(siteVer);
+tpl = tpl.split('/*__SITE_SUBTITLE__*/').join(version.subtitle || '');
+tpl = tpl.split('/*__SITE_COPYRIGHT__*/').join(version.copyright || '');
 
 const discList = version.disclaimer || [];
 const discHtml = discList.map(d => `<li>${d}</li>`).join('');
-tpl = tpl.replace('/*__SITE_DISCLAIMER__*/', discHtml);
+tpl = tpl.split('/*__SITE_DISCLAIMER__*/').join(discHtml);
 
 // extras.js
 const exPath = path.join(siteDir, 'extras.js');
 if (fs.existsSync(exPath)) {
     const exJs = fs.readFileSync(exPath, 'utf8');
-    tpl = tpl.replace('/*__EXTRAS_JS__*/', exJs);
+    tpl = tpl.split('/*__EXTRAS_JS__*/').join(exJs);
 } else {
-    tpl = tpl.replace('/*__EXTRAS_JS__*/', '');
+    tpl = tpl.split('/*__EXTRAS_JS__*/').join('');
 }
 
 // search-worker.js 注入
@@ -231,14 +234,14 @@ const swPath = path.join(siteDir, 'search-worker.js');
 if (fs.existsSync(swPath)) {
     const swB64 = fs.readFileSync(swPath).toString('base64');
     const swSrc = `var __SEARCH_WORKER_URL__ = URL.createObjectURL(new Blob([atob('${swB64}')], {type:'application/javascript'}));`;
-    tpl = tpl.replace('/*__SEARCH_WORKER__*/', swSrc);
+    tpl = tpl.split('/*__SEARCH_WORKER__*/').join(swSrc);
 } else {
-    tpl = tpl.replace('/*__SEARCH_WORKER__*/', 'var __SEARCH_WORKER_URL__ = null;');
+    tpl = tpl.split('/*__SEARCH_WORKER__*/').join('var __SEARCH_WORKER_URL__ = null;');
 }
 
 // 序列化 payload
 const blob = JSON.stringify(payload);
-const out = tpl.replace('/*__DATA__*/', blob);
+const out = tpl.split('/*__DATA__*/').join(blob);
 
 // 输出
 const stablePath = path.join(siteDir, `${siteName}.html`);
