@@ -1886,7 +1886,7 @@ function ptCard(p,t){
   if(st[1])mbadge=`<span class="badge ${mp>=85?'ok':mp>=30?'mid':''}" style="${mp>=85||mp>=30?'':'background:#f1ede4;color:#7a756a'}">${masteryLabel(m)} ${mp}%</span>`;
   const exLv=(p.exam&&p.exam.level)||0;
   return `<div class="pcard" id="pt-${p.id}" data-pid="${p.id}"${exLv?' data-exam="'+exLv+'"':''}>
-    <h4>${esc(p.title)}<span class="pg">📄 第 ${p.page||'?'} 頁</span>${st[1]?'<span class="pg">'+st[0]+'/'+st[1]+' 答對</span>':''}${mbadge}${due?'<span class="badge due">該複習了</span>':''}
+    <h4>${esc(p.title)}${p.page?'<span class="pg">📄 第 '+p.page+' 頁</span>':''}${st[1]?'<span class="pg">'+st[0]+'/'+st[1]+' 答對</span>':''}${mbadge}${due?'<span class="badge due">該複習了</span>':''}
       <button class="qbtn" onclick="startQuiz({mode:'point',id:'${p.id}'})">測驗</button></h4>
     <div class="md">${mdLite(p.body,(p.exam&&p.exam.years&&p.exam.years.length)?(p.exam.keywords||[]):null)}</div>
     ${(p.tags||[]).length?'<div class="tags">'+p.tags.map(g=>'<span class="tag">'+esc(g)+'</span>').join('')+'</div>':''}
@@ -1951,7 +1951,7 @@ function renderPip(){
     '<div class="piphead"><div class="pipgrip" title="按住可拖動，雙擊歸位">⋮⋮</div><div class="pipt">'
     +'<span class="pipk">'+esc(t.title)+' · '+esc(sec.title)+'</span>'
     +'<b>'+esc(p.title)+'</b>'
-    +'<span class="pipp">📄 第 '+(p.page||'?')+' 頁'+(st[1]?' · '+st[0]+'/'+st[1]+' 答對':'')+'</span>'
+    +'<span class="pipp">'+(p.page?'📄 第 '+p.page+' 頁':'')+(st[1]?(p.page?' · ':'')+st[0]+'/'+st[1]+' 答對':'')+'</span>'
     +'</div><div class="pipbtns">'
     +'<button class="pipbtn" onclick="pipBack()">'+(PIP_HIST.length?'← 上一步':'✕ 關閉')+'</button>'
     +(PIP_HIST.length?'<button class="pipbtn" onclick="closePip()">✕ 關閉</button>':'')

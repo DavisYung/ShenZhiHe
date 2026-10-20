@@ -48,10 +48,12 @@ TOPIC_SCHEMA = {
                         "minItems": 1,
                         "items": {
                             "type": "object",
-                            "required": ["id", "title", "page", "body"],
+                            "required": ["id", "title", "body"],
                             "properties": {
                                 "id": {"type": "string", "minLength": 1},
                                 "title": {"type": "string", "minLength": 1},
+                                # page：PDF 頁碼。數學分區（計算機程式）沒有 PDF，
+                                # 因此改為選填；有 page 的前端才顯示「第 N 頁」。
                                 "page": {"type": "integer", "minimum": 1},
                                 "tags": {"type": "array", "items": {"type": "string"}},
                                 "body": {"type": "string", "minLength": 1},
