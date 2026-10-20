@@ -33,6 +33,7 @@ function viewExtra(id, sel){
   if(!x){ go("#/extras"); return; }
   if(x.type==="ptable"){ viewPtable(x, sel); return; }
   if(x.type==="hot"){ viewHot(x); return; }
+  if(x.type==="code"){ viewCodeProg(x); return; }
   app.innerHTML="<div class=\"view\"><div class=\"thead\"><button class=\"back\" onclick=\"go(\'#/extras\')\">← 額外資訊</button><h2>"+esc(x.emoji||"📎")+" "+esc(x.title||x.id)+"</h2></div>"
     +"<div class=\"tmeta\">"+esc(x.subtitle||"")+"</div>"
     +"<div class=\"note\">這個額外資訊的型別（"+esc(x.type||"未指定")+"）還沒有專屬版面，先在下方看原始內容。</div>"
@@ -226,6 +227,72 @@ function ptPick(z){
   var x=extraById(PT_ST.id); renderGrid(x); renderDetail(x);
   if(PT_ST.sel) go("#/extras/"+PT_ST.id+"@"+PT_ST.sel);
 }
+/* ---- 程式碼速查（計算機程式等） ---- */
+var CUR_PROG = null;
+function viewCodeProg(x){
+  navOn("extras");
+  if(needsContent())return;
+  CUR_PROG = x;
+  var gs = x.groups || [];
+  var cards = gs.map(function(g,i){ return progCardHTML(g,i); }).join("");
+  var io = (x.io||[]).map(function(r){
+    return '<div class="pkvrow"><b>'+esc(r.k||"")+'</b><span>'+esc(r.v||"")+'</span></div>';
+  }).join("");
+  var bytes = (x.bytes_table||[]).map(function(r){
+    return '<tr><td><b>'+esc(r.area||"")+'</b></td><td>'+esc(r.what||"")+'</td><td>'+esc(r.bytes||"")+'</td></tr>';
+  }).join("");
+  app.innerHTML = '<div class="view">'
+    +'<div class="thead"><button class="back" onclick="go(\'#/extras\')">← 額外資訊</button>'
+    +'<h2>'+(x.emoji||"🖩")+' '+esc(x.title||"程式碼")+'</h2></div>'
+    +'<div class="tmeta">'+esc(x.subtitle||"")+(x.source?" ｜ 來源："+esc(x.source):"")+'</div>'
+    +(x.note?'<div class="note">'+esc(x.note)+'</div>':"")
+    +(io?'<div class="progkv">'+io+'</div>':"")
+    +cards
+    +(x.quick?'<h3 class="hsec-h">速查條（可抄到機背）</h3><pre class="progquick">'+esc(x.quick)+'</pre>':"")
+    +(bytes?'<h3 class="hsec-h">字節佔用</h3><table class="htable"><thead><tr><th>區</th><th>內容</th><th>字節</th></tr></thead><tbody>'+bytes+'</tbody></table>':"")
+    +'</div>';
+}
+function progCardHTML(g,i){
+  var io = (g.io||[]).map(function(r){
+    return '<div class="pkvrow"><b>'+esc(r.k||"")+'</b><span>'+esc(r.v||"")+'</span></div>';
+  }).join("");
+  var pit = (g.pitfalls||[]).map(function(p){
+    return '<li>'+esc(p)+'</li>';
+  }).join("");
+  return '<div class="progcard" id="prog'+i+'">'
+    +'<div class="proghead">'
+    +'<span class="progarea">'+esc(g.area||("P"+(i+1)))+'</span>'
+    +'<h3>'+esc(g.title||"")+'</h3>'
+    +(g.bytes?'<span class="progbytes">'+esc(g.bytes)+' 字節</span>':"")
+    +'</div>'
+    +(g.desc?'<div class="progdesc">'+esc(g.desc)+'</div>':"")
+    +'<div class="progcodewrap">'
+    +'<button class="pcopy" id="pcopy'+i+'" onclick="copyProg('+i+')">📋 複製程式碼</button>'
+    +'<pre class="progcode">'+esc(g.code||"")+'</pre>'
+    +'</div>'
+    +(io?'<div class="progio">'+io+'</div>':"")
+    +(g.verify?'<div class="progverify"><b>驗收：</b>'+esc(g.verify)+'</div>':"")
+    +(pit?'<div class="progpit"><b>注意</b><ul>'+pit+'</ul></div>':"")
+    +'</div>';
+}
+function copyProg(i){
+  if(!CUR_PROG)return;
+  var g=(CUR_PROG.groups||[])[i];
+  if(!g)return;
+  var txt=g.code||"";
+  var btn=document.getElementById("pcopy"+i);
+  var flash=function(ok){
+    if(!btn)return;
+    btn.textContent = ok ? "✅ 已複製" : "⚠️ 長按選取";
+    setTimeout(function(){ btn.textContent="📋 複製程式碼"; }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){flash(true);}, function(){flash(false);});
+  }else{
+    flash(false);
+  }
+}
+
 function ptSearch(v){ PT_ST.q=v||""; var x=extraById(PT_ST.id); renderGrid(x); renderDetail(x); }
 function ptClear(){ PT_ST.q=""; var i=document.getElementById("ptq"); if(i)i.value=""; var x=extraById(PT_ST.id); renderGrid(x); renderDetail(x); }
 function ptToggle(cid){ PT_ST.cats[cid]=!PT_ST.cats[cid]; var x=extraById(PT_ST.id); renderLegend(x); renderGrid(x); }

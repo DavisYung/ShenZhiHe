@@ -1,0 +1,14 @@
+{
+  "id": "math",
+  "title": "數學",
+  "full": "數學筆記",
+  "emoji": "📐",
+  "color": "#b45309",
+  "order": 4,
+  "ready": true,
+  "description": "計算機程式分區：CASIO fx-50FH II 四段萬能程式（四心、線性規劃、三角方程求根、正弦餘弦希羅三合一），含調用時機、按鍵與驗收數據。",
+  "source": "CASIO fx-50FH II（H.K.E.A.A. APPROVED 港版，7 個變數）實機測試；程式由 DSH 會話逐段驗算並經用戶實機驗收",
+  "topics": [
+    "calc"
+  ]
+}

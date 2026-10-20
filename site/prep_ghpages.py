@@ -332,25 +332,37 @@ def copy_note_images():
     with io.open(os.path.join(OUT, "index.html"), encoding="utf-8") as f:
         html = f.read()
     refs = sorted(set(re.findall(r"img/([A-Za-z0-9_]+\.webp)", html)))
-    if not refs:
+    # 自製圖解放在 img/gen/ 子目錄（SVG 為主，早期幾張是 PNG），必須一起複製，否則線上 404
+    refs_gen = sorted(set(re.findall(r"img/(gen/[A-Za-z0-9_\-]+\.(?:svg|png))", html)))
+    all_refs = refs + refs_gen
+    if not all_refs:
         print("  note: index.html 未引用任何 img/*.webp（圖片外置未啟用？）")
         return 0
     dst_dir = os.path.join(OUT, "img")
     if not os.path.isdir(dst_dir):
         os.makedirs(dst_dir)
     copied, miss = 0, []
-    for name in refs:
-        src = os.path.join(SITE, "img", name)
+    for name in all_refs:
+        rel = name.replace("/", os.sep)
+        src = os.path.join(SITE, "img", rel)
+        dst = os.path.join(dst_dir, rel)
+        parent = os.path.dirname(dst)
+        if parent and not os.path.isdir(parent):
+            os.makedirs(parent)
         if os.path.exists(src):
-            shutil.copy2(src, os.path.join(dst_dir, name))
+            shutil.copy2(src, dst)
             copied += 1
         else:
             miss.append(name)
     if miss:
         print("  warning: %d 個引用圖片在 site/img/ 找不到: %s"
               % (len(miss), ", ".join(miss[:5])))
-    total = sum(os.path.getsize(os.path.join(dst_dir, n)) for n in os.listdir(dst_dir))
-    print("  筆記原圖：外置 %d 張 → img/（%.2f MB）" % (copied, total / 1024.0 / 1024.0))
+    total = 0
+    for dp, _dn, fn in os.walk(dst_dir):
+        for n in fn:
+            total += os.path.getsize(os.path.join(dp, n))
+    print("  筆記原圖：外置 %d 張（其中自製圖解 %d 張）→ img/（%.2f MB）"
+          % (copied, len(refs_gen), total / 1024.0 / 1024.0))
     return copied
 
 

@@ -343,9 +343,23 @@ def main():
         n_pts = n_q = n_links = 0
 
     # 重建交付目錄
+    # 鐵律（2026-10-16 真實事故）：部署包目錄本身是 git 倉庫，.git 內有唯讀檔案與
+    # OneDrive 鎖，shutil.rmtree(ignore_errors=True) 會靜默失敗，隨後 os.makedirs 拋
+    # FileExistsError——舊版因此把交付目錄連同 .git 一起摧毀。改成逐條刪、保留 .git。
+    KEEP = {".git"}
     if os.path.isdir(PKG):
-        shutil.rmtree(PKG, ignore_errors=True)
-    os.makedirs(PKG)
+        for name in os.listdir(PKG):
+            if name in KEEP:
+                continue
+            p = os.path.join(PKG, name)
+            try:
+                if os.path.isdir(p) and not os.path.islink(p):
+                    shutil.rmtree(p)
+                else:
+                    os.remove(p)
+            except OSError as e:
+                print("  warning: 無法刪除 %s（%s），繼續" % (name, e))
+    os.makedirs(PKG, exist_ok=True)
 
     for rp, ap in files:
         dst = os.path.join(PKG, rp.replace("/", os.sep))
@@ -377,7 +391,8 @@ def main():
     if os.path.exists(ZIP):
         os.remove(ZIP)
     with zipfile.ZipFile(ZIP, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-        for root, _dirs, fs in os.walk(PKG):
+        for root, dirs, fs in os.walk(PKG):
+            dirs[:] = [d for d in dirs if d != ".git"]   # 不把倉庫歷史打進 zip
             for n in sorted(fs):
                 ap = os.path.join(root, n)
                 rp = os.path.relpath(ap, PKG).replace("\\", "/")
@@ -385,7 +400,8 @@ def main():
 
     print("交付目錄：%s" % PKG)
     total, img_n, img_bytes = 0, 0, 0
-    for root, _dirs, fs in os.walk(PKG):
+    for root, dirs, fs in os.walk(PKG):
+        dirs[:] = [d for d in dirs if d != ".git"]       # 清單同樣剪枝
         for n in sorted(fs):
             ap = os.path.join(root, n)
             rp = os.path.relpath(ap, PKG).replace("\\", "/")
