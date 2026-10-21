@@ -45,6 +45,16 @@ body{background:var(--bg);color:var(--ink);font-family:"Microsoft JhengHei","Pin
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 code{background:#f1ede4;padding:1px 6px;border-radius:6px;font-size:.92em}
+/* 下標／上標：inline() 會把 c_rms、N_A 這類寫法轉成 <sub>，
+   這裡給一致的視覺（略小、貼基線、不影響行高）。
+   注意 line-height 用 0 才不會把行距撐開。 */
+sub,sup{font-size:.72em;line-height:0;position:relative;vertical-align:baseline}
+sub{bottom:-.28em}
+sup{top:-.42em}
+/* 公式等寬塊裡的下標再小一點，避免與斜線/根號黏在一起 */
+.ff sub,.ff sup,.progcode sub,.progcode sup{font-size:.68em}
+/* 行內代碼內的下標：不繼承代碼的背景/內距，否則 sub 會變成小方塊 */
+code sub,code sup{background:none;padding:0;border:0;font-size:.72em}
 button{font-family:inherit}
 /* ============ 動畫模式（三檔）+ 降級 ============
    html[data-anim] 由 JS 依設定寫入：
@@ -257,6 +267,65 @@ pre.mdcodewrap[data-lang]::before{content:attr(data-lang);position:absolute;top:
 .scope:hover{border-color:var(--accent)}
 .scope.on{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
 .scope small{display:block;color:var(--muted);font-weight:normal;font-size:12.5px}
+/* 測驗範圍：課題勾選清單（勾選器就是列表本身，不另開區塊） */
+.pickh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:18px 0 10px}
+.picktitle{font-size:15px;font-weight:800;color:var(--accent)}
+.picksub{font-size:12.5px;color:var(--muted)}
+.picktools{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-left:auto}
+.cbtool{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 13px;font-size:12.5px;font-family:inherit;cursor:pointer;color:#57534a;font-weight:600;white-space:nowrap}
+.cbtool:hover{background:#f3efe7}
+.cbtool.cbwarn{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.cbtool.cbwarn input,.cbtool.cbnbox input{cursor:pointer;margin:0}
+.cbtool.cbnbox{display:inline-flex;align-items:center;gap:6px;padding-right:9px}
+.cbtool.cbnbox input{width:46px;border:none;background:transparent;font-size:12.5px;font-family:inherit;text-align:center;color:#57534a;outline:none;padding:0}
+.cbtool.cbnbox input::placeholder{color:#b3aca0;font-size:12px}
+.qpickwrap{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 12px}
+.qgroup{margin:6px 0 12px}
+.qghead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:3px 0 7px;border-bottom:1px dashed var(--line);margin-bottom:7px}
+.qgt{font-size:13.5px;font-weight:800;color:#5c4a52}
+.qgall{border:1px solid var(--line);background:#faf8f4;border-radius:999px;padding:2px 10px;font-size:11.5px;font-family:inherit;cursor:pointer;color:#6b665c}
+.qgall:hover{background:#f0ece3}
+.qgwhole{margin-left:auto;border:1px solid color-mix(in srgb,var(--accent) 32%,#fff);background:var(--accent-soft);border-radius:999px;padding:3px 11px;font-size:11.5px;font-family:inherit;cursor:pointer;color:var(--accent);font-weight:700;white-space:nowrap}
+.qgwhole:hover{filter:brightness(.96)}
+/* 課題卡片：與首頁 .tcard 同款視覺，但左上是勾選框、右下角可單獨測驗 */
+.qplist{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:12px}
+.qpick{position:relative;display:flex;flex-direction:column;gap:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 15px 11px;cursor:pointer;transition:var(--dur-base);overflow:hidden}
+.qpick:hover{transform:translateY(-3px);box-shadow:0 8px 26px rgba(43,42,38,.13);border-color:#d8d1c2}
+.qpick .bar{position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--tc,#999)}
+.qpick-h{display:flex;align-items:flex-start;gap:9px;margin-bottom:6px;padding-right:18px}
+.qpick-h>span{display:block;min-width:0;flex:1 1 auto}
+.qpick input{width:19px;height:19px;cursor:pointer;flex:0 0 auto;accent-color:var(--accent);margin-top:2px}
+.qpick-t{display:inline;font-size:16.5px;font-weight:700;color:var(--ink);line-height:1.35;min-width:0;overflow-wrap:break-word;word-break:break-word}
+.qpick-h .tags{margin:0}
+.qpick-h .tag{font-size:11px;padding:0 8px;margin:2px 4px 0 0}
+.qpick-h .badge{margin-left:6px;font-size:11px;padding:0 8px}
+.qpick-d{font-size:13px;color:#57534a;line-height:1.5;margin:0 0 9px;min-height:39px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:break-word}
+.qpick-pbar{height:6px;background:#efe9dd;border-radius:99px;overflow:hidden;margin:0 0 5px}
+.qpick-pbar i{display:block;height:100%;border-radius:99px;transition:width calc(.45s * var(--anim-k)) ease}
+.qpick-meta{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+.qpick-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;margin-top:8px;flex-wrap:wrap}
+.qpick-foot .pill{margin-right:4px}
+.qpick-wrong{color:var(--red);font-weight:700}
+.qpick-go{border:1px solid color-mix(in srgb,var(--accent) 32%,#fff);background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:3px 12px;font-size:12px;font-family:inherit;cursor:pointer;font-weight:700;white-space:nowrap;flex:0 0 auto}
+.qpick-go:hover{filter:brightness(.96)}
+.qpick.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 26%,#fff),var(--shadow)}
+.qpick.on .qpick-t{color:var(--accent)}
+.qpick .qtick{position:absolute;right:12px;top:12px;font-size:15px;color:var(--accent);opacity:0;transition:opacity .12s;pointer-events:none}
+.qpick.on .qtick{opacity:1}
+/* 底部浮動操作條：有勾選才出現 */
+.pickbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:90;display:flex;align-items:center;gap:10px;max-width:min(92vw,720px);background:#fff;border:1.5px solid var(--accent);border-radius:999px;padding:9px 12px 9px 18px;box-shadow:0 8px 28px rgba(43,42,38,.22)}
+.pickbar-t{font-size:13px;color:#3f6f66;flex:1 1 auto;min-width:0;overflow-wrap:break-word;line-height:1.4}
+.pickbar-go{min-height:38px;padding:8px 20px;flex:0 0 auto}
+.pickbar-go:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.pickbar-x{border:none;background:#f1ede4;color:#7a756a;border-radius:50%;width:30px;height:30px;font-size:14px;cursor:pointer;flex:0 0 auto;line-height:1;padding:0}
+.pickbar-x:hover{background:#e6e0d4}
+@media(max-width:560px){
+  .qplist{grid-template-columns:1fr}
+  .picktools{margin-left:0;width:100%}
+  .pickbar{left:8px;right:8px;transform:none;max-width:none;border-radius:16px;padding:10px 12px}
+  .qpick{padding:13px 14px 10px}
+  .qpick-t{font-size:16px}
+}
 /* 隨機抽題區塊 */
 .randbox{border:1.5px dashed var(--accent);background:var(--accent-soft);border-radius:12px;padding:14px;margin:16px 0 4px}
 .randtitle{font-weight:700;font-size:16px;margin-bottom:9px}
@@ -324,7 +393,14 @@ pre.mdcodewrap[data-lang]::before{content:attr(data-lang);position:absolute;top:
 .rrow .rt{flex:1 1 240px;min-width:0}
 .rrow .rt b{display:block;font-size:15.5px}
 .rrow .rt span{font-size:13px;color:var(--muted)}
-.rrow .go{border:none;background:var(--accent);color:#fff;border-radius:9px;padding:8px 15px;font-size:14px;cursor:pointer;white-space:nowrap;font-family:inherit}
+/* 通用主行動按鈕（.go）。原本樣式只寫在 .rrow .go 之下，
+   導致單元頁 <button class="go">測驗本分區</button> 完全沒有套到樣式，
+   退化成瀏覽器預設小按鈕（實測只有 23px 高，看起來像標籤而非按鈕）。
+   這裡把基礎樣式提到全域，.rrow .go 只保留局部差異。 */
+.go{border:none;background:var(--accent);color:#fff;border-radius:999px;padding:10px 18px;font-size:14.5px;font-weight:700;line-height:1.2;cursor:pointer;white-space:nowrap;font-family:inherit;min-height:42px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(43,42,38,.16);transition:filter .14s,transform .14s}
+.go:hover{filter:brightness(1.08)}
+.go:active{transform:scale(.97)}
+.rrow .go{border-radius:9px;padding:8px 15px;font-size:14px;min-height:0;box-shadow:none}
 .rrow .go:hover{filter:brightness(1.08)}
 .sres{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:9px 0;box-shadow:var(--shadow);cursor:pointer;transition:var(--dur-base)}
 .sres:hover{border-color:var(--accent);transform:translateY(-2px)}
@@ -507,6 +583,129 @@ footer{max-width:1120px;margin:0 auto;padding:18px 20px 40px;color:var(--muted);
 .extracard .exemoji{font-size:32px;line-height:1}
 .extracard h3{margin:8px 0 4px;font-size:19px}
 .extracard p{margin:6px 0 0;font-size:14px;color:#57534a}
+/* 額外資訊：公式表對照（要背 × 不用背）——柔和卡通风 */
+.fmhero{position:relative;background:linear-gradient(160deg,#fff5f7 0%,#fff9f3 55%,#fffdf7 100%);border:2px dashed #f9c9d6;border-radius:22px;padding:20px 20px 16px;margin:6px 0 16px;overflow:hidden}
+.fmhero::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#ffe1e9 0%,rgba(255,225,233,0) 70%)}
+.fmhero .hrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.fmhero .dot{width:15px;height:15px;border-radius:50%;background:#ef8ba6;flex:0 0 auto;box-shadow:0 0 0 4px rgba(239,139,166,.18)}
+.fmhero h2{margin:0;font-size:21px;line-height:1.35;letter-spacing:.2px}
+.fmhero .pill{background:#fde3ea;color:#b3445f;border-radius:999px;padding:2px 11px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.fmhero .lead{position:relative;z-index:1;margin:9px 0 0;font-size:13px;line-height:1.8;color:#8a7280}
+.fmhero .lead b{color:#b3445f}
+.fstat{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:9px;margin:14px 0 16px}
+.fstat .fc{background:#fff;border:1px solid #fbe0e7;border-radius:16px;padding:11px 13px;box-shadow:0 2px 8px rgba(214,150,170,.10)}
+.fstat .fc .n{font-size:22px;font-weight:800;line-height:1.2;color:#d9668a}
+.fstat .fc .l{font-size:12px;color:#9c8590;margin-top:3px}
+.ftabs{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 14px}
+.ftab{border:2px solid #fbe0e7;background:#fff;border-radius:999px;padding:9px 17px;font-size:14px;font-family:inherit;cursor:pointer;color:#8a7280;font-weight:700;transition:transform .16s,box-shadow .16s,background .16s}
+.ftab .c{font-weight:700;color:#c4a8b4;font-size:12.5px;margin-left:5px}
+.ftab:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(214,150,170,.16)}
+.ftab.on{background:#ef8ba6;border-color:#ef8ba6;color:#fff;box-shadow:0 4px 14px rgba(239,139,166,.34)}
+.ftab.on .c{color:rgba(255,255,255,.85)}
+.ftab.given.on{background:#7fc8a9;border-color:#7fc8a9;box-shadow:0 4px 14px rgba(127,200,169,.34)}
+.fgroup{margin:22px 0 12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.fgroup .ge{font-size:19px;line-height:1}
+.fgroup .gt{font-size:16.5px;font-weight:800;color:var(--tc,#5c4a52)}
+.fgroup .gn{font-size:12px;font-weight:700;color:#fff;background:var(--tc,#b3445f);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.fgroup .gline{flex:1 1 40px;height:2px;border-radius:2px;background:linear-gradient(90deg,color-mix(in srgb,var(--tc,#fbe0e7) 45%,#fff),transparent)}
+.fgroup .gnote{flex:1 1 100%;font-size:12px;color:#a08b95;line-height:1.6}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:13px}
+/* 每張公式卡用自己的課題色（--tc，由 colorOf(topicId) 注入），
+   與首頁課題卡、知識圖譜、搜尋結果的配色一致。
+   邊框用 35% 課題色（比之前的 22% 更清楚），左側 5px 實心色條做主要識別。 */
+.fcard{position:relative;background:#fff;border:1px solid color-mix(in srgb,var(--tc,#ef8ba6) 35%,#fff);border-radius:18px;padding:15px 16px 13px 20px;box-shadow:0 3px 14px rgba(43,42,38,.07);min-width:0;transition:transform .18s,box-shadow .18s;overflow:hidden}
+.fcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--tc,#ef8ba6)}
+.fcard:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(43,42,38,.13)}
+.fcard .ff{font-family:"Cascadia Mono",Consolas,"Courier New",monospace;font-size:14.5px;font-weight:700;line-height:1.7;color:#2f2a26;background:color-mix(in srgb,var(--tc,#ef8ba6) 8%,#fff);border:1px solid color-mix(in srgb,var(--tc,#ef8ba6) 32%,#fff);border-radius:12px;padding:9px 12px;margin:0 0 9px;overflow-wrap:break-word;word-break:break-word}
+.fcard .fn{font-size:13.5px;color:#5c4a52;line-height:1.7;margin:0 0 8px;overflow-wrap:break-word}
+.fcard .fsym{font-size:12.5px;color:#8a7280;line-height:1.8;margin:0 0 2px;padding:0;list-style:none}
+.fcard .fsym li{overflow-wrap:break-word;padding-left:2px}
+.fcard .fsym li::before{content:"·";color:var(--tc,#e9b6c6);margin-right:5px;font-weight:800}
+.fcard .ffoot{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--tc,#ef8ba6) 20%,#fff);font-size:12px;color:#a08b95}
+.fbadge{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.fbadge.none{background:#ffe4e6;color:#c2415b;border:1px solid #fbc9d3}
+.fbadge.deriv{background:#eef2f7;color:#4a5a6e;border:1px solid #dbe4ee}
+/* 課題標籤：淡底 + 課題色圓點，邊界靠底色與卡片白底拉開 */
+.ftopic{display:inline-flex;align-items:center;gap:5px;background:#f4f2ec;border:1px solid #ddd6c8;border-radius:999px;padding:2px 10px;font-size:12px;color:#4a463d;font-weight:600;white-space:nowrap}
+.ftopic i{width:8px;height:8px;border-radius:50%;background:var(--tc,#999);flex:0 0 auto}
+/* 分組內的小課題標題列（同一課題的公式聚在一起時使用） */
+.ftopicrow{display:flex;align-items:center;gap:8px;margin:14px 0 8px}
+.ftopicrow .ftopic{background:color-mix(in srgb,var(--tc,#888) 10%,#fff);border-color:color-mix(in srgb,var(--tc,#888) 34%,#fff);color:#3d3830;font-size:12.5px}
+.ftopicrow .ftopicn{font-size:11.5px;color:#a08b95;font-weight:600}
+.ftopicrow::after{content:"";flex:1 1 auto;height:1px;background:color-mix(in srgb,var(--tc,#888) 18%,#fff)}
+/* 「筆記 →」按鈕：實心課題色 + 白字，與化學區 hchip 的視覺一致（邊界明確）。
+   之前用 color-mix 做 12% 淡底 + 30% 淡邊，兩者色差極小，看起來像沒有邊框。 */
+.fjump{margin-left:auto;background:var(--tc,#0f766e);color:#fff;border:1px solid var(--tc,#0f766e);border-radius:999px;padding:4px 13px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 1px 3px rgba(43,42,38,.18);transition:transform .14s,filter .14s}
+.fjump:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.fjump:active{transform:scale(.96)}
+.fempty{padding:30px 0;text-align:center;color:#a08b95;font-size:14px}
+@media(max-width:560px){
+  .fgrid{grid-template-columns:1fr}
+  .fcard{padding:14px 14px 12px;border-radius:16px}
+  .fcard .ff{font-size:13.5px;padding:8px 10px}
+  .fmhero{padding:16px 15px 13px;border-radius:18px}
+  .fmhero h2{font-size:18px}
+  .fstat{grid-template-columns:repeat(2,1fr)}
+}
+/* 額外資訊：有機化學命名規則 */
+.onhero{position:relative;background:linear-gradient(160deg,#f2fbf7 0%,#f6fdf9 55%,#fffdf7 100%);border:2px dashed #bfe6d3;border-radius:22px;padding:20px 20px 16px;margin:6px 0 16px;overflow:hidden}
+.onhero::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#d7f2e4 0%,rgba(215,242,228,0) 70%)}
+.onhero .hrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.onhero .dot{width:15px;height:15px;border-radius:50%;background:#5fb894;flex:0 0 auto;box-shadow:0 0 0 4px rgba(95,184,148,.18)}
+.onhero h2{margin:0;font-size:21px;line-height:1.35}
+.onhero .lead{position:relative;z-index:1;margin:9px 0 0;font-size:13px;line-height:1.8;color:#6f8b7e}
+.onpri{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid #d9f0e4;border-radius:16px;overflow:hidden;font-size:13.5px;box-shadow:0 3px 14px rgba(120,180,150,.10)}
+.onpri th,.onpri td{padding:9px 11px;text-align:left;border-bottom:1px solid #eaf7f1;vertical-align:top}
+.onpri th{background:#eefaf4;font-size:12.5px;font-weight:800;color:#3f8f6e;white-space:nowrap}
+.onpri tr:last-child td{border-bottom:none}
+.onpri tbody tr:nth-child(even){background:#fbfefc}
+.onpri .rk{font-weight:800;color:#5fb894;text-align:center;white-space:nowrap}
+.onpri .grp{font-family:"Cascadia Mono",Consolas,monospace;font-weight:700;white-space:nowrap;color:#3d2b33}
+.onpri .sfx{color:#c2415b;font-weight:700}
+.onpri .pfx{color:#4a5a6e}
+.onpri .nt{font-size:12.5px;color:#7d8f86;line-height:1.65}
+.onpri a{color:#3f8f6e;cursor:pointer;text-decoration:none;white-space:nowrap;font-weight:700}
+.onpri a:hover{text-decoration:underline}
+.onwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
+.onstep{background:#fff;border:1px solid #d9f0e4;border-left:5px solid #7fc8a9;border-radius:0 16px 16px 0;padding:13px 16px;margin:0 0 10px;box-shadow:0 2px 10px rgba(120,180,150,.08)}
+.onstep h4{margin:0 0 5px;font-size:14.5px;color:#3f8f6e}
+.onstep p{margin:0;font-size:13.5px;line-height:1.8;color:#4d5c54}
+.onstep .lk{margin-top:7px;font-size:12px}
+.onstep .lk a{display:inline-block;background:#e8f6ef;border:1px solid #cfeade;border-radius:999px;padding:3px 11px;color:#3f8f6e;cursor:pointer;text-decoration:none;font-weight:700}
+.onstep .lk a:hover{background:#d8f0e4}
+.onchain{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;margin:6px 0 0}
+.onchain .c{background:#fff;border:1px solid #d9f0e4;border-radius:14px;padding:9px 4px;text-align:center;box-shadow:0 2px 8px rgba(120,180,150,.08)}
+.onchain .c b{display:block;font-size:17px;line-height:1.3;color:#3d2b33}
+.onchain .c span{font-size:11.5px;color:#7d8f86;font-family:Consolas,monospace}
+.onex{background:#fff;border:1px solid #d9f0e4;border-radius:15px;padding:12px 15px;margin:0 0 9px;box-shadow:0 2px 10px rgba(120,180,150,.08)}
+.onex .nm{font-weight:800;font-size:14.5px;color:#3d2b33}
+.onex .en{font-family:"Cascadia Mono",Consolas,monospace;font-size:13px;color:#3f8f6e;margin-left:7px}
+.onex .why{font-size:12.5px;color:#7d8f86;line-height:1.7;margin-top:5px}
+@media(max-width:560px){
+  .onhero{padding:16px 15px 13px;border-radius:18px}
+  .onhero h2{font-size:18px}
+  .onpri{font-size:12.5px}
+  .onpri th,.onpri td{padding:8px 8px}
+}
+.onpri .pfx{color:#3d4a5c}
+.onpri .nt{font-size:12.5px;color:#6b665c;line-height:1.6}
+.onpri a{color:var(--accent,#0f766e);cursor:pointer;text-decoration:none;white-space:nowrap}
+.onpri a:hover{text-decoration:underline}
+.onwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.onstep{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent,#0f766e);border-radius:0 11px 11px 0;padding:11px 15px;margin:0 0 9px}
+.onstep h4{margin:0 0 4px;font-size:14.5px}
+.onstep p{margin:0;font-size:13.5px;line-height:1.75;color:#4a463d}
+.onstep .lk{margin-top:6px;font-size:12px}
+.onstep .lk a{color:var(--accent,#0f766e);cursor:pointer;text-decoration:none}
+.onstep .lk a:hover{text-decoration:underline}
+.onchain{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:7px;margin:6px 0 0}
+.onchain .c{background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 4px;text-align:center}
+.onchain .c b{display:block;font-size:16px;line-height:1.3}
+.onchain .c span{font-size:11.5px;color:var(--muted);font-family:Consolas,monospace}
+.onex{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:11px 14px;margin:0 0 8px}
+.onex .nm{font-weight:700;font-size:14.5px}
+.onex .en{font-family:"Cascadia Mono",Consolas,monospace;font-size:13px;color:#3d4a5c;margin-left:6px}
+.onex .why{font-size:12.5px;color:#6b665c;line-height:1.65;margin-top:4px}
 /* 額外資訊：程式碼速查（計算機程式） */
 .progkv{background:#fdfcf9;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 4px}
 .progkv .pkvrow,.progio .pkvrow{display:flex;gap:10px;font-size:13px;line-height:1.7;padding:2px 0}
@@ -756,6 +955,9 @@ function useSubject(sid){
   const pal = (s.colors && s.colors.length) ? s.colors : PALETTE;
   TOPICS.forEach((t,i)=>{ if(!COLORS[t.id]) COLORS[t.id]=pal[i%pal.length]; });
   try{ localStorage.setItem(SUBKEY, s.id); }catch(e){}
+  /* 切科目時清空測驗勾選並移除浮動操作條，避免殘留別科的課題 id */
+  try{ COMBO={ids:[]}; }catch(e){}
+  try{ var _pb=document.getElementById('pickbar'); if(_pb) _pb.remove(); }catch(e){}
   migrateStore(s.id);
   return true;
 }
@@ -810,11 +1012,41 @@ function dueCountFor(sid){
 
 /* ---------------- helpers ---------------- */
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+/* 下標：資料裡大量用 c_rms、N_A、F_x、m_e 這種寫法，直接顯示會是字面下劃線
+   （使用者反映「下角標變下劃線」）。這裡把「基底_下標」渲染成真正的 <sub>。
+   規則設計（幾個坑都踩過）：
+     1. 基底可帶多位（mAu_A、VsI_s、mcrms² 都要能吃）——但若整段是 snake_case
+        （前後都有英數、或含多個下劃線），就不要動。
+     2. 下標後面常接 ) 」、空格、+ 等符號，不能要求「詞尾」，故改用「不是英數」即可。
+     3. 行內代碼（<code>）內的內容一律不動，保留原樣給人抄。
+     4. __粗體__ 的雙下劃線不處理。 */
+var SUB_RE=/([A-Za-zα-ωΑ-Ω][A-Za-z0-9α-ωΑ-Ω]*)_([A-Za-z0-9α-ωΑ-Ω]+)(?![A-Za-z0-9α-ωΑ-Ω_])/g;
+function subify(html){
+  // 先做一輪：處理標準「基底_下標」
+  var out=html.replace(SUB_RE,function(m,base,sub){
+    // snake_case 防呆：全小寫長單詞（如 snake_case_name）不轉
+    var looksLikeCode=/^[a-z]+$/.test(base) && base.length>3;
+    if(looksLikeCode && !/^[A-Z]/.test(sub)) return m;
+    return base+'<sub>'+sub+'</sub>';
+  });
+  // 第二輪：處理「m_AuA」這種下標後面緊跟字母的連續記號
+  // （物理慣例 m_Au_A 常被寫成 m_AuA，本意仍是 m_A·u_A）
+  out=out.replace(/([A-Za-z])_([A-Za-z0-9])(?=[A-Za-z])/g,function(m,b,s){
+    return b+'<sub>'+s+'</sub>';
+  });
+  return out;
+}
 function inline(s){
-  return esc(s)
+  var t=esc(s)
     .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
     .replace(/`([^`]+)`/g,'<code>$1</code>')
     .replace(/\*([^*]+)\*/g,'<em>$1</em>');
+  /* 行內代碼（反引號）也要做下標轉換。
+     原本刻意保留原樣「方便抄寫」，但實際資料裡大量公式就寫在反引號內
+     （`V_s I_s = V_p I_p`、`s_y = u_y t`），保留字面下劃線反而讓使用者
+     以為是排版壞了。複製時瀏覽器會帶上 <sub> 但貼到純文字處即恢復成
+     原字元，不影響抄寫。 */
+  return subify(t);
 }
 function mdLite(src,keywords){
   const lines = String(src||'').split(/\r?\n/);
@@ -856,7 +1088,10 @@ function mdLite(src,keywords){
         i++;
       }
       if(i<lines.length)i++;
-      html+='<pre class="mdcodewrap"'+(lang?' data-lang="'+esc(lang)+'"':'')+'><code>'+esc(code)+'</code></pre>';
+      // 代碼塊內的公式同樣做下標轉換：這裡放的多是物理/化學推導（m_A u_A、F_AB），
+      // 顯示成字面下劃線既難看又容易誤讀。縮排與換行靠 <pre> 的 white-space 保留，
+      // 插入的 <sub> 不會破壞排版。
+      html+='<pre class="mdcodewrap"'+(lang?' data-lang="'+esc(lang)+'"':'')+'><code>'+subify(esc(code))+'</code></pre>';
       continue;
     }
     if(isTableRow(line)){
@@ -1531,6 +1766,18 @@ function needsContent(){
 }
 
 /* ---------------- views ---------------- */
+/* 課題標籤代碼 → 顯示文字。
+   資料裡 topic.tags 目前只有 'E1'（生物選修一：體內平衡相關章節）。
+   這個函式被 topicCardHTML / viewTopic / viewUnit 三處呼叫，
+   但歷來從未定義過 → 只要某個單元下的課題帶 tags，該頁就整個
+   拋 ReferenceError 白屏（生物「體內平衡與調節」單元實際踩到）。
+   現在補上定義，並對未知代碼原樣顯示，避免再次白屏。 */
+var TAG_LABELS = {"E1":"選修一","E2":"選修二","E3":"選修三","E4":"選修四"};
+function tsub(g){
+  if(g===undefined || g===null) return "";
+  var k=String(g);
+  return TAG_LABELS[k] || k;
+}
 /* 課題卡片（首頁與單元頁共用） */
 function topicCardHTML(t){
   const pts=pointsOf(t).length;
@@ -2381,6 +2628,19 @@ function startQuiz(scope){
     const set=new Set(scope.ids||[]);
     pool=allQuestions().filter(q=>q.point&&set.has(q.point));
   }
+  else if(scope.mode==='topics'){
+    /* 自由組合測驗：勾選任意幾個課題，把它們的題目合起來考。
+       科目本身是隔離的（QUIZ 只含當前科目），所以不會混到別科。
+       scope.n 可選：指定抽 n 題；不給就全部。 */
+    const ids=scope.ids||[];
+    let src=ids.reduce((acc,tid)=>acc.concat((QUIZ[tid]||[]).map(q=>Object.assign({topic:tid},q))),[]);
+    if(scope.onlyWrong) src=src.filter(q=>W.has(q.id));
+    if(scope.n){
+      const n=Math.max(1,Math.min(parseInt(scope.n,10)||10,src.length));
+      src=shuffle(src).slice(0,n);
+    }
+    pool=src;
+  }
   else if(scope.mode==='random'){
     // 隨機抽題：源池（全部／錯題／指定課題）先洗牌再截取 n 題
     let src;
@@ -2397,33 +2657,142 @@ function startQuiz(scope){
   if((location.hash||'').indexOf('/run')>=0)renderQ();
 }
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ---------------- 測驗範圍：直接在課題列表勾選 ----------------
+   勾選狀態記在 COMBO.ids；切科目時清空（避免殘留別科課題 id）。
+   科目隔離：QUIZ 只含當前科目題目，勾不到別科。 */
+let COMBO={ids:[]};
+function quizPicks(){ return [...document.querySelectorAll('.qpickwrap input[type=checkbox]')]; }
+function quizPicked(){ return quizPicks().filter(b=>b.checked).map(b=>b.value); }
+function quizPickCount(ids){
+  return ids.reduce((a,tid)=>a+((QUIZ[tid]||[]).length),0);
+}
+function quizPickWrong(ids){
+  const W=wrongSet();
+  return ids.reduce((a,tid)=>a+(QUIZ[tid]||[]).filter(q=>W.has(q.id)).length,0);
+}
+function quizPickChanged(){
+  const ids=quizPicked();
+  COMBO.ids=ids;
+  // 卡片選中態（.on）與勾選框同步，點卡片空白處也能選
+  document.querySelectorAll('.qpick').forEach(card=>{
+    const b=card.querySelector('input[type=checkbox]');
+    card.classList.toggle('on',!!(b&&b.checked));
+  });
+  const onlyWrong=!!(document.getElementById('pickwrong')&&document.getElementById('pickwrong').checked);
+  const total=onlyWrong?quizPickWrong(ids):quizPickCount(ids);
+  const nEl=document.getElementById('pickn');
+  const want=nEl?parseInt(nEl.value,10):0;
+
+  // 底部浮動操作條：只在有勾選時出現
+  let bar=document.getElementById('pickbar');
+  if(!ids.length){
+    if(bar) bar.remove();
+    return;
+  }
+  const names=ids.map(tid=>(TMAP[tid]&&TMAP[tid].title)||tid);
+  const brief=names.length<=2?names.join('、'):(names.slice(0,2).join('、')+' 等 '+names.length+' 個');
+  let txt='已選 '+ids.length+' 個課題（'+brief+'）· 共 '+total+' 題';
+  if(want>0&&want<total) txt+='，抽 '+want+' 題';
+  if(!bar){
+    bar=document.createElement('div');
+    bar.id='pickbar';
+    bar.className='pickbar';
+    bar.innerHTML='<span class="pickbar-t" id="pickbar-t"></span>'
+      +'<button class="go pickbar-go" onclick="startPickedQuiz()">開始測驗</button>'
+      +'<button class="pickbar-x" onclick="quizPickAll(false)" aria-label="清除">✕</button>';
+    document.body.appendChild(bar);
+  }
+  const t=document.getElementById('pickbar-t');
+  if(t) t.textContent=txt;
+  const go=bar.querySelector('.pickbar-go');
+  if(go) go.disabled=(total<=0);
+}
+function quizPickAll(on){
+  quizPicks().forEach(b=>{b.checked=on;});
+  quizPickChanged();
+}
+/* 點卡片空白處也能勾選（手機上勾選框太小不好按）。
+   點勾選框本身或「單獨測驗」按鈕時不重複觸發。 */
+function quizPickCardToggle(ev,card){
+  if(ev.target.closest('input[type=checkbox]'))return;
+  if(ev.target.closest('button'))return;
+  const b=card.querySelector('input[type=checkbox]');
+  if(!b)return;
+  b.checked=!b.checked;
+  quizPickChanged();
+}
+function quizPickUnit(uid,on){
+  const g=document.querySelector('.qgroup[data-uid="'+uid+'"]');
+  if(!g) return;
+  [...g.querySelectorAll('input[type=checkbox]')].forEach(b=>{b.checked=on;});
+  quizPickChanged();
+}
+function startPickedQuiz(){
+  const ids=quizPicked();
+  if(!ids.length) return;
+  const onlyWrong=!!(document.getElementById('pickwrong')&&document.getElementById('pickwrong').checked);
+  const nEl=document.getElementById('pickn');
+  const n=nEl?parseInt(nEl.value,10):0;
+  const bar=document.getElementById('pickbar');
+  if(bar) bar.remove();
+  startQuiz({mode:'topics',ids:ids,onlyWrong:onlyWrong,n:(n>0?n:0)});
+}
 function viewQuiz(){
   navOn('quiz');
   if(needsContent())return;
   const W=wrongSet();
-  // 有單元時：先給「整個分區」的按鈕，再把課題按分區分組列出，避免一長串
+  /* 課題列表本身就是勾選器：每個課題一顆 checkbox，直接點即選，
+     不用另外開一個「組合測驗」區塊。
+     - 點「N 題」那顆文字 → 只考這一個課題（維持原本的單課題測驗）
+     - 勾多個 → 底部出現「已選 N 個課題 · 共 M 題 / 開始測驗」
+     分區標題右側有「全選 / 清除」，可整組操作。 */
+  const topicItem=(t,showWrong)=>{
+    const n=(QUIZ[t.id]||[]).length;
+    const wn=(QUIZ[t.id]||[]).filter(q=>W.has(q.id)).length;
+    const pts=pointsOf(t).length;
+    const m=topicMastery(t);
+    const mp=Math.round(m*100);
+    const desc=(t.description||((t.sections||[]).slice(0,3).map(s=>s.title).join('、')));
+    return `<div class="qpick" data-tid="${t.id}" style="--tc:${colorOf(t.id)}" onclick="quizPickCardToggle(event,this)">
+      <span class="bar"></span>
+      <span class="qtick">✓</span>
+      <span class="qpick-h">
+        <input type="checkbox" value="${t.id}" onchange="quizPickChanged()" aria-label="選擇 ${esc(t.title)}">
+        <span>
+          <span class="qpick-t">${esc(t.title)}</span>
+          ${t.tags&&t.tags.length?' <span class="tags">'+t.tags.map(g=>'<span class="tag">'+tsub(g)+'</span>').join('')+'</span>':''}
+          <span class="badge ${mp>=85?'ok':mp>=30?'mid':''}" style="${mp>=85?'':mp>=30?'':'background:#f1ede4;color:#7a756a'}">${masteryLabel(m)}</span>
+        </span>
+      </span>
+      <span class="qpick-d">${esc(desc)}…</span>
+      <span class="qpick-pbar"><i style="width:${mp}%;background:${masteryColor(m)}"></i></span>
+      <span class="qpick-meta"><span>掌握度 ${mp}%</span><span>${pts} 知識點 · ${n} 題</span></span>
+      <span class="qpick-foot">
+        <span><span class="pill">${(t.sections||[]).length} 章</span>${wn&&showWrong?`<span class="qpick-wrong">錯 ${wn}</span>`:''}</span>
+        <button type="button" class="qpick-go" onclick="startQuiz({mode:'topics',ids:['${t.id}']})">單獨測驗</button>
+      </span>
+    </div>`;
+  };
   const unitRows = hasUnits()
     ? UNITS.map(u=>{
         const ts=topicsOfUnit(u).filter(t=>(QUIZ[t.id]||[]).length);
         if(!ts.length)return '';
         const uQ=ts.reduce((a,t)=>a+QUIZ[t.id].length,0);
         const uW=ts.reduce((a,t)=>a+QUIZ[t.id].filter(q=>W.has(q.id)).length,0);
-        return `<div style="margin-top:16px;font-size:14px;color:var(--muted)">${u.emoji?esc(u.emoji)+' ':''}${esc(u.title)}</div>
-          <div class="scopes">
-            <div class="scope" onclick="startQuiz({mode:'unit',id:'${u.id}'})">${esc(u.title)}全部<small>${uQ} 題${uW?' · 錯題 '+uW:''}</small></div>
-            ${ts.map(t=>{
-              const n=QUIZ[t.id].length;
-              const wn=QUIZ[t.id].filter(q=>W.has(q.id)).length;
-              return `<div class="scope" onclick="startQuiz({mode:'topic',id:'${t.id}'})">${esc(t.title)}<small>${n} 題${wn?' · 錯題 '+wn:''}</small></div>`;
-            }).join('')}
-          </div>`;
+        return `<div class="qgroup" data-uid="${u.id}">`
+          +`<div class="qghead">`
+          +`<span class="qgt">${u.emoji?esc(u.emoji)+' ':''}${esc(u.title)}</span>`
+          +`<button class="qgall" onclick="quizPickUnit('${u.id}',true)">全選</button>`
+          +`<button class="qgall" onclick="quizPickUnit('${u.id}',false)">清除</button>`
+          +`<button class="qgwhole" onclick="startQuiz({mode:'unit',id:'${u.id}'})">整區 ${uQ} 題${uW?' · 錯 '+uW:''} →</button>`
+          +`</div>`
+          +`<div class="qplist">${ts.map(t=>topicItem(t,true)).join('')}</div>`
+          +`</div>`;
       }).join('')
     : '';
-  const rows = hasUnits() ? unitRows : TOPICS.map(t=>{
-    const n=(QUIZ[t.id]||[]).length;if(!n)return '';
-    const wn=(QUIZ[t.id]||[]).filter(q=>W.has(q.id)).length;
-    return `<div class="scope" onclick="startQuiz({mode:'topic',id:'${t.id}'})">${esc(t.title)}<small>${n} 題${wn?' · 錯題 '+wn:''}</small></div>`;
-  }).join('');
+  const rows = hasUnits() ? unitRows
+    : TOPICS.filter(t=>(QUIZ[t.id]||[]).length).map(t=>topicItem(t,true)).join('');
   const topicOpts=TOPICS.filter(t=>(QUIZ[t.id]||[]).length)
     .map(t=>`<option value="${t.id}">${esc(t.title)}（${QUIZ[t.id].length} 題）</option>`).join('');
   app.innerHTML=`
@@ -2433,6 +2802,20 @@ function viewQuiz(){
       <div class="scope" onclick="startQuiz({mode:'all'})">🔥 全部課題<small>${allQuestions().length} 題隨機抽</small></div>
       <div class="scope" onclick="startQuiz({mode:'wrong'})">📕 只練錯題<small>${W.size} 題待重練</small></div>
     </div>
+
+    <div class="pickh">
+      <span class="picktitle">✅ 直接勾選想考的課題</span>
+      <span class="picksub">可跨分區任意搭配；勾多個就會合成一份測驗</span>
+      <span class="picktools">
+        <button class="cbtool" onclick="quizPickAll(true)">全部勾選</button>
+        <button class="cbtool" onclick="quizPickAll(false)">全部清除</button>
+        <label class="cbtool cbwarn"><input type="checkbox" id="pickwrong" onchange="quizPickChanged()"> 只考錯題</label>
+        <span class="cbtool cbnbox"><input id="pickn" type="number" min="1" max="999" placeholder="全部" oninput="quizPickChanged()"> 題</span>
+      </span>
+    </div>
+
+    <div class="qpickwrap">${rows}</div>
+
     <div class="randbox">
       <div class="randtitle">🎲 隨機抽題</div>
       <div class="randrow">
@@ -2447,9 +2830,9 @@ function viewQuiz(){
       </div>
       <div class="randhint">從選定範圍隨機抽題，每次都不一樣；題數超過範圍總數時取全部。</div>
     </div>
-    ${hasUnits()?rows:`<div style="margin-top:16px;font-size:14px;color:var(--muted)">按課題：</div><div class="scopes">${rows}</div>`}
     <div id="qempty" class="empty" style="display:none">這個範圍目前沒有錯題或題目，換個範圍吧 🌟</div>
   </div></div>`;
+  quizPickChanged();
 }
 function startRandomQuiz(){
   const fromEl=document.getElementById('rndfrom');
@@ -2904,6 +3287,16 @@ function registerSW(){
           }
         });
       });
+      /* 主動檢查更新：只在 updatefound 時被動等待是不夠的——
+         瀏覽器只在「SW 檔案本身」有變化時才自動檢查，若 HTML 更新了而 SW
+         沒變，使用者會一直拿到舊快取。這裡在頁面重新可見時主動 update()。 */
+      try{
+        var checkUpd=function(){ try{ reg.update(); }catch(e){} };
+        document.addEventListener('visibilitychange', function(){
+          if(document.visibilityState === 'visible') checkUpd();
+        });
+        window.addEventListener('focus', checkUpd);
+      }catch(e){}
     }).catch(function(){
       /* 註冊失敗（例如在 http 的內網 IP 上）不該影響主功能，靜默略過 */
     });
@@ -2971,6 +3364,8 @@ function route(){
   let h=location.hash||'#/home';
   window.scrollTo(0,0);
   closePip();
+  /* 離開測驗頁時移除勾選浮動條，避免它跟著跑到別的頁面 */
+  try{ var _pb=document.getElementById('pickbar'); if(_pb) _pb.remove(); }catch(e){}
   // 虚拟列表清理
   if(VIRT.contentEl){
     VIRT.contentEl.removeEventListener('scroll', virtOnScroll);
