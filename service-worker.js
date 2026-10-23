@@ -26,7 +26,7 @@
  * V0.14.0 由 prep_ghpages.py 在部署时替换成站点版号。改版即换缓存名，
  * 避免用户长期停留在旧缓存上，同时 activate 时清掉旧版缓存防止无限增长。
  */
-var SW_VERSION = 'V0.14.0';
+var SW_VERSION = 'V0.14.1';
 var CACHE = 'shenzhine-' + SW_VERSION;
 var NET_TIMEOUT = 10000;
 
