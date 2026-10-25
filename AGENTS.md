@@ -72,17 +72,23 @@ f6chem/
 ```bash
 python site/build.py                      # 构建
 python scripts/verify_build.py            # ★ 构建后自检（必须全绿）
+python scripts/guard_data.py              # ★ 题库守门员：确认只改了 explanation/explSource
+python scripts/check_quiz.py              # 测验题自检（动过 quiz/ 才需要）
 NO_WIPE=1 python site/prep_ghpages.py     # 生成部署目录
 python site/_expl_coverage.py             # 题解覆盖率（--topic bioNN / --check）
-python scripts/guard_data.py              # 检查题库只改了允许的字段
 ```
+
+`guard_data.py` 的 `--allow <题号>:<字段>` 用于「确需修改受保护字段」的情形，
+例如修 `pp_2019_q34` 选项吞并邻题的 bug：`--allow pp_2019_q34:options`。
+**白名单只在本次运行生效，不会被记住，commit 信息里必须写明原因。**
 
 ## 改完必须做
 
 1. `python site/build.py` → `python scripts/verify_build.py`（全绿才算完成）
-2. 部署按 `SHARED-MEMORY.md` §6 六步（**别忘 `cp -rn gh-pages/img/. 部署包/img/`**）
-3. 往 `SHARED-MEMORY.md` **§5 变更日志**追加一条（带作者、时间、验证结果）
-4. 更新 §2 现状（版本号、题数、题解数）
+2. 动过题库/测验题就再跑 `python scripts/guard_data.py` 和 `python scripts/check_quiz.py`
+3. 部署按 `SHARED-MEMORY.md` §6 六步（**别忘 `cp -rn gh-pages/img/. 部署包/img/`**）
+4. 往 `SHARED-MEMORY.md` **§5 变更日志**追加一条（带作者、时间、验证结果）
+5. 更新 §2 现状（版本号、题数、题解数）
 
 ## 已知陷阱（详细版见 SHARED-MEMORY.md §4）
 

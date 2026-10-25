@@ -30,5 +30,14 @@ jobs:
       - name: 自检（11 项：题数 / 版权 / 搜索 worker / 脚本语法 / 图片引用 / SW 版本 …）
         run: python scripts/verify_build.py
 
+      - name: 题库守门员（结构校验）
+        # 这里用 --no-git：CI 检出的是「本次提交本身」，工作区与 HEAD 必然一致，
+        # 逐字段比对会永远通过，放在 CI 里没有意义。
+        # 「不许改受保护字段」的检查靠本地提交前跑 scripts/guard_data.py（默认就会比对 HEAD）。
+        run: python scripts/guard_data.py --no-git
+
+      - name: 测验题自检（选项数 / 答案索引 / 知识点引用 / 题解完整性）
+        run: python scripts/check_quiz.py
+
       - name: 题解覆盖率（仅供参考，不阻断）
         run: python site/_expl_coverage.py || true
