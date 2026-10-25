@@ -47,8 +47,10 @@
 | 课题分类 | 27 个（bio02–bio29，bio99 已归零） |
 | 题解 | **195 / 374**（缺 179） |
 | 配图 | 121 张题目图 + 21 张选项图 + 14 张整题原卷图 |
-| 数据主档 | `f6chem/data/bio/_pastpaper.json`（≈284 KB） |
-| 线上体积 | index.html 3.66 MB（图片外置） |
+| 数据主档 | `f6chem/data/bio/_pastpaper.json`（315 KB） |
+| 线上体积 | index.html 3.69 MB（图片外置） |
+| 协作文档 | `docs/贡献指南.md`（给人看）、`AGENTS.md`（给 AI 看）、`docs/journal/`（各自的日志） |
+| 检查工具 | `scripts/verify_build.py`（构建自检）、`scripts/guard_data.py`（题库守门员）、`scripts/check_quiz.py`（测验题自检） |
 | 部署包 | `default-workspace/神智核-GitHub部署包`（独立 git 仓库，remote `nzgjsmy/ShenZhiHe`） |
 
 ---
@@ -110,6 +112,28 @@
 ```js
 const blocks=[...html.matchAll(/<script(?![^>]*application\/json)[^>]*>([\s\S]*?)<\/script>/g)];
 blocks.forEach(b=>new vm.Script(b[1]));   // 抛错即语法错
+```
+
+### ⚠️ 4.8 「吞并邻题」是本题库最顽固的一类错误
+
+从合并稿解析时，**题干和选项都会越过题号边界**，把下一题的内容吞进来。
+症状和检查方法：
+
+| 症状 | 判定 | 例子（2026-10-26 修掉的） |
+|---|---|---|
+| `options` 数量不是 4 | `guard_data.py` 报「选项字母重复」 | `pp_2019_q34` 有 **48** 个选项（吞了后 11 题） |
+| 题干里出现 `**20XX Q.NN（xx%）**` 或 `NN. 下列…` | 人工看 | `pp_2017_q12` 吞了 Q32、`pp_2021_q24` 吞了 Q25 |
+| 同一个字母出现两次（如两个 `A`） | `guard_data.py` 报重复 | `pp_2013_q11` 选项 A 被 OCR 断成两条 |
+
+**关键点：前端不做截断。** `ppCard()` 直接 `opts.map(...)` 渲染，
+48 个选项就是 48 个按钮，`viewQuiz()` 用 `String.fromCharCode(65+idx)`，
+第 5 个选项会显示成「E」。所以这类错误是**用户可见**的，不是内部小问题。
+
+修的时候用 `--allow` 开白名单，并在 commit 里写清楚改了什么、核对过什么：
+
+```bash
+python scripts/guard_data.py --allow pp_2019_q34:options
+git commit -m "fix：pp_2019_q34 选项吞并后 11 题（48→4），已核对原卷"
 ```
 
 ---
@@ -206,6 +230,24 @@ blocks.forEach(b=>new vm.Script(b[1]));   // 抛错即语法错
 - 验证：`build.py` → 3,873,179 bytes / V0.18.17 / 2528 题；`verify_build.py` → 11/11 全绿；推送 `334d1c3`。
 - 详见 `docs/journal/2026-10-25-workbuddy.md`。
 
+### [2026-10-26 00:20] WorkBuddy · 协作工具链 + 修 6 处数据 bug（「别人怎么帮我」）
+- 新增 `docs/贡献指南.md`：给**人**看的上手文档（三档参与方式、五分钟跑起来、三种 JSON 结构、可认领的任务清单、提交与防冲突规则、红线）。
+- 新增 `scripts/guard_data.py`：**此前 `AGENTS.md` 引用了它但文件根本不存在**，协作者照文档跑会报「找不到文件」。功能：结构校验 + 与 git HEAD 逐字段比对，只放行 `explanation`/`explSource`；确需改受保护字段时用 `--allow <题号>:<字段>` 显式声明。
+- 新增 `scripts/check_quiz.py`：2528 道测验题的结构校验（选项数 / 答案索引 / `point` 是否指向真实知识点 / 题解是否为空 / id 唯一）。
+- **守门员一上线就抓出 6 处真错**（都是用户可见的）：
+  - `pp_2019_q34` 选项吞了后 11 题 → **48 个选项**，界面上是 48 个按钮
+  - `pp_2021_q24` 题干吞了 Q25、选项吞了 Q25 的 4 个 → 8 个选项
+  - `pp_2017_q12` 题干吞了 Q32 题头、选项吞了 Q32 的 4 个 → 8 个选项
+  - `pp_2013_q11` 选项 A 被 OCR 断成两条 → 两个 `A`
+  - `pp_2016_q35` 混进一条图注碎片 → 5 个选项
+  - `quiz/phys/nuclear1.json` q9 有 5 个选项 → 界面显示成「E.」
+  - 已全部按最小改动修复（截断到 4 项 / 合并断行 / 图注移入题干），每题都有备份。
+- `quiz/zz.json` 是遗留示例文件，挂在不存在的话题上 → 移到 `docs/examples/quiz-example.json` 当写题模板。
+- CI 增加 `guard_data.py --no-git` 与 `check_quiz.py` 两步（CI 检出的是本次提交本身，逐字段比对必然通过，故 CI 只做结构校验）。
+- 新增 §4.8「吞并邻题」陷阱表——这是本题库最顽固的一类错误。
+- 验证：`build.py` → 3,870,691 bytes / V0.18.17 / 2528 题；`verify_build.py` 11/11；`guard_data.py` 0 错误；`check_quiz.py` 0 错误。
+- 详见 `docs/journal/2026-10-25-workbuddy.md`。
+
 ---
 
 ## 6. 标准流程（照抄即可）
@@ -254,10 +296,15 @@ curl -s https://nzgjsmy.github.io/ShenZhiHe/service-worker.js | grep SW_VERSION
 
 ## 8. 待办
 
-- [ ] 题解：补 260 题（19 个课题）。写法：先讲正确答案理由 → 再逐项说错在哪 → 计算/图表题补关键判据。
+> 完整版（含每个课题缺多少题）见 `docs/贡献指南.md` §3，那里是给协作者看的认领清单。
+
+- [ ] **题解：补 179 题**（19 个课题，实测 195/374）。缺口最大：bio25(29)、bio19(25)、bio08(25)、bio20(19)、bio26(14)、bio10(14)、bio28(10)。已补齐：bio11/13/18/21/22/23/24/27。写法见 §9。
+- [ ] **化学、物理的 DSE 真题库**（目前只有生物有 `_pastpaper.json`）——最大的空白，前端 `viewPastPaper()` 通用，只需补数据。
 - [ ] 缺 22 道题（多為選項為圖片、OCR 取不到文字），目前用原卷图代替。
+- [ ] 5 处测验题题解过短：`quiz/chem/1b.json` q62/q94、`1c.json` q33/q78、`quiz/bio/bio20.json` bio20-q24b（id 格式也不规范）。
 - [x] ~~build.mjs 补齐 `_pastpaper`~~（10-25 22:42）
 - [x] ~~比对两者功能面~~（10-25 22:48：build.py 为超集）→ **build.mjs 已废弃为转发桩**
+- [x] ~~补齐 `scripts/guard_data.py`~~（10-26：此前 AGENTS.md 引用了它但文件不存在）
 - [ ] 年份排序：现为升序，可考虑加「↑↓」切换。
 
 ---
