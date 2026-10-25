@@ -16,6 +16,7 @@ python scripts/verify_build.py   # 应全绿
 
 > **main 分支 = 已构建的网站**（GitHub Pages 从这里发布），**不要往 main 提交源码**。
 > **source 分支 = 源码**，所有开发都在这里。
+> **没有 `master` 分支**（已废弃删除）。`git branch` 里只应有 `source`。
 
 提交前：
 
@@ -99,3 +100,35 @@ python scripts/guard_data.py              # 检查题库只改了允许的字段
 - 多人/多 AI 同时改时，先读 `SHARED-MEMORY.md` **§3 占用**，动工前登记，做完删掉。
 - 分工：题库与真题视图归 WorkBuddy；`extras/*`、`_mk_pkg.py` 归 DSH。
 - 有疑问先看 §4 陷阱表，90% 的坑都记在那里。
+
+## 记忆怎么同步（重要）
+
+本项目的记忆**全部随 git 走**，没有第二个地方。三个文件各管一件事：
+
+| 文件 | 写什么 | 冲突风险 |
+|---|---|---|
+| `SHARED-MEMORY.md` | 现状 / 占用 / 陷阱 / 变更日志（**唯一事实来源**） | 高 → 只留一行摘要 |
+| `docs/journal/<日期>-<名字>.md` | 你自己的详细过程、踩坑、命令 | 无 → 一人一文件 |
+| `AGENTS.md` | 硬性约定（改动很少） | 低 |
+
+**开工前**（拿到别人最新的记忆）：
+
+```bash
+git checkout source && git pull
+cat SHARED-MEMORY.md          # 至少读 §2 现状、§3 占用、§4 陷阱
+```
+
+**收工后**（把你的记忆交出去）：
+
+```bash
+# 1. 详细过程写进自己的 journal（不冲突）
+vim docs/journal/2026-10-26-你的名字.md
+# 2. SHARED-MEMORY.md 只加一行，指向 journal
+#    §5 末尾追加：
+#    - 2026-10-26 你的名字：一句话说明 → 详见 docs/journal/2026-10-26-你的名字.md
+# 3. 更新 §2 现状（版本号 / 题数 / 题解数）
+git add -A && git commit -m "..." && git push origin source
+```
+
+> 关键点：**别把详细日志堆进 `SHARED-MEMORY.md` §5**。两个人同时往同一段追加 =
+> git 冲突，而且那个文件是所有人每次都要读的，写太长没人看得完。

@@ -197,6 +197,15 @@ blocks.forEach(b=>new vm.Script(b[1]));   // 抛错即语法错
 - 推送 `source` 分支（2ad8b57），`main` 保持 aec21d7 未动，线上 200。
 - **踩坑**：`git branch -f source master` 后仍停留在 master，后续提交进了 master → 远程 source 落后一版。教训：建分支后要 `git checkout`，或直接用 `git push origin master:source`。
 
+### [2026-10-26 00:05] WorkBuddy · 共享记忆入仓 + 补齐 quiz 数据（记忆同步闭环）
+- **修复根本漏洞**：`SHARED-MEMORY.md` 原在 `default-workspace/`（本地），**不在仓库里**，协作者 clone 看不到 → 已搬进仓库根目录，随 git 同步；工作区那份改为存根。
+- 建 `docs/journal/` 按人分文件写日志，§5 从此只留「一行摘要 + journal 文件名」，避免多人冲突。
+- **补齐隐性缺失数据**：`quiz/bio/*.json`（34 个）与 `quiz/phys/energy1-4.json` 从未提交，而 `build.py` 直接读取 → 别人构建会静默少 34 个生物课题测验题。已全部入库（1.0 MB）。
+- `.gitignore` 补忽略 `site/_*.py`、`site/archive/`（14 MB 旧产物）、`e3_src/`、`scratch/_*.py` 等中间物，未追踪文件从 160+ 降到 0。
+- 删除残留本地 `master` 分支（之前错提交的根源）；`AGENTS.md` 注明「没有 master 分支」并新增「记忆怎么同步」整节。
+- 验证：`build.py` → 3,873,179 bytes / V0.18.17 / 2528 题；`verify_build.py` → 11/11 全绿；推送 `334d1c3`。
+- 详见 `docs/journal/2026-10-25-workbuddy.md`。
+
 ---
 
 ## 6. 标准流程（照抄即可）
