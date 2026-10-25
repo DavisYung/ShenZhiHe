@@ -65,10 +65,12 @@ self.addEventListener('activate', function (e) {
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (k) {
         /* 清掉旧版号缓存，避免用户攒了几十个版本把存储撑爆 */
-        if (k.indexOf('shenzhine-') === 0 && k !== CACHE) {
+        /* 每次新 SW 激活时清除所有旧缓存，避免用户停留在旧 HTML 上 */
+        if (k.indexOf('shenzhine-') === 0) {
           return caches.delete(k);
         }
-        return null;
+          return caches.delete(k);
+        }
       }));
     }).then(function () {
       return self.clients.claim();
@@ -115,20 +117,20 @@ self.addEventListener('fetch', function (e) {
   }
   if (url.origin !== self.location.origin) return;
 
-  /* 导航请求——网络优先（带超时），失败回退缓存首页 */
+  /* 导航请求——缓存优先 + 后台更新，避免每次都下载大 HTML 导致加载慢 */
   if (req.mode === 'navigate') {
     e.respondWith(
-      netFirstWithTimeout(req).then(function (res) {
-        /* 只缓存正常响应，别把 404 页面缓存下来当成首页 */
-        if (res && res.status === 200) {
-          var copy = res.clone();
-          caches.open(CACHE).then(function (c) { c.put('./index.html', copy); });
-        }
-        return res;
-      }).catch(function () {
-        return caches.match('./index.html').then(function (hit) {
-          return hit || caches.match('./') || Response.error();
+      caches.match(req).then(function (hit) {
+        var fetching = fetch(req).then(function (res) {
+          if (res && res.status === 200 && res.type === 'basic') {
+            var copy = res.clone();
+            caches.open(CACHE).then(function (c) { c.put(req, copy); });
+          }
+          return res;
+        }).catch(function () {
+          return hit || Response.error();
         });
+        return hit || fetching;
       })
     );
     return;
