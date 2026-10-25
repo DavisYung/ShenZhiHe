@@ -27,6 +27,15 @@ site/_appcheck.js
 site/_check_main.js
 # headless Chrome 臨時 profile（每個約 10 MB，累積上百 MB）
 site/_t_profile*/
+# 一次性除錯腳本（`_` 前綴慣例；正式腳本在 scripts/ 與 site/build.py）
+site/_*.py
+site/_*.cjs
+site/_*.png
+site/_screenshot_check/
+# 舊版本建置產物快照（14 MB，可由 git 歷史取回）
+site/archive/
+# OCR 逐頁辨識出的中間文字（330 KB，屬可重生中間物）
+e3_src/
 # Python 快取
 __pycache__/
 *.pyc
@@ -50,6 +59,22 @@ pages/
 # ---------- OCR 中間產物 ----------
 ocr/
 notes-raw/
+# 逐頁 OCR 純文字轉儲（可重生，不進倉庫）
+scratch/pp_*_p1.txt
+scratch/ocr_*.txt
+scratch/sub_hits.txt
+scratch/*_raw.txt
+scratch/*_uniq.txt
+scratch/dse_bio_mc.txt
+scratch/dse_bio_mc_byyear.json
+scratch/dse_bio_mc_items.json
+scratch/img_*.txt
+scratch/bio_probe/
+scratch/elect_probe/
+scratch/backups/
+# 一次性除錯腳本（`_` 前綴慣例，與 site/_*.py 同理）
+scratch/_*.py
+scratch/e3_pagemap.txt
 
 # ---------- scratch 的中間產物（保留生產管線 .py 腳本與其說明）----------
 # backup_*：舊資料快照（內容已在 data/ 正式版，屬重複）

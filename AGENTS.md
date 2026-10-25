@@ -1,6 +1,6 @@
 # AGENTS.md — 给 AI 协作者的项目约定
 
-> 你（AI 代理）在这个仓库工作前，**必须先读**本文件和 `../SHARED-MEMORY.md`。
+> 你（AI 代理）在这个仓库工作前，**必须先读**本文件和 `SHARED-MEMORY.md`。
 > 本文件是硬约束，不是建议。违反会导致线上故障（已经发生过多次）。
 
 
@@ -96,6 +96,6 @@ python scripts/guard_data.py              # 检查题库只改了允许的字段
 
 ## 协作
 
-- 多人/多 AI 同时改时，先读 `../SHARED-MEMORY.md` **§3 占用**，动工前登记，做完删掉。
+- 多人/多 AI 同时改时，先读 `SHARED-MEMORY.md` **§3 占用**，动工前登记，做完删掉。
 - 分工：题库与真题视图归 WorkBuddy；`extras/*`、`_mk_pkg.py` 归 DSH。
 - 有疑问先看 §4 陷阱表，90% 的坑都记在那里。
