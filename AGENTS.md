@@ -3,6 +3,30 @@
 > 你（AI 代理）在这个仓库工作前，**必须先读**本文件和 `../SHARED-MEMORY.md`。
 > 本文件是硬约束，不是建议。违反会导致线上故障（已经发生过多次）。
 
+
+## 如何开始（协作者 / AI 代理）
+
+```bash
+git clone https://github.com/nzgjsmy/ShenZhiHe.git
+cd ShenZhiHe
+git checkout source          # ★ 必须切到 source，main 只有部署产物
+python site/build.py         # 首次构建
+python scripts/verify_build.py   # 应全绿
+```
+
+> **main 分支 = 已构建的网站**（GitHub Pages 从这里发布），**不要往 main 提交源码**。
+> **source 分支 = 源码**，所有开发都在这里。
+
+提交前：
+
+```bash
+python site/build.py && python scripts/verify_build.py   # 全绿
+git add -A && git commit -m "说明" && git push
+```
+
+CI（`.github/workflows/verify.yml`）会在 source 分支的每次 push / PR 上自动跑
+`build.py + verify_build.py`，**不通过就无法合并**。
+
 ## 这是什么项目
 
 DSE 生物/化学/物理/数学笔记整合站「神智核」。单文件离线网站，由 `site/build.py` 把
