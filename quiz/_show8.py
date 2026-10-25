@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json, io, sys
-p = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\data\8.json"
+p = r"D:\deepseek-harness\default-workspace\f6chem\data\8.json"
 d = json.loads(io.open(p, encoding="utf-8").read(), strict=False)
 sys.stdout.reconfigure(encoding="utf-8")
 want = sys.argv[1:]

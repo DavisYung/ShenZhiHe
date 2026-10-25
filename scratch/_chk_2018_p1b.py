@@ -1,6 +1,6 @@
 import json, io, sys
-MAP = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\map\2018_p1b.json"
-CAT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+MAP = r"D:\deepseek-harness\default-workspace\f6chem\scratch\map\2018_p1b.json"
+CAT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 raw = open(MAP, "rb").read()
 bad = raw.count(b"\xef\xbf\xbd")
 print("replacement-char count:", bad)

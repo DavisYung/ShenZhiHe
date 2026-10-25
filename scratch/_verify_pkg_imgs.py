@@ -4,7 +4,7 @@ import io, json, os, re, sys
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-WORK = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace"
+WORK = r"D:\deepseek-harness\default-workspace"
 PKG = os.path.join(WORK, "神智核-GitHub部署包")
 
 html = io.open(os.path.join(PKG, "index.html"), encoding="utf-8").read()

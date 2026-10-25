@@ -75,10 +75,10 @@ Your site is live at https://你的用户名.github.io/f6chem/
 
 ### 第 2 步 · 管理员 PowerShell 里执行
 
-> 建议在 `C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\gh-pages` 目录执行
+> 建议在 `D:\deepseek-harness\default-workspace\f6chem\gh-pages` 目录执行
 
 ```powershell
-cd "C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\gh-pages"
+cd "D:\deepseek-harness\default-workspace\f6chem\gh-pages"
 
 git init
 git add index.html README.md 404.html
@@ -107,7 +107,7 @@ git push -u origin main
 ## 更新内容后怎么重新发布
 
 ```powershell
-cd "C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\site"
+cd "D:\deepseek-harness\default-workspace\f6chem\site"
 & "C:\Users\guomi\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe" prep_ghpages.py
 & "C:\Users\guomi\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe" build.py
 

@@ -1,5 +1,5 @@
 import io, sys
-p = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+p = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 raw = open(p, "rb").read()
 out = []
 for enc in ["utf-8", "cp950", "big5hkscs", "gbk", "utf-16"]:

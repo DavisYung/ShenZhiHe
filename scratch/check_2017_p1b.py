@@ -1,7 +1,7 @@
 import json, io, sys
 
-MAP = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\map\2017_p1b.json"
-CAT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+MAP = r"D:\deepseek-harness\default-workspace\f6chem\scratch\map\2017_p1b.json"
+CAT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 
 raw = open(MAP, encoding="utf-8").read()
 assert "\ufffd" not in raw, "U+FFFD found in output"

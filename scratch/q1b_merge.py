@@ -1,7 +1,7 @@
 import json, sys, os, collections
 sys.stdout.reconfigure(encoding="utf-8")
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 DATA = os.path.join(BASE, "data", "1b.json")
 OUTDIR = os.path.join(BASE, "quiz")
 OUT = os.path.join(OUTDIR, "1b.json")

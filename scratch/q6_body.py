@@ -1,6 +1,6 @@
 import json, sys, io, os
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-BASE = r'C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem'
+BASE = r'D:\deepseek-harness\default-workspace\f6chem'
 d = json.load(open(os.path.join(BASE, 'data', '6.json'), encoding='utf-8'))
 want = sys.argv[1].split(',') if len(sys.argv) > 1 else None
 for s in d['sections']:

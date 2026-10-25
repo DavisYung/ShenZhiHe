@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, sys, io
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem\scratch"
 out_path = BASE + r"\map\2014_p2.json"
 cat_path = BASE + r"\pp\catalog.tsv"
 

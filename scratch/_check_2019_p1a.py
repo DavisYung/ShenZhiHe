@@ -1,7 +1,7 @@
 import io, json, sys
 
-OUT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\map\2019_p1a.json"
-CAT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+OUT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\map\2019_p1a.json"
+CAT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 
 raw = io.open(OUT, "r", encoding="utf-8").read()
 data = json.loads(raw)  # json.load 通过

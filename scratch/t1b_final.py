@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, io, sys, os
 sys.stdout.reconfigure(encoding="utf-8")
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 DATA = os.path.join(BASE, "data", "1b.json")
 
 doc = json.load(io.open(DATA, encoding="utf-8"))   # json.load 驗證

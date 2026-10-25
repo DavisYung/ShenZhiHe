@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json, sys, io
 
-OUT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\map\2014_p1b.json"
-CAT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+OUT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\map\2014_p1b.json"
+CAT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 errs = []

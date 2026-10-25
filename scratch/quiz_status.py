@@ -1,5 +1,5 @@
 ﻿import json, io, os
-ROOT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+ROOT = r"D:\deepseek-harness\default-workspace\f6chem"
 TIDS = ["1a","1b","1c","2a","2b","3a","3b","4a","4b","6","8"]
 tot=0
 for tid in TIDS:

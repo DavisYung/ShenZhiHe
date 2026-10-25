@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json, sys, io
 
-MAP = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\map\2016_p1b.json"
-CAT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+MAP = r"D:\deepseek-harness\default-workspace\f6chem\scratch\map\2016_p1b.json"
+CAT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 
 raw = io.open(MAP, encoding="utf-8").read()
 if "\ufffd" in raw:

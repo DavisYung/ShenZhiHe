@@ -1,6 +1,6 @@
 import sys, json, os, re
 sys.stdout.reconfigure(encoding="utf-8")
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 qs = json.load(open(os.path.join(BASE,"quiz","2b.json"), encoding="utf-8"))["questions"]
 print("=== TF ===")
 for q in qs:

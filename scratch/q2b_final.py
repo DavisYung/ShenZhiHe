@@ -1,6 +1,6 @@
 import sys, json, os, collections
 sys.stdout.reconfigure(encoding="utf-8")
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 SCR = os.path.join(BASE, "scratch")
 
 pool = []

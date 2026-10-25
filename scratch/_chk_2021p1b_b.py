@@ -1,6 +1,6 @@
 import json, io, sys, os
 
-base = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch"
+base = r"D:\deepseek-harness\default-workspace\f6chem\scratch"
 jp = os.path.join(base, "map", "2021_p1b_b.json")
 cp = os.path.join(base, "pp", "catalog.tsv")
 

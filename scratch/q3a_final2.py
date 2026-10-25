@@ -3,7 +3,7 @@
 嚴格保護：只旋轉「explanation 內每一個 A-D 字母都是選項引用」的題目；
 只要存在任何化學符號中的字母（C=C、CO、黑煙(C) 等），一律不旋轉。"""
 import json, os, re
-base = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+base = r"D:\deepseek-harness\default-workspace\f6chem"
 out = os.path.join(base, "quiz", "3a.json")
 data = json.load(open(out, encoding="utf-8"))
 Q = data["questions"]

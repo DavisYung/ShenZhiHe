@@ -13,16 +13,22 @@
  *   写死 "/index.html" 会指向用户主页面而不是笔记首页。
  *
  * 缓存策略：
- *   导航请求（打开页面）→ 网络优先，但最多等 3.5 秒；超时或失败即回退缓存。
+ *   导航请求（打开页面）→ 网络优先，最多等 NET_TIMEOUT 毫秒；超时或失败即回退缓存。
  *                        这样在线时总能拿到最新版，断网时又不会干等。
  *   其他同源 GET        → 缓存优先 + 后台更新（stale-while-revalidate）。
+ *
+ * 【重要教训】NET_TIMEOUT 原本是 3.5 秒，但 index.html 现在有 3.5MB，
+ *   手机 4G/弱网下根本下不完 → 每次导航都超时 → 每次都回退到旧缓存，
+ *   表现为「明明改好了，用户那边还是旧版」（实际踩过：改完样式用户仍看到旧版）。
+ *   现在改为 10 秒：够 3.5MB 在多数网络下下载完，断网时也还能接受。
+ *   若将来单档体积再翻倍，记得同步调大这个值。
  *
  * __SW_VERSION__ 由 prep_ghpages.py 在部署时替换成站点版号。改版即换缓存名，
  * 避免用户长期停留在旧缓存上，同时 activate 时清掉旧版缓存防止无限增长。
  */
 var SW_VERSION = '__SW_VERSION__';
 var CACHE = 'shenzhine-' + SW_VERSION;
-var NET_TIMEOUT = 3500;
+var NET_TIMEOUT = 10000;
 
 /* 预缓存清单。用相对路径，scope 根就是站点根。
    图例全部在根目录（不放子资料夹），理由见 manifest.json 的说明：
@@ -59,10 +65,12 @@ self.addEventListener('activate', function (e) {
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (k) {
         /* 清掉旧版号缓存，避免用户攒了几十个版本把存储撑爆 */
-        if (k.indexOf('shenzhine-') === 0 && k !== CACHE) {
+        /* 每次新 SW 激活时清除所有旧缓存，避免用户停留在旧 HTML 上 */
+        if (k.indexOf('shenzhine-') === 0) {
           return caches.delete(k);
         }
-        return null;
+          return caches.delete(k);
+        }
       }));
     }).then(function () {
       return self.clients.claim();
@@ -109,20 +117,20 @@ self.addEventListener('fetch', function (e) {
   }
   if (url.origin !== self.location.origin) return;
 
-  /* 导航请求——网络优先（带超时），失败回退缓存首页 */
+  /* 导航请求——缓存优先 + 后台更新，避免每次都下载大 HTML 导致加载慢 */
   if (req.mode === 'navigate') {
     e.respondWith(
-      netFirstWithTimeout(req).then(function (res) {
-        /* 只缓存正常响应，别把 404 页面缓存下来当成首页 */
-        if (res && res.status === 200) {
-          var copy = res.clone();
-          caches.open(CACHE).then(function (c) { c.put('./index.html', copy); });
-        }
-        return res;
-      }).catch(function () {
-        return caches.match('./index.html').then(function (hit) {
-          return hit || caches.match('./') || Response.error();
+      caches.match(req).then(function (hit) {
+        var fetching = fetch(req).then(function (res) {
+          if (res && res.status === 200 && res.type === 'basic') {
+            var copy = res.clone();
+            caches.open(CACHE).then(function (c) { c.put(req, copy); });
+          }
+          return res;
+        }).catch(function () {
+          return hit || Response.error();
         });
+        return hit || fetching;
       })
     );
     return;

@@ -195,7 +195,7 @@ section.sblock>h3{font-size:20px;margin:0 0 4px;padding-left:12px;border-left:5p
 .memwarn b{color:#fde68a}
 /* 筆記原圖（build 以 data URI 注入 body） */
 .mdfig{margin:10px 0;text-align:center}
-.mdfig img{max-width:100%;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:#fff;display:block;margin:0 auto}
+.mdfig img{max-width:100%;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:#fff;display:block;margin:0 auto;height:auto;width:auto}
 .mdfig figcaption{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
 /* 代碼塊（``` 區塊）——流程圖／公式推導用，保留換行與空格 */
 pre.mdcodewrap{position:relative;margin:10px 0;padding:10px 12px;background:#f6f4ee;border:1px solid var(--line);border-left:3px solid #0f766e;border-radius:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -797,6 +797,126 @@ footer{max-width:1120px;margin:0 auto;padding:18px 20px 40px;color:var(--muted);
   .animseg button{flex:1 1 100%;min-height:52px}
   .animrow input[type=range]{min-height:44px}
 }
+
+/* ---------- DSE 真題：題目卡 ---------- */
+.pplist{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.ppq{border:1px solid #e5e7eb;border-radius:10px;padding:12px 13px;background:#fff}
+.ppqh{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.ppy{background:#0f766e;color:#fff;border-radius:6px;padding:2px 7px;font-size:12px;font-weight:600}
+.ppqn{font-weight:700;font-size:14px}
+.pppct{margin-left:auto;font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.pppct.e{background:#dcfce7;color:#166534}
+.pppct.m{background:#fef3c7;color:#92400e}
+.pppct.h{background:#ffedd5;color:#9a3412}
+.pppct.vh{background:#fee2e2;color:#991b1b}
+.ppstem{margin:6px 0}
+.ppstem p{margin:6px 0}
+.ppopts{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:10px 0}
+@media(max-width:640px){.ppopts{grid-template-columns:1fr}}
+.ppo{display:flex;gap:7px;font-size:14px;line-height:1.55}
+.ppo b{color:#0f766e;flex:0 0 auto}
+.ppfig{font-size:13px;color:#9a3412;background:#fff7ed;border-radius:8px;padding:7px 10px;margin:8px 0}
+.ppbtn{margin-top:8px;border:1px solid #0f766e;background:#f0fdfa;color:#0f766e;border-radius:8px;padding:6px 12px;font-size:13.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.ppbtn:hover{background:#ccfbf1}
+.ppbtn.open{background:#0f766e;color:#fff}
+.ppans{margin-top:10px;border-top:1px dashed #d1d5db;padding-top:10px}
+.ppansrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px}
+.ppansrow .lab,.ppexpl .lab{font-size:12px;color:#6b7280;background:#f3f4f6;border-radius:5px;padding:1px 6px}
+.ppkey{font-size:17px;color:#0f766e}
+.ppexpl{margin-top:9px;font-size:14px;line-height:1.7}
+.ppexpl .lab{display:inline-block;margin-bottom:3px}
+.ppnoex{color:#9ca3af;font-size:13.5px}
+
+/* ---------- DSE 真題：原卷圖 ---------- */
+.ppbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.ppbtn-ghost{border-color:#94a3b8;background:#f8fafc;color:#475569}
+.ppbtn-ghost:hover{background:#eef2f7}
+.ppbtn-ghost.open{background:#475569;color:#fff;border-color:#475569}
+.ppimgwrap{margin-top:10px;border:1px solid #e5e7eb;border-radius:10px;padding:8px;background:#fafafa}
+.ppimgbar{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#475569}
+.ppimgbar button{border:1px solid #cbd5e1;background:#fff;border-radius:6px;padding:1px 9px;cursor:pointer;font-size:13px}
+.ppimgbar button:hover{background:#f1f5f9}
+.pppn{font-weight:600;color:#334155}
+.ppopen{margin-left:auto;color:#0f766e;text-decoration:none;font-size:12.5px}
+.ppopen:hover{text-decoration:underline}
+.ppimg{width:100%;height:auto;display:block;border-radius:6px;background:#fff}
+.ppimgnote{margin-top:6px;font-size:11.5px;color:#94a3b8}
+.ppsrc{display:inline-block;font-size:11.5px;color:#0f766e;background:#f0fdfa;border:1px solid #99f6e4;border-radius:5px;padding:0 6px;margin-bottom:6px}
+
+/* ---------- DSE 真題：題目圖形 ---------- */
+.ppfigbox{margin:4px 0 10px;text-align:center;background:#fff;border-radius:8px}
+.ppfigbox img{max-width:100%;height:auto;border-radius:6px}
+.ppfigbox img.pplazy{min-height:120px;background:#f8fafc}
+
+/* ---------- DSE 真題：話題篩選 + 可點選項 ---------- */
+.ppchips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.ppchip{border:1px solid var(--line,#e5e7eb);background:#fff;color:#41505f;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;line-height:1.5}
+.ppchip span{color:#94a3b8;font-size:11.5px;margin-left:2px}
+.ppchip:hover{border-color:#0f766e;color:#0f766e}
+.ppchip.on{background:#0f766e;border-color:#0f766e;color:#fff}
+.ppchip.on span{color:#c7f0e8}
+.pptag{font-size:11.5px;color:#64748b;background:#f1f5f9;border-radius:5px;padding:1px 6px}
+.ppmore{margin-top:6px;border:1px dashed #cbd5e1;background:#f8fafc;color:#475569;border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer}
+.ppmore:hover{background:#eef2f7}
+button.ppo{display:flex;gap:7px;font-size:14px;line-height:1.55;text-align:left;width:100%;
+  border:1px solid #e5e7eb;background:#fff;border-radius:8px;padding:7px 10px;cursor:pointer;
+  font-family:inherit;color:inherit;transition:background .12s,border-color .12s}
+button.ppo b{color:#0f766e;flex:0 0 auto}
+button.ppo:hover{background:#f0fdfa;border-color:#99f6e4}
+button.ppo.right{background:#dcfce7;border-color:#22c55e}
+button.ppo.right b{color:#166534}
+button.ppo.wrong{background:#fee2e2;border-color:#ef4444}
+button.ppo.wrong b{color:#991b1b}
+button.ppo.dim{opacity:.55}
+
+.ppocr{font-size:10.5px;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:4px;padding:0 4px;letter-spacing:.3px}
+
+.ppoptimg{margin:10px 0 6px;text-align:center;background:#fff;border:1px solid #eef1f5;border-radius:8px}
+.ppoptimg img{max-width:100%;height:auto;border-radius:6px}
+.ppopts.letters{display:flex;gap:8px;grid-template-columns:none}
+button.ppo.letter{width:auto;flex:1;justify-content:center;padding:8px 0;font-size:15px}
+button.ppo.letter b{margin:0}
+
+/* ---------- 錯題本：卡片 / 筆記 / 已整理 ---------- */
+.wlist{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.wcard{border:1px solid #e5e7eb;border-radius:10px;padding:11px 12px;background:#fff}
+.whead{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:6px;font-size:13px}
+.wyear{background:#0f766e;color:#fff;border-radius:5px;padding:1px 6px;font-size:11.5px;font-weight:600}
+.wq{font-weight:700}
+.wpct{margin-left:auto;font-size:11.5px;color:#64748b}
+.wdone{font-size:11px;color:#166534;background:#dcfce7;border-radius:4px;padding:1px 6px}
+.wpend{font-size:11px;color:#9a3412;background:#ffedd5;border-radius:4px;padding:1px 6px}
+.wstem{font-size:14px;line-height:1.6;margin:4px 0 8px;color:#334155}
+textarea.wnote{width:100%;box-sizing:border-box;min-height:56px;resize:vertical;font-family:inherit;
+  font-size:13.5px;line-height:1.6;color:#334155;background:#fcfdfe;border:1px dashed #cbd5e1;
+  border-radius:8px;padding:8px 10px}
+textarea.wnote:focus{outline:none;border-color:#0f766e;background:#fff}
+.wbtns{display:flex;gap:8px;margin-top:8px}
+.wfix{border:1px solid #22c55e;background:#f0fdf4;color:#166534;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer;font-family:inherit}
+.wfix:hover{background:#dcfce7}
+.wfix.off{border-color:#e5e7eb;background:#f8fafc;color:#94a3b8;cursor:not-allowed}
+.wgo{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer;font-family:inherit}
+.wgo:hover{background:#f1f5f9}
+details.wfixed{margin-top:14px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;padding:10px 12px}
+details.wfixed>summary{cursor:pointer;font-weight:600;font-size:14px;color:#166534;list-style:none}
+details.wfixed>summary::-webkit-details-marker{display:none}
+details.wfixed>summary:before{content:"▸ ";color:#94a3b8}
+details.wfixed[open]>summary:before{content:"▾ "}
+
+.wans{font-size:13px;color:#0f766e;margin:2px 0 6px}
+.wans b{font-size:14px}
+
+.ppqimg{margin:8px 0 10px;text-align:center;background:#fff;border:1px solid #eef1f5;border-radius:8px;padding:6px}
+.ppqimg img{max-width:100%;height:auto;border-radius:6px}
+
+/* ---------- 錯題本：未整理 / 已整理 分頁 ---------- */
+.wbtabs{display:flex;gap:8px;margin:12px 0 10px}
+.wbtab{border:1px solid var(--line,#e5e7eb);background:#fff;color:#41505f;border-radius:999px;
+  padding:7px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+.wbtab span{font-size:12px;color:#94a3b8;margin-left:3px}
+.wbtab:hover{border-color:#0f766e;color:#0f766e}
+.wbtab.on{background:#0f766e;border-color:#0f766e;color:#fff}
+.wbtab.on span{color:#c7f0e8}
 </style>
 <script>
 /* iOS 舊版 Safari 的 vh 問題補償：真實可視高度寫進 CSS 變數 */
@@ -1073,7 +1193,7 @@ function mdLite(src,keywords){
         }
         if(allSrcs.length){
           html+='<figure class="mdfig">'+allSrcs.map(s=>
-            '<img loading="lazy" src="'+esc(s)+'" alt="'+esc(cap)+'" title="'+esc(cap)+'">'
+            '<img decoding="async" src="'+esc(s)+'" alt="'+esc(cap)+'" title="'+esc(cap)+'">'
           ).join('')+(cap?'<figcaption>'+esc(cap)+'</figcaption>':'')+'</figure>';
         }
         continue;
@@ -1207,6 +1327,7 @@ function normalizeHash(h){
   return '#/'+sid+rest;
 }
 function go(h){location.hash=normalizeHash(h);}
+function goBack(){ if(history.length>1) history.back(); else go('#/home'); }
 function navOn(r){
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.r===r));
   // 設定齒輪在 #nav 之外，單獨同步高亮
@@ -1375,8 +1496,41 @@ function migrateStore(sid){
   STORE.set(s, sid);
 }
 function wrongSet(){const s=STORE.get();return new Set(s.wrong||[]);}
-function markWrong(qid){const s=STORE.get();s.wrong=s.wrong||[];if(!s.wrong.includes(qid))s.wrong.push(qid);STORE.set(s);}
-function markRight(qid){const s=STORE.get();s.wrong=(s.wrong||[]).filter(x=>x!==qid);STORE.set(s);}
+/* 錯題本三層狀態：
+   wrong      答錯過的題（不再因答對而自動刪除）
+   rightLater 答錯之後又答對的題（可以標記「已整理」歸檔）
+   fixed      已整理（從清單收起，仍保留筆記）
+   wnotes     使用者自己寫的錯題筆記 {qid: text} */
+function rightLaterSet(){const s=STORE.get();return new Set(s.rightLater||[]);}
+function fixedSet(){const s=STORE.get();return new Set(s.fixed||[]);}
+function wrongNotes(){const s=STORE.get();return s.wnotes||{};}
+function markWrong(qid){
+  const s=STORE.get();s.wrong=s.wrong||[];
+  if(!s.wrong.includes(qid))s.wrong.push(qid);
+  s.rightLater=(s.rightLater||[]).filter(x=>x!==qid);
+  s.fixed=(s.fixed||[]).filter(x=>x!==qid);
+  STORE.set(s);
+}
+function markRight(qid){
+  const s=STORE.get();
+  if((s.wrong||[]).includes(qid)){
+    s.rightLater=s.rightLater||[];
+    if(!s.rightLater.includes(qid))s.rightLater.push(qid);
+  }
+  STORE.set(s);
+}
+function setWrongNote(qid, txt){
+  const s=STORE.get();s.wnotes=s.wnotes||{};
+  if(txt && txt.trim()) s.wnotes[qid]=txt; else delete s.wnotes[qid];
+  STORE.set(s);
+}
+function toggleFixed(qid){
+  const s=STORE.get();s.fixed=s.fixed||[];
+  const i=s.fixed.indexOf(qid);
+  if(i>=0) s.fixed.splice(i,1); else s.fixed.push(qid);
+  STORE.set(s);
+  viewWrong();
+}
 function allQuestions(){
   const out=[];
   Object.keys(QUIZ).forEach(tid=>(QUIZ[tid]||[]).forEach(q=>out.push(Object.assign({topic:tid},q))));
@@ -1850,6 +2004,7 @@ function viewHome(){
       <button onclick="go('#/graph')">🕸️ 看知識圖譜</button>
       <button onclick="go('#/wrong')">📕 重練錯題（${w}）</button>
       ${extrasOf().length?'<button onclick="go(\'#/extras\')">⚛️ 額外資訊</button>':''}
+      ${SUB&&SUB.id==='bio'?'<button onclick="go(\'#/pastpaper\')">📝 DSE 真題</button>':''}
     </div>
     ${freshCards?`<div style="margin-bottom:24px"><div style="font-weight:700;margin:0 0 4px">📌 先從這裡開始</div><div class="tmeta" style="margin-bottom:6px">依你的學習記錄排出來的優先複習項目</div>${freshCards}</div>`:''}
     ${hasUnits()?`<div class="tmeta" style="margin:0 0 10px">${UNITS.length} 個分區 · 共 ${TOPICS.length} 個課題，點分區進入</div>`:''}
@@ -1942,13 +2097,57 @@ function virtRender(){
     first=Math.min(first, VIRT.pinIdx);
     last=Math.max(last, VIRT.pinIdx);
   }
+  // ---------- 增量更新：不整體替換 DOM，避免圖片加載被中斷閃爍 ----------
+  const needed = new Set();
+  for(let i=first; i<=last; i++) needed.add(i);
+  // 移除不再需要的卡片
+  const curItems = L.querySelectorAll('.vitem');
+  for(let i=curItems.length-1; i>=0; i--){
+    const idx = +curItems[i].dataset.idx;
+    if(!needed.has(idx)){
+      curItems[i].remove();
+    }
+  }
+  // 已存在的索引
+  const existing = new Set();
+  L.querySelectorAll('.vitem').forEach(el => existing.add(+el.dataset.idx));
+  // 插入需要的新卡片，保持順序
+  for(let i=first; i<=last; i++){
+    if(existing.has(i)) continue;
+    const card = document.createElement('div');
+    card.className = 'vitem';
+    card.dataset.idx = i;
+    card.innerHTML = ptCard(VIRT.items[i].p, VIRT.items[i].t);
+    // 找到插入位置：第一個索引大於 i 的現有元素之前
+    let refEl = null;
+    const allItems = L.querySelectorAll('.vitem');
+    for(let j=0; j<allItems.length; j++){
+      if(+allItems[j].dataset.idx > i){
+        refEl = allItems[j];
+        break;
+      }
+    }
+    if(refEl){
+      refEl.parentNode.insertBefore(card, refEl);
+    } else {
+      L.appendChild(card);
+    }
+  }
+  // ---------- 占位 div ----------
+  // 移除舊占位
+  L.querySelectorAll('[data-sp]').forEach(sp=>sp.remove());
   let html='';
   if(first>0) html+='<div class="vplaceholder" data-sp="top" style="height:'+Math.round(off[first])+'px"></div>';
-  for(let i=first;i<=last;i++){
-    html+='<div class="vitem" data-idx="'+i+'">'+ptCard(VIRT.items[i].p, VIRT.items[i].t)+'</div>';
-  }
   if(last<n-1) html+='<div class="vplaceholder" data-sp="bot" style="height:'+Math.round(off[n]-off[last+1])+'px"></div>';
-  L.innerHTML=html;
+  if(html){
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    // 占位要放在最前和最後
+    const topSp = temp.querySelector('[data-sp="top"]');
+    const botSp = temp.querySelector('[data-sp="bot"]');
+    if(topSp) L.insertBefore(topSp, L.firstChild);
+    if(botSp) L.appendChild(botSp);
+  }
   // 实测渲染出来的卡片高度并修正（只在有变化时更新占位，避免跳动）
   let changed=false, sum=0, cnt=0;
   L.querySelectorAll('.vitem').forEach(function(el){
@@ -2048,6 +2247,7 @@ function viewTopic(tid,anchor){
     app.innerHTML=`
     <div class="view">
       <div class="thead">
+        <button class="back" onclick="goBack()">← 上一步</button>
         <button class="back" onclick="go('#/home')">← 返回首頁</button>
         <h2><span style="color:${colorOf(t.id)}">●</span> ${esc(t.title)}${t.tags&&t.tags.length?' <span class="tags">'+t.tags.map(g=>'<span class="tag">'+tsub(g)+'</span>').join('')+'</span>':''}</h2>
         <button class="qbtn" style="margin-left:0" onclick="startQuiz({mode:'topic',id:'${t.id}'})">測驗本課題</button>
@@ -2073,6 +2273,7 @@ function viewTopic(tid,anchor){
     app.innerHTML=`
     <div class="view">
       <div class="thead">
+        <button class="back" onclick="goBack()">← 上一步</button>
         <button class="back" onclick="go('#/home')">← 返回首頁</button>
         <h2><span style="color:${colorOf(t.id)}">●</span> ${esc(t.title)}${t.tags&&t.tags.length?' <span class="tags">'+t.tags.map(g=>'<span class="tag">'+tsub(g)+'</span>').join('')+'</span>':''}</h2>
         <button class="qbtn" style="margin-left:0" onclick="startQuiz({mode:'topic',id:'${t.id}'})">測驗本課題</button>
@@ -2956,24 +3157,87 @@ function viewResult(){
     </div>
   </div></div>`;
 }
+let WB_TAB = 'active';          // 'active' 未整理 ｜ 'fixed' 已整理
+function wbSetTab(t){ WB_TAB = t; viewWrong(); }
 function viewWrong(){
   navOn('wrong');
   if(needsContent())return;
-  const W=wrongSet();
-  const qs=allQuestions().filter(q=>W.has(q.id));
+  const W=wrongSet(), RL=rightLaterSet(), FX=fixedSet(), NT=wrongNotes();
+  // 一般測驗錯題
+  const quizAll=allQuestions().filter(q=>W.has(q.id));
+  // 歷屆真題錯題
+  const ppAll=[];
+  const PPY=(SUB&&SUB._pastpaper&&SUB._pastpaper.years)||{};
+  Object.keys(PPY).forEach(y=>PPY[y].forEach(q=>{ if(W.has(q.id)) ppAll.push(q); }));
+  ppAll.sort((a,b)=> a.year===b.year? a.qnum-b.qnum : (a.year<b.year?-1:1));
+
+  const active=WB_TAB!=='fixed';
+  const quizList = quizAll.filter(q=> active ? !FX.has(q.id) : FX.has(q.id));
+  const ppList   = ppAll.filter(q=>   active ? !FX.has(q.id) : FX.has(q.id));
+  const nActive = quizAll.filter(q=>!FX.has(q.id)).length + ppAll.filter(q=>!FX.has(q.id)).length;
+  const nFixed  = quizAll.filter(q=> FX.has(q.id)).length + ppAll.filter(q=> FX.has(q.id)).length;
+
+  const fixBtn=(id,done)=>active
+    ? `<button class="wfix${done?'':' off'}" ${done?`onclick="toggleFixed('${esc(id)}')"`:'disabled title="先在真題頁／測驗答對這題，才能標記為已整理"'}>✅ 已整理</button>`
+    : `<button class="wgo" onclick="toggleFixed('${esc(id)}')">↩︎ 移回未整理</button>`;
+
+  const ppCard=q=>{
+    const done=RL.has(q.id);
+    return `<div class="wcard">
+      <div class="whead"><span class="wyear">${q.year}</span><span class="wq">Q${q.qnum}</span>
+        <span class="pptag">${esc(ppTopicName(q.topic))}</span>
+        <span class="wpct">答對率 ${q.pct}%</span>
+        ${done?'<span class="wdone">已答對</span>':'<span class="wpend">未答對</span>'}
+      </div>
+      <div class="md wstem">${mdLite((q.q||'').slice(0,300))}</div>
+      <div class="wans">正確答案：<b>${esc(q.answer||'—')}</b></div>
+      <textarea class="wnote" placeholder="寫下自己的錯題筆記：為甚麼會錯、下次怎樣避免…"
+        onchange="setWrongNote('${esc(q.id)}',this.value)">${esc(NT[q.id]||'')}</textarea>
+      <div class="wbtns">${fixBtn(q.id,done)}
+        <button class="wgo" onclick="go('#/pastpaper')">去真題重做</button>
+      </div>
+    </div>`;
+  };
+  const quizCard=q=>{
+    const done=RL.has(q.id);
+    return `<div class="wcard">
+      <div class="whead"><span class="wq">${esc(q.id)}</span>
+        ${done?'<span class="wdone">已答對</span>':'<span class="wpend">未答對</span>'}</div>
+      <div class="md wstem">${mdLite((q.q||'').slice(0,300))}</div>
+      <textarea class="wnote" placeholder="寫下自己的錯題筆記：為甚麼會錯、下次怎樣避免…"
+        onchange="setWrongNote('${esc(q.id)}',this.value)">${esc(NT[q.id]||'')}</textarea>
+      <div class="wbtns">${fixBtn(q.id,done)}
+        ${q.point&&PMAP[q.point]?`<button class="wgo" onclick="openPip('${esc(q.point)}')">📖 知識點</button>`:''}
+      </div>
+    </div>`;
+  };
+
   const byTopic={};
-  qs.forEach(q=>{(byTopic[q.topic]=byTopic[q.topic]||[]).push(q);});
-  const list=Object.keys(byTopic).map(tid=>{
+  quizList.forEach(q=>{(byTopic[q.topic]=byTopic[q.topic]||[]).push(q);});
+  const quizBlocks=Object.keys(byTopic).map(tid=>{
     const t=TMAP[tid];
     return `<div class="pcard"><h4>${esc(t?t.title:tid)} <span class="pg">${byTopic[tid].length} 題</span>
-      <button class="qbtn" onclick="startQuiz({mode:'wrongtopic',id:'${tid}'})">重練本課題錯題</button></h4>
-      <div class="md">${byTopic[tid].map(q=>'<p>• '+esc(q.q)+(q.point&&PMAP[q.point]?' <button class="pipopen" onclick="openPip(\''+q.point+'\')">📖 知識點</button>':'')+'</p>').join('')}</div></div>`;
+      ${active?`<button class="qbtn" onclick="startQuiz({mode:'wrongtopic',id:'${tid}'})">重練本課題錯題</button>`:''}</h4>
+      <div class="wlist">${byTopic[tid].map(quizCard).join('')}</div></div>`;
   }).join('');
+
+  const ppBlock=ppList.length?`<div class="pcard"><h4>📝 歷屆真題錯題 <span class="pg">${ppList.length} 題</span></h4>
+      <div class="wlist">${ppList.map(ppCard).join('')}</div></div>`:'';
+
+  const emptyTxt=active?'未整理的錯題是空的 🎉':'還沒有標記為「已整理」的題目。';
+
   app.innerHTML=`
   <div class="view">
     <div class="thead"><button class="back" onclick="go('#/home')">← 返回首頁</button><h2>📕 錯題本</h2></div>
-    <div class="tmeta">答錯的題目會自動收進來；答對後自動移出。</div>
-    ${qs.length?`<div class="quick"><button onclick="startQuiz({mode:'wrong'})">🔁 一次重練全部（${qs.length} 題）</button></div>${list}`:'<div class="empty">錯題本是空的，代表你目前都答對了，太棒了 🎉</div>'}
+    <div class="tmeta">答錯的題目會自動收進來；答對後可按「已整理」移到已整理分類，隨時可以移回。每題都能寫自己的筆記。</div>
+    <div class="wbtabs">
+      <button class="wbtab${active?' on':''}" onclick="wbSetTab('active')">📌 未整理 <span>${nActive}</span></button>
+      <button class="wbtab${active?'':' on'}" onclick="wbSetTab('fixed')">✅ 已整理 <span>${nFixed}</span></button>
+    </div>
+    ${active&&quizList.length?`<div class="quick"><button onclick="startQuiz({mode:'wrong'})">🔁 一次重練全部（${quizList.length} 題）</button></div>`:''}
+    ${ppBlock}
+    ${quizBlocks}
+    ${(!quizList.length&&!ppList.length)?`<div class="empty">${emptyTxt}</div>`:''}
   </div>`;
 }
 
@@ -2981,6 +3245,153 @@ function retryWrong(ids){
   const set=new Set(ids);
   QZ={pool:QZ.pool.filter(q=>set.has(q.id)),i:0,score:0,log:[],answered:false};
   renderQ();
+}
+
+/* ---------------- DSE 真題（by topic / by year）--------------- */
+/* 頂部話題篩選 → 只顯示該話題題目；ABCD 可點，答錯自動進錯題本；題解預設收起。 */
+let PP_TOPIC = '';                 // '' = 全部話題
+function ppLvl(p){return p>=80?'容易':(p>=60?'中等':(p>=40?'偏難':'極難'));}
+function ppCls(p){return p>=80?'e':(p>=60?'m':(p>=40?'h':'vh'));}
+function ppTopicName(k){
+  if(k==='zz') return '未分類';
+  return (typeof TMAP!=='undefined'&&TMAP[k]&&TMAP[k].title)?TMAP[k].title:k;
+}
+function ppCard(q){
+  const opts=q.options||[];
+  const qImg=q.qImg?`<div class="ppqimg"><img class="pplazy" data-src="${esc(q.qImg)}" alt="${q.year} Q${q.qnum} 原卷" decoding="async"><div class="ppimgnote">此題文字 OCR 未能可靠還原，顯示原卷該題區域。</div></div>`:'';
+  const optImg=q.optImg?`<div class="ppoptimg"><img class="pplazy" data-src="${esc(q.optImg)}" alt="${q.year} Q${q.qnum} 選項圖" decoding="async"></div>`:'';
+  const oh=(q.optImg||q.qImg)
+    ? `<div class="ppopts letters">${['A','B','C','D'].map(k=>`<button class="ppo letter" data-k="${k}" onclick="ppPick(this,'${esc(q.id)}','${k}')"><b>${k}</b></button>`).join('')}</div>`
+    : (opts.length
+      ? `<div class="ppopts">${opts.map(o=>`<button class="ppo" data-k="${esc(o.k)}" onclick="ppPick(this,'${esc(q.id)}','${esc(o.k)}')"><b>${esc(o.k)}</b><span>${esc(o.v)}</span></button>`).join('')}</div>`
+      : `<div class="ppfig">此題選項為圖片，請對照原卷作答。</div>`);
+  const ex=q.explanation
+    ? (q.explSource==='notes'?`<div class="ppsrc">依筆記整理</div>`:'')+mdLite(q.explanation)
+    : '<span class="ppnoex">原稿未附詳解，可對照筆記相應章節複習。</span>';
+  const img=q.img?`<div class="ppfigbox"><img class="pplazy" data-src="${esc(q.img)}" alt="${q.year} 第 ${q.qnum} 題圖" decoding="async"></div>`:'';
+  return `<div class="ppq" data-ans="${esc(q.answer||'')}" data-id="${esc(q.id)}">
+    <div class="ppqh"><span class="ppy">${q.year}</span><span class="ppqn">Q${q.qnum}</span>
+      <span class="pptag">${esc(ppTopicName(q.topic))}</span>
+      ${q.ocr?'<span class="ppocr" title="此题由 OCR 还原，文字可能有错字">OCR</span>':''}
+      <span class="pppct ${ppCls(q.pct)}">答對率 ${q.pct}%</span></div>
+    ${img}
+    ${qImg}
+    <div class="md ppstem">${mdLite(q.q||'')}</div>
+    ${optImg}
+    ${oh}
+    <div class="ppbtns">
+      <button class="ppbtn" onclick="ppToggle(this)"><span class="ppbtn-t">答案與題解</span><span class="ppbtn-i">▾</span></button>
+    </div>
+    <div class="ppans" hidden>
+      <div class="ppansrow"><span class="lab">正確答案</span><b class="ppkey">${q.answer||'—'}</b>
+        <span class="lab">答對率</span><b>${q.pct}%</b>
+        <span class="lab">難度</span><b>${ppLvl(q.pct)}</b></div>
+      <div class="ppexpl"><span class="lab">題解</span><div class="md">${ex}</div></div>
+    </div>
+  </div>`;
+}
+function ppPick(btn, qid, key){
+  const card=btn.closest('.ppq');
+  const ans=card.dataset.ans;
+  const ok=(key===ans);
+  card.querySelectorAll('.ppo').forEach(el=>{
+    el.classList.remove('right','wrong','dim');
+    if(el.dataset.k===ans) el.classList.add('right');
+    else if(el!==btn) el.classList.add('dim');
+  });
+  if(!ok) btn.classList.add('wrong');
+  card.dataset.done='1';
+  // 答錯自動進錯題本；答對則移出
+  try{ if(ok) markRight(qid); else markWrong(qid); }catch(e){}
+  // 自動展開答案與題解，讓你看得到詳解
+  const t=card.querySelector('.ppbtn'), box=card.querySelector('.ppans');
+  if(t&&box&&box.hasAttribute('hidden')) ppToggle(t);
+}
+function ppToggle(btn){
+  const box=btn.closest('.ppq').querySelector('.ppans');
+  const open=box.hasAttribute('hidden');
+  if(open)box.removeAttribute('hidden'); else box.setAttribute('hidden','');
+  btn.classList.toggle('open',open);
+  btn.querySelector('.ppbtn-t').textContent=open?'收起題解':'答案與題解';
+  btn.querySelector('.ppbtn-i').textContent=open?'▴':'▾';
+}
+function ppSetTopic(k){ PP_TOPIC=k; viewPastPaper(); }
+let ppLazyObs=null;
+function ppLazyInit(){
+  const imgs=document.querySelectorAll('#pp-bytopic img.pplazy[data-src]');
+  if(!imgs.length)return;
+  if(typeof IntersectionObserver==='undefined'){
+    imgs.forEach(im=>{im.src=im.dataset.src;im.removeAttribute('data-src');});
+    return;
+  }
+  if(ppLazyObs)ppLazyObs.disconnect();
+  ppLazyObs=new IntersectionObserver((entries,obs)=>{
+    entries.forEach(en=>{
+      if(!en.isIntersecting)return;
+      const im=en.target;
+      if(im.dataset.src){im.src=im.dataset.src;im.removeAttribute('data-src');}
+      obs.unobserve(im);
+    });
+  },{rootMargin:'400px 0px'});
+  imgs.forEach(im=>ppLazyObs.observe(im));
+}
+function viewPastPaper(){
+  navOn('pastpaper');
+  if(needsContent())return;
+  const PP=SUB._pastpaper||{}, years=PP.years||{}, yrs=Object.keys(years).sort();
+  const all=[]; yrs.forEach(y=>(years[y]||[]).forEach(q=>all.push(q)));
+  const byTopic={};
+  all.forEach(q=>{const k=q.topic||'zz';(byTopic[k]=byTopic[k]||[]).push(q);});
+  const tKeys=Object.keys(byTopic).sort();
+  if(PP_TOPIC && !byTopic[PP_TOPIC]) PP_TOPIC='';
+
+  const chips=`<div class="ppchips">
+    <button class="ppchip${PP_TOPIC===''?' on':''}" onclick="ppSetTopic('')">全部 <span>${all.length}</span></button>
+    ${tKeys.map(k=>`<button class="ppchip${PP_TOPIC===k?' on':''}" onclick="ppSetTopic('${esc(k)}')">${esc(ppTopicName(k))} <span>${byTopic[k].length}</span></button>`).join('')}
+  </div>`;
+
+  let cards='';
+  if(PP_TOPIC){
+    const qs=byTopic[PP_TOPIC].slice().sort((a,b)=>a.year===b.year?a.qnum-b.qnum:(a.year>b.year?1:-1));
+    const avg=Math.round(qs.reduce((s,q)=>s+(q.pct||0),0)/qs.length);
+    cards=`<div class="pcard"><h4>${esc(ppTopicName(PP_TOPIC))} <span class="pg">${qs.length} 題 · 平均 ${avg}%</span></h4>
+      <div class="pplist">${qs.map(ppCard).join('')}</div></div>`;
+  }else{
+    cards=tKeys.map(k=>{
+      const qs=byTopic[k].slice().sort((a,b)=>a.year===b.year?a.qnum-b.qnum:(a.year>b.year?1:-1));
+      const avg=Math.round(qs.reduce((s,q)=>s+(q.pct||0),0)/qs.length);
+      return `<div class="pcard"><h4>${esc(ppTopicName(k))} <span class="pg">${qs.length} 題 · 平均 ${avg}%</span>
+        <button class="qbtn" onclick="ppSetTopic('${esc(k)}')">只看這一類</button></h4>
+        <div class="pplist">${qs.slice(0,3).map(ppCard).join('')}</div>
+        ${qs.length>3?`<div style="text-align:center;margin-top:8px"><button class="ppmore" onclick="ppSetTopic('${esc(k)}')">展開全部 ${qs.length} 題 ▾</button></div>`:''}
+      </div>`;
+    }).join('');
+  }
+
+  const yearList=yrs.map(y=>{
+    const qs=(years[y]||[]).slice().sort((a,b)=>a.qnum-b.qnum);
+    return `<div class="pcard"><h4>${y} 年 <span class="pg">${qs.length} 題</span></h4><div class="md">${qs.map(q=>`<p>• 第 ${q.qnum} 題（答對率 ${q.pct}%）<span style="font-size:12px;color:var(--muted)"> 〔${esc(ppTopicName(q.topic))}〕</span></p>`).join('')}</div></div>`;
+  }).join('');
+
+  app.innerHTML=`
+  <div class="view">
+    <div class="thead"><button class="back" onclick="go('#/home')">← 返回首頁</button><h2>📝 ${esc(PP.title||'DSE 生物歷屆真題')}</h2></div>
+    <div class="tmeta">共 ${yrs.length} 個年份 · ${all.length} 道選擇題。點選項作答，答錯自動收進「錯題本」；答對後自動移出。答對率取自各年《評卷參考》。</div>
+    ${chips}
+    <div class="quick" style="margin:10px 0 4px">
+      <button onclick="showPPView('bytopic')">🏷️ 按話題</button>
+      <button onclick="showPPView('byyear')">📅 按年份</button>
+    </div>
+    <div id="pp-bytopic">${cards}</div>
+    <div id="pp-byyear" style="display:none">${yearList}</div>
+  </div>`;
+  ppLazyInit();
+}
+function showPPView(v){
+  const t=document.getElementById('pp-bytopic'), y=document.getElementById('pp-byyear');
+  if(!t||!y)return;
+  t.style.display=(v==='bytopic')?'block':'none';
+  y.style.display=(v==='byyear')?'block':'none';
 }
 
 /* ---------------- 複習頁 ---------------- */
@@ -3408,6 +3819,7 @@ function route(){
     viewUnit(decodeURIComponent(rest.slice(6)));
   }
   else if(rest==='/graph')viewGraph();
+  else if(rest==='/pastpaper')viewPastPaper();
   else if(rest==='/extras')viewExtras();
   else if(rest.indexOf('/extras/')===0){ var ex=rest.slice(8).split('@'); viewExtra(decodeURIComponent(ex[0]), ex[1]||''); }
   else if(rest==='/quiz')viewQuiz();

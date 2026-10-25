@@ -1,5 +1,12 @@
 /* ---------------- 額外資訊（元素週期表等補充資料） ---------------- */
 let PT_ST = null;
+/* escJs：把字串安全地放進「單引號 JS 字串」內（用於 onclick="f('...')"）。
+   2026-10-25 修：此函式曾被誤刪，導致 viewFiles/viewFile 拋 ReferenceError，
+   點「額外資訊」的檔案卡完全沒反應。 */
+function escJs(s){
+  return String(s==null?"":s).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+}
+
 function extrasOf(){ return (SUB && SUB.extras) || []; }
 function extraById(id){ var xs=extrasOf(); for(var i=0;i<xs.length;i++) if(xs[i].id===id) return xs[i]; return null; }
 
@@ -34,10 +41,190 @@ function viewExtra(id, sel){
   if(x.type==="ptable"){ viewPtable(x, sel); return; }
   if(x.type==="hot"){ viewHot(x); return; }
   if(x.type==="code"){ viewCodeProg(x); return; }
+  if(x.type==="formulas"){ viewFormulas(x); return; }
+  if(x.type==="orgnaming"){ viewOrgNaming(x); return; }
+if(x.type==="files"){ viewFiles(x); return; }
   app.innerHTML="<div class=\"view\"><div class=\"thead\"><button class=\"back\" onclick=\"go(\'#/extras\')\">← 額外資訊</button><h2>"+esc(x.emoji||"📎")+" "+esc(x.title||x.id)+"</h2></div>"
     +"<div class=\"tmeta\">"+esc(x.subtitle||"")+"</div>"
     +"<div class=\"note\">這個額外資訊的型別（"+esc(x.type||"未指定")+"）還沒有專屬版面，先在下方看原始內容。</div>"
     +"<pre style=\"overflow:auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;font-size:13px\">"+esc(JSON.stringify(x,null,1).slice(0,20000))+"</pre></div>";
+}
+
+/* ---- 公式表對照：要背 × 不用背 ----
+   資料結構（extras/phys/formulas.json）：
+     toback[] = 要背的公式，每組 {group, note, items[{f,n,pt,tp,sym[],from[]}]}
+     given[]  = 官方公式表隨卷提供、不用背的，每組 {group, note, items[{f,n}]}
+   f=公式、n=說明、sym=符號表、pt=對應知識點 id、tp=課題 id、from=由表上哪幾條推導 */
+var FM_ST={tab:"back",q:"",group:""};
+var CUR_FM=null;
+function fmRows(x, tab){
+  var rows=[];
+  ((tab==="back"?x.toback:x.given)||[]).forEach(function(g){
+    (g.items||[]).forEach(function(it){ rows.push({g:g,it:it}); });
+  });
+  return rows;
+}
+function fmTopicName(tid){
+  if(!tid) return "";
+  var t=TMAP[tid];
+  return t?t.title:"";
+}
+function fmFiltered(x){
+  var q=(FM_ST.q||"").trim().toLowerCase();
+  var gsel=FM_ST.group||"";
+  return fmRows(x,FM_ST.tab).filter(function(r){
+    if(gsel && r.g.group!==gsel) return false;
+    if(!q) return true;
+    var it=r.it;
+    if(String(it.f||"").toLowerCase().indexOf(q)>=0) return true;
+    if(String(it.n||"").toLowerCase().indexOf(q)>=0) return true;
+    if((it.sym||[]).some(function(s){ return String(s).toLowerCase().indexOf(q)>=0; })) return true;
+    if(fmTopicName(it.tp).toLowerCase().indexOf(q)>=0) return true;
+    return false;
+  });
+}
+function fmSetTab(t){ FM_ST.tab=t; FM_ST.group=""; viewFormulas(CUR_FM); }
+function fmSetGroup(g){ FM_ST.group=(FM_ST.group===g)?"":g; viewFormulas(CUR_FM); }
+function fmSetQ(v){
+  FM_ST.q=v;
+  // 只重繪清單，避免輸入框失焦（中文輸入法尤其明顯）
+  var box=document.getElementById("fmlist");
+  if(box) box.innerHTML=fmListHTML(CUR_FM);
+}
+function fmCard(it){
+  // 符號表逐條完整輸出（曾出現把值截斷成 "p= =" 的寫法，這裡一律整串處理後顯示）
+  // 走 subify() 讓 c_rms、N_A、F_x 顯示成真正的下標，而不是字面下劃線
+  var syms=(it.sym||[]).map(function(s){ return "<li>"+subify(esc(s))+"</li>"; }).join("");
+  var badges="";
+  if(it.n && it.n.indexOf("🔴")>=0) badges+='<span class="fbadge none">🔴 表上沒有</span>';
+  if(it.from && it.from.length) badges+='<span class="fbadge deriv">由 '+esc(it.from.join(" + "))+' 推出</span>';
+  var tn=fmTopicName(it.tp);
+  // 每張卡用「所屬課題」的顏色（跟首頁課題卡、知識圖譜一致），
+  // 這是本站既有的配色體系：colorOf(topicId)，不是隨機色。
+  var col=(it.tp && COLORS[it.tp]) ? COLORS[it.tp] : (SUB?SUB.color:"#0f766e");
+  var jump=(it.pt && PMAP[it.pt])
+    ? '<span class="fjump" style="--tc:'+col+'" onclick="jumpPoint(\''+esc(it.pt)+'\')">筆記 →</span>'
+    : "";
+  var topicChip=tn
+    ? '<span class="ftopic" style="--tc:'+col+'">'+(it.tp&&COLORS[it.tp]?'<i></i>':'')+esc(tn)+'</span>'
+    : "";
+  return '<div class="fcard" style="--tc:'+col+'">'
+    +'<div class="ff">'+subify(esc(it.f||""))+'</div>'
+    +(it.n?'<div class="fn">'+subify(esc(it.n))+'</div>':"")
+    +(syms?'<ul class="fsym">'+syms+'</ul>':"")
+    +((badges||topicChip||jump)?'<div class="ffoot">'+badges+topicChip+jump+'</div>':"")
+    +'</div>';
+}
+/* 分組 emoji：讓每個區塊一眼認出，比純文字標題舒服 */
+function fmGroupEmoji(name){
+  var M={"熱學":"🌡️","力學":"🧲","波動與光學":"🌈","電磁學":"⚡","放射性與核物理":"☢️",
+         "原子世界（E2 選修）":"⚛️","能源應用（E3 選修）":"🔋",
+         "數據（常數）":"📐","數學":"➗","直線運動（勻加速）":"🏃",
+         "天文學和航天科學":"🪐","醫學物理學（選修）":"🩺"};
+  if(M[name]) return M[name];
+  var s=String(name);
+  if(s.indexOf("·")>=0){ // 「A · 熱學」這種帶字母的官方表分組
+    var tail=s.split("·").pop().trim();
+    if(M[tail]) return M[tail];
+  }
+  return "📎";
+}
+function fmListHTML(x){
+  if(!x) return "";
+  var shown=fmFiltered(x);
+  if(!shown.length) return '<div class="fempty">沒有符合的公式，換個關鍵字試試。</div>';
+  // 依原分組順序輸出，空組自動略過
+  var order=[], map={}, gmap={};
+  shown.forEach(function(r){
+    var k=r.g.group||"其他";
+    if(!map[k]){ map[k]=[]; order.push(k); }
+    map[k].push(r.it);
+    gmap[k]=r.g;
+  });
+  var isBack=(FM_ST.tab==="back");
+  return order.map(function(k){
+    var g=gmap[k];
+    var note=(g&&g.note)?'<span class="gnote">'+esc(g.note)+'</span>':"";
+    // 分組標題色＝該組第一條公式所屬課題的顏色，讓每個單元一眼可辨
+    var first=map[k][0]||{};
+    var gcol=(first.tp && COLORS[first.tp]) ? COLORS[first.tp] : "#5c4a52";
+    /* 同一課題的公式聚在一起：依原資料順序做穩定分組，
+       讓「氣體」的 6 條連續排列，而不是散落在整組之中。
+       有 tp 的才分組；given 分頁沒有 tp，維持原順序。 */
+    var seq=[], tmap={};
+    map[k].forEach(function(it){
+      var tid=it.tp||"";
+      if(!tmap[tid]){ tmap[tid]=[]; seq.push(tid); }
+      tmap[tid].push(it);
+    });
+    var body=seq.map(function(tid){
+      var arr=tmap[tid];
+      var col=(tid && COLORS[tid]) ? COLORS[tid] : gcol;
+      // 該組涉及多個課題時，每個課題前加一條小標（單一課題就不加，避免冗餘）
+      var head=(seq.length>1 && tid)
+        ? '<div class="ftopicrow" style="--tc:'+col+'"><span class="ftopic" style="--tc:'+col+'"><i></i>'+esc(fmTopicName(tid))+'</span><span class="ftopicn">'+arr.length+' 條</span></div>'
+        : "";
+      return head+'<div class="fgrid">'+arr.map(fmCard).join("")+'</div>';
+    }).join("");
+    return '<div class="fgroup" style="--tc:'+gcol+'">'
+        +'<span class="ge">'+fmGroupEmoji(k)+'</span>'
+        +'<span class="gt">'+esc(k)+'</span>'
+        +'<span class="gn">'+map[k].length+' 條</span>'
+        +'<span class="gline"></span>'
+        +note
+      +'</div>'
+      +body;
+  }).join("")+'<div class="hcount">目前顯示 <b>'+shown.length+'</b> 條'+(isBack?"要背":"表上提供")+'的公式</div>';
+}
+function viewFormulas(x){
+  navOn("extras");
+  if(needsContent())return;
+  CUR_FM=x;
+  var backN=fmRows(x,"back").length, givenN=fmRows(x,"given").length;
+  var noN=fmRows(x,"back").filter(function(r){ return r.it.n && r.it.n.indexOf("🔴")>=0; }).length;
+  var tpN={};
+  fmRows(x,"back").forEach(function(r){ if(r.it.tp) tpN[r.it.tp]=1; });
+  var isBack=(FM_ST.tab==="back");
+  var hero='<div class="fmhero">'
+    +'<div class="hrow"><span class="dot"></span><h2>'+(x.emoji||"🧮")+' '+(isBack?"要背":"不用背")+' · '+(isBack?backN:givenN)+' 條</h2>'
+    +'<span class="pill">'+(isBack?"考場自己記":"隨卷發放")+'</span></div>'
+    +'<p class="lead">'+(isBack
+      ? '這些不在考試隨卷發放的公式表上，考場上沒有，必須自己記。每張卡的「<b>筆記 →</b>」可直接跳到對應知識點。'
+      : '這些是香港考評局公式表<b>隨卷提供</b>的，不用死背；但要知道它長什麼樣、在哪一頁找得到。')+'</p>'
+    +'</div>';
+  var stat='<div class="fstat">'
+    +'<div class="fc"><div class="n">'+backN+'</div><div class="l">要背的公式</div></div>'
+    +'<div class="fc"><div class="n" style="color:#4a9c7a">'+givenN+'</div><div class="l">表上提供 · 不用背</div></div>'
+    +'<div class="fc"><div class="n" style="color:#c2415b">'+noN+'</div><div class="l">🔴 表上完全沒有</div></div>'
+    +'<div class="fc"><div class="n" style="color:#7a6a8a">'+Object.keys(tpN).length+'</div><div class="l">涉及課題</div></div>'
+    +'</div>';
+  var tabs='<div class="ftabs">'
+    +'<button class="ftab'+(isBack?" on":"")+'" onclick="fmSetTab(\'back\')">✍️ 要背<span class="c">'+backN+'</span></button>'
+    +'<button class="ftab given'+(!isBack?" on":"")+'" onclick="fmSetTab(\'given\')">📋 不用背<span class="c">'+givenN+'</span></button>'
+    +'</div>';
+  // 分組快捷（只在該分頁有多組時列出）
+  var gs=[], seen={};
+  fmRows(x,FM_ST.tab).forEach(function(r){
+    var k=r.g.group||"其他";
+    if(!seen[k]){ seen[k]=1; gs.push(k); }
+  });
+  var chips=(gs.length>1)
+    ? '<div class="hchips"><button class="hchip'+(FM_ST.group?"":" on")+'" onclick="fmSetGroup(\'\')">全部</button>'
+      +gs.map(function(k){
+        return '<button class="hchip'+(FM_ST.group===k?" on":"")+'" onclick="fmSetGroup(\''+esc(k.replace(/'/g,"\\'"))+'\')">'+fmGroupEmoji(k)+' '+esc(k)+'</button>';
+      }).join("")+'</div>'
+    : "";
+  app.innerHTML='<div class="view">'
+    +'<div class="thead"><button class="back" onclick="go(\'#/extras\')">← 額外資訊</button>'
+    +'<h2>'+esc(x.title||"公式表")+'</h2></div>'
+    +hero
+    +stat
+    +tabs
+    +'<div class="hfilter"><input type="search" placeholder="🔍 搜尋公式、符號或課題…" autocomplete="off" value="'+esc(FM_ST.q||"")+'" oninput="fmSetQ(this.value)"></div>'
+    +chips
+    +'<div id="fmlist">'+fmListHTML(x)+'</div>'
+    +'<div class="tmeta" style="margin-top:16px">'+esc(x.subtitle||"")+(x.source?" ｜ 來源："+esc(x.source):"")+'</div>'
+    +'</div>';
 }
 
 /* ---- 高頻考點報告 ---- */
@@ -52,6 +239,85 @@ function hotLvTag(lv){
   if(lv===2) return '<span class="hlv2">⭐ 常考</span>';
   return '<span class="hlv1">· 考過</span>';
 }
+/* ---- 有機化學命名規則（官能基優先順序 × 前綴後綴） ----
+   資料結構（extras/chem/orgnaming.json）：
+     priority[] = 官能基優先順序 {rank,grp,suffix,prefix,series,pt,tp,note}
+     subst[]    = 只能當字首的基團 {grp,prefix,note,pt,tp}
+     rules[]    = 命名步驟 {t,d,pt,tp}（d 內含 <b> 標記，需原樣輸出）
+     chain[]    = 碳數對照 {n,cn,en}
+     examples[] = 命名實例 {name,en,why} */
+function onJump(pt, label){
+  if(!pt || !PMAP[pt]) return "";
+  return '<a onclick="jumpPoint(\''+esc(pt)+'\')">'+esc(label||"筆記")+' →</a>';
+}
+/* 區塊標題：emoji + 標題 + 小註，跟公式表同一套視覺語言 */
+function onSecHead(emoji, title, sub){
+  return '<div class="fgroup"><span class="ge">'+emoji+'</span><span class="gt">'+esc(title)+'</span>'
+    +(sub?'<span class="gline"></span><span class="gnote">'+esc(sub)+'</span>':'<span class="gline"></span>')
+    +'</div>';
+}
+function viewOrgNaming(x){
+  navOn("extras");
+  if(needsContent())return;
+  var pri=(x.priority||[]).map(function(r){
+    return '<tr>'
+      +'<td class="rk">'+esc(r.rank)+'</td>'
+      +'<td class="grp">'+esc(r.grp)+'</td>'
+      +'<td class="sfx">'+esc(r.suffix)+'</td>'
+      +'<td class="pfx">'+esc(r.prefix)+'</td>'
+      +'<td class="nt">'+esc(r.note||"")+(r.pt&&PMAP[r.pt]?'<br>'+onJump(r.pt):"")+'</td>'
+      +'</tr>';
+  }).join("");
+  var priTbl=pri
+    ? onSecHead("🏆","官能基優先順序","rank 越小越優先：最優先的當字尾，其餘全部降為字首")
+      +'<div class="onwrap"><table class="onpri"><thead><tr><th>優先</th><th>官能基</th><th>當字尾</th><th>當字首</th><th>說明</th></tr></thead><tbody>'+pri+'</tbody></table></div>'
+    : "";
+  var subst=(x.subst||[]).map(function(s){
+    return '<tr>'
+      +'<td class="grp">'+esc(s.grp)+'</td>'
+      +'<td class="pfx">'+esc(s.prefix)+'</td>'
+      +'<td class="nt">'+esc(s.note||"")+(s.pt&&PMAP[s.pt]?'<br>'+onJump(s.pt):"")+'</td>'
+      +'</tr>';
+  }).join("");
+  var substTbl=subst
+    ? onSecHead("🏷️","只能當字首的基團","鹵素、烷基、硝基等沒有字尾形式")
+      +'<div class="onwrap"><table class="onpri"><thead><tr><th>基團</th><th>字首寫法</th><th>說明</th></tr></thead><tbody>'+subst+'</tbody></table></div>'
+    : "";
+  var rules=(x.rules||[]).map(function(r){
+    return '<div class="onstep">'
+      +'<h4>'+esc(r.t||"")+'</h4>'
+      // r.d 由資料作者寫入 <b> 標記，這裡刻意不 esc，只輸出原樣
+      +'<p>'+(r.d||"")+'</p>'
+      +((r.pt&&PMAP[r.pt])?'<div class="lk">'+onJump(r.pt)+'</div>':"")
+      +'</div>';
+  }).join("");
+  var rulesBox=rules?onSecHead("📝","命名步驟","照這個順序一步步做就不會亂")+rules:"";
+  var chain=(x.chain||[]).map(function(c){
+    return '<div class="c"><b>'+esc(c.cn)+'</b><span>'+esc(c.en||"")+'</span></div>';
+  }).join("");
+  var chainBox=chain
+    ? onSecHead("🔢","碳數對照","1–10 個碳的中英字首")+'<div class="onchain">'+chain+'</div>'
+    : "";
+  var exs=(x.examples||[]).map(function(e){
+    return '<div class="onex">'
+      +'<span class="nm">'+esc(e.name||"")+'</span><span class="en">'+esc(e.en||"")+'</span>'
+      +(e.why?'<div class="why">'+esc(e.why)+'</div>':"")
+      +'</div>';
+  }).join("");
+  var exBox=exs?onSecHead("✨","命名實例","每條都標了為什麼這樣命名")+exs:"";
+  var hero='<div class="onhero">'
+    +'<div class="hrow"><span class="dot"></span><h2>'+(x.emoji||"🧬")+' 有機命名 · 一次搞懂</h2></div>'
+    +'<p class="lead">先看<b>誰當字尾</b>（優先順序最高的那個），其餘官能基全部降為字首，再照<b>命名步驟</b>走一遍。每條都附了對應筆記的跳轉。</p>'
+    +'</div>';
+  app.innerHTML='<div class="view">'
+    +'<div class="thead"><button class="back" onclick="go(\'#/extras\')">← 額外資訊</button>'
+    +'<h2>'+esc(x.title||"命名規則")+'</h2></div>'
+    +hero
+    +priTbl+substTbl+rulesBox+chainBox+exBox
+    +'<div class="tmeta" style="margin-top:16px">'+esc(x.subtitle||"")+(x.source?" ｜ 來源："+esc(x.source):"")+'</div>'
+    +'</div>';
+}
+
 function hotItemRow(it){
   var kws=(it.kw||[]).slice(0,6).map(function(k){return '<span class="hkw">'+esc(k)+'</span>';}).join("");
   var yr=(it.years||[]).join(" / ");
@@ -302,4 +568,59 @@ function ptFindNotes(z){
   (x.elements||[]).forEach(function(v){ if(v.z===z) e=v; });
   if(!e)return;
   go("#/search@"+encodeURIComponent(e.cn));
+}
+
+
+/* ---------------- 額外資訊：檔案列表（html/xlsx/pdf 等補充檔案） ---------------- */
+function viewFiles(x){
+  navOn("extras");
+  var cards=x.files||[];
+  var html='<div class="view"><div class="thead"><button class="back" onclick="go(\'#/extras\')">← 額外資訊</button><h2>'+esc(x.emoji||"📎")+' '+esc(x.title||x.id)+'</h2></div>';
+  html+='<div class="tmeta">'+esc(x.subtitle||"")+'</div>';
+  if(x.intro){ html+='<div class="note" style="margin:12px 0;padding:14px;background:#f4f6f8;border-radius:12px;line-height:1.6;white-space:pre-wrap;">'+esc(x.intro)+'</div>'; }
+  html+='<div class="extras-grid">';
+  cards.forEach(function(f){
+    var icon = f.type==="html"?'🌐':(f.type==="xlsx"?'📊':(f.type==="pdf"?'📄':'📎'));
+    var sizeText = f.size ? ' ('+(f.size<1024?f.size+' B':f.size<1024*1024?(f.size/1024).toFixed(1)+' KB':(f.size/1024/1024).toFixed(2)+' MB)') : '';
+    html+='<div class="extracard" style="cursor:default">';
+    html+='<div class="exemoji">'+icon+'</div>';
+    html+='<h3 style="margin:8px 0 4px;">'+esc(f.title||f.name)+'</h3>';
+    html+='<p style="margin:6px 0 8px;font-size:14px;color:#57534a;">'+esc(f.desc||"")+sizeText+'</p>';
+    html+='<div style="margin-top:12px;border-top:1px dashed var(--line);padding-top:8px;display:flex;gap:8px;">';
+    if(f.type==="html"){
+      html+='<button onclick="viewFile(\''+escJs(f.name)+'\', \''+escJs(x.id)+'\')" style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;font-size:14px;">🔍 在頁中查看</button>';
+    }
+    html+='<a href="files/'+encodeURIComponent(f.name)+'" download style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--accent,#0f766e);text-decoration:none;text-align:center;font-size:14px;">⬇️ 下載</a>';
+    html+='</div></div>';
+  });
+  html+='</div></div>';
+  app.innerHTML=html;
+}
+
+function viewFile(fileName, extraId){
+  var x=extraById(extraId);
+  if(!x){ go("#/extras"); return; }
+  var f=(x.files||[]).find(function(it){ return it.name===fileName; });
+  if(!f){ go("#/extras/"+extraId); return; }
+  var ext=fileName.slice(fileName.lastIndexOf('.')).toLowerCase();
+  navOn("extras");
+  var html='<div class="view"><div class="thead"><button class="back" onclick="viewFilesData(\''+escJs(extraId)+'\')">← '+esc(x.title||x.id)+'</button><h2>'+esc(f.title||fileName)+'</h2></div>';
+  if(ext===".html"){
+    html+='<div class="tmeta">'+esc(f.desc||"")+'</div>';
+    html+='<iframe src="files/'+encodeURIComponent(fileName)+'" style="width:100%;height:70vh;border:none;border-radius:12px;background:#fff;"></iframe>';
+  } else {
+    html+='<div class="note">此檔案類型（'+ext+'）無法直接在頁中預覽，請下載後查看。</div>';
+    html+='<div style="margin-top:20px;text-align:center;"><a href="files/'+encodeURIComponent(fileName)+'" download style="padding:12px 24px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--accent,#0f766e);text-decoration:none;font-size:15px;">⬇️ 下載 '+esc(f.name)+'</a></div>';
+  }
+  html+='</div>';
+  app.innerHTML=html;
+}
+
+function viewFilesData(extraId){
+  /* 2026-10-25 修：viewFile 不改 hash（URL 仍是 #/<sid>/extras/<id>），
+     這裡再 go("#/extras/"+id) 會被 normalizeHash 補成同一個 hash →
+     不會觸發 hashchange → 按鈕看起來完全沒反應。改為直接重繪清單。 */
+  var x=extraById(extraId);
+  if(x){ viewFiles(x); return; }
+  go("#/extras");
 }

@@ -1,7 +1,7 @@
 import json, io
 
-OUT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\map\2021_p2.json"
-CAT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+OUT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\map\2021_p2.json"
+CAT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 
 raw = open(OUT, "rb").read()
 assert b"\xef\xbf\xbd" not in raw, "file contains U+FFFD"

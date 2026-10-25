@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
-OUT = r'C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\quiz\4b.json'
+OUT = r'D:\deepseek-harness\default-workspace\f6chem\quiz\4b.json'
 with open(OUT, encoding='utf-8') as f:
     doc = json.load(f)
 A = doc['questions']

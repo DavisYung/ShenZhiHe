@@ -81,3 +81,16 @@ node_modules/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+
+# ---------- 內嵌 Python 執行環境（可重建，勿入庫）----------
+# 這些是本機打包用的可攜式 Python，數千個檔案、數十 MB，與原始碼無關
+Python/
+site/Python/
+
+# ---------- 備份檔 ----------
+*.bak-*
+*.bak-????????-????
+
+# ---------- 建置產物與部署目錄（可由原始碼重建）----------
+site/gh-pages/
+site/神智核-V*.html

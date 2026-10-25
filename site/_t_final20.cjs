@@ -12,7 +12,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
  await new Promise(r=>ws.onopen=r);
  await send("Page.enable");await send("Runtime.enable");await send("Network.enable");
  await send("Network.setCacheDisabled",{cacheDisabled:true});
- const ev=async e=>{const r=await send("Runtime.evaluate",{expression:e,returnByValue:true,awaitPromise:true});if(r.result?.exceptionDetails)return "EXC:"+(m.params.exceptionDetails.exception?.description||"");return r.result?.result?.value;};
+ const ev=async e=>{const r=await send("Runtime.evaluate",{expression:e,returnByValue:true,awaitPromise:true});if(r.result?.exceptionDetails)return "EXC:"+(r.result.exceptionDetails.exception?.description||"");return r.result?.result?.value;};
  const S="https://nzgjsmy.github.io/ShenZhiHe/";
  let pass=0,fail=0;const ok=(c,m)=>{if(c){pass++;console.log("  PASS "+m);}else{fail++;console.log("  FAIL "+m);}};
  await send("Emulation.setDeviceMetricsOverride",{width:390,height:844,deviceScaleFactor:2,mobile:true});

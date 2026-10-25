@@ -1,6 +1,6 @@
 ﻿import json, io, os, sys
 sys.stdout.reconfigure(encoding="utf-8")
-ROOT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+ROOT = r"D:\deepseek-harness\default-workspace\f6chem"
 TIDS = ["1a","1b","1c","2a","2b","3a","3b","4a","4b","6","8"]
 bad=0
 for tid in TIDS:

@@ -2,7 +2,7 @@
 """Build f6chem/quiz/8.json for topic 8 分析化學."""
 import json, io, os
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 
 Q = []
 

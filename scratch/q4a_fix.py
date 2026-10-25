@@ -6,7 +6,7 @@ import io, json, os, sys
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-ROOT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+ROOT = r"D:\deepseek-harness\default-workspace\f6chem"
 QUIZ = os.path.join(ROOT, "quiz", "4a.json")
 
 with io.open(QUIZ, encoding="utf-8") as f:

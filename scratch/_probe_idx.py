@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import io, re, sys
 sys.stdout.reconfigure(encoding="utf-8")
-h = io.open(r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\神智核-GitHub部署包\index.html", encoding="utf-8").read()
+h = io.open(r"D:\deepseek-harness\default-workspace\神智核-GitHub部署包\index.html", encoding="utf-8").read()
 print("len:", len(h))
 print("img/ count:", h.count("img/"))
 print("data:image count:", h.count("data:image"))

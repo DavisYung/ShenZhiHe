@@ -8,7 +8,7 @@ import sys
 from collections import defaultdict
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 per_year = defaultdict(list)
 for f in glob.glob(BASE + r"\data\chem\*.json"):
     stem = f.rsplit("\\", 1)[-1][:-5]

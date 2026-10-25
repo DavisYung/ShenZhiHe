@@ -4,7 +4,7 @@ p044/p045 are 0-byte blank pages -> skipped, never fabricated."""
 import json, io, os, sys
 sys.stdout.reconfigure(encoding="utf-8")
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 DATA = os.path.join(BASE, "data", "1b.json")
 
 def S(sid, title, points):

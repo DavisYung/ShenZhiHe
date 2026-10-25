@@ -5,8 +5,80 @@
   "emoji": "🧬",
   "color": "#15803d",
   "order": 3,
-  "ready": false,
-  "description": "生物科的筆記、知識點與測驗。內容還在整理，先把架子搭好，隨時可以往裡面放。",
-  "source": "待補：生物科教師版筆記 PDF",
-  "topics": []
+  "ready": true,
+  "description": "細胞與生命基礎、人體營養與運輸、植物營養與運輸、生殖生長與發育、協調與運動、體內平衡與調節、能量與代謝、健康與疾病、遺傳演化與生物工程、生態與環境十個分區。",
+  "source": "生物科教師版筆記 PDF（第2–36章，共34章373頁）",
+  "units": [
+    {
+      "id": "cell",
+      "title": "細胞與生命基礎",
+      "emoji": "🧫",
+      "description": "細胞學說與顯微鏡、動物與植物細胞的構造、原核與真核細胞、物質穿越細胞膜的活動（擴散、滲透、主動轉運）、酶與新陳代謝。",
+      "topics": ["bio02", "bio03", "bio04"]
+    },
+    {
+      "id": "humannutrition",
+      "title": "人體的營養與運輸",
+      "emoji": "🩸",
+      "description": "食物與人類、人的營養（消化系統與酶、吸收）、人體的氣體交換（呼吸系統）、人體內物質的轉運（心臟、血管、血液、淋巴）。",
+      "topics": ["bio05", "bio06", "bio07", "bio08"]
+    },
+    {
+      "id": "plantnutrition",
+      "title": "植物的營養與運輸",
+      "emoji": "🌿",
+      "description": "植物的營養和氣體交換（光合作用、礦物質吸收、氣孔）、植物的蒸騰、轉運和支持（木質部、韌皮部、支持組織）。",
+      "topics": ["bio09", "bio10"]
+    },
+    {
+      "id": "reproduction",
+      "title": "生殖、生長與發育",
+      "emoji": "🌱",
+      "description": "細胞週期和分裂（有絲分裂、減數分裂）、有花植物的生殖、人的生殖、生長和發育（種子萌發、生長曲線、青春期）。",
+      "topics": ["bio11", "bio12", "bio13", "bio14"]
+    },
+    {
+      "id": "coordination",
+      "title": "協調與運動",
+      "emoji": "⚡",
+      "description": "環境狀況的探測（感官與受體）、人體的協調（神經系統、激素、反射）、人體的運動（骨骼、肌肉、關節）。",
+      "topics": ["bio15", "bio16", "bio17"]
+    },
+    {
+      "id": "homeostasis",
+      "title": "體內平衡與調節",
+      "emoji": "🌡️",
+      "description": "體內平衡的概念、體温調節、水份調節、血液內氣體成分的調節、生殖週期的激素控制。",
+      "topics": ["bio18", "bio32", "bio33", "bio34", "bio35"]
+    },
+    {
+      "id": "metabolism",
+      "title": "能量與代謝",
+      "emoji": "🔆",
+      "description": "光合作用（光反應、碳固定、影響因素）、呼吸作用（糖酵解、克雷伯循環、電子傳遞鏈、發酵）。",
+      "topics": ["bio20", "bio21"]
+    },
+    {
+      "id": "health",
+      "title": "健康與疾病",
+      "emoji": "🛡️",
+      "description": "非傳染病（癌症、心血管疾病、糖尿病）、傳染病和疾病的預防、身體的防禦機制（免疫系統）。",
+      "topics": ["bio22", "bio23", "bio24"]
+    },
+    {
+      "id": "genetics",
+      "title": "遺傳、生物工程與演化",
+      "emoji": "🧬",
+      "description": "基礎遺傳學（孟德爾遺傳、遺傳圖譜）、分子遺傳學（DNA結構、複製、轉錄、翻譯、突變）、生物工程、生物多樣性、進化I與進化II。",
+      "topics": ["bio25", "bio26", "bio27", "bio28", "bio29", "bio30"]
+    },
+    {
+      "id": "ecology",
+      "title": "生態與環境",
+      "emoji": "🌍",
+      "description": "生態系（組織層次、能量流動、物質循環、生物關係）、人類對環境的影響（污染、保育、可持續發展）。",
+      "topics": ["bio19", "bio36"]
+    }
+  ],
+  "topics": ["bio02", "bio03", "bio04", "bio05", "bio06", "bio07", "bio08", "bio09", "bio10", "bio11", "bio12", "bio13", "bio14", "bio15", "bio16", "bio17", "bio18", "bio19", "bio20", "bio21", "bio22", "bio23", "bio24", "bio25", "bio26", "bio27", "bio28", "bio29", "bio30", "bio32", "bio33", "bio34", "bio35", "bio36"]
 }

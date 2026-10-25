@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, os
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 DATA = os.path.join(BASE, "data", "3a.json")
 OUT = os.path.join(BASE, "quiz", "3a.json")
 

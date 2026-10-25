@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, io, os, sys, collections
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-BASE = r'C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem'
+BASE = r'D:\deepseek-harness\default-workspace\f6chem'
 
 src = json.load(open(os.path.join(BASE, 'data', '6.json'), encoding='utf-8'))
 valid_points = set()

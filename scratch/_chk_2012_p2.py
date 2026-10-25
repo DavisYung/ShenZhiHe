@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json, re, sys, io
 
-MAP = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\map\2012_p2.json"
-CAT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+MAP = r"D:\deepseek-harness\default-workspace\f6chem\scratch\map\2012_p2.json"
+CAT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 
 raw = open(MAP, "rb").read()
 errs = []

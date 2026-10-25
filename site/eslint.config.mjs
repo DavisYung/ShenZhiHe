@@ -61,6 +61,7 @@ export default [
         // Playwright 的 page.evaluate 回调在浏览器上下文执行，
         // 里面会引用页面内的全局变量（如 SUB），这是正常的，不算未定义。
         SUB: "readonly", TOPICS: "readonly", UNITS: "readonly",
+        SUBJECTS: "readonly", mdLite: "readonly",
       },
     },
     rules: SHARED,

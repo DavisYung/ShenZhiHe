@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """批次2：3a-q10 .. 3a-q22（涵蓋 s5, s6, s7, s8, s9）"""
 import json, os
-base = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+base = r"D:\deepseek-harness\default-workspace\f6chem"
 out = os.path.join(base, "quiz", "3a.json")
 
 Q = json.load(open(out, encoding="utf-8"))["questions"]

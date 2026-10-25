@@ -1,6 +1,6 @@
 import sys, json, os, collections
 sys.stdout.reconfigure(encoding="utf-8")
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 for tid in ["1a","1c","2a","3a","3b","4a","4b","6","8"]:
     q = json.load(open(os.path.join(BASE,"quiz",tid+".json"), encoding="utf-8"))
     d = json.load(open(os.path.join(BASE,"data",tid+".json"), encoding="utf-8"))

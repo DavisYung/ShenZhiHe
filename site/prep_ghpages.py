@@ -334,7 +334,10 @@ def copy_note_images():
     refs = sorted(set(re.findall(r"img/([A-Za-z0-9_]+\.webp)", html)))
     # 自製圖解放在 img/gen/ 子目錄（SVG 為主，早期幾張是 PNG），必須一起複製，否則線上 404
     refs_gen = sorted(set(re.findall(r"img/(gen/[A-Za-z0-9_\-]+\.(?:svg|png))", html)))
-    all_refs = refs + refs_gen
+    # 真題配圖放在 img/pp/<年份>/f<NN>.webp，引用來自 payload JSON（不是 markdown），
+    # 舊版正則抓不到 → 線上 404。這裡一併收進來。
+    refs_pp = sorted(set(re.findall(r"img/(pp/[0-9]{4}/[A-Za-z0-9_]+\.webp)", html)))
+    all_refs = refs + refs_gen + refs_pp
     if not all_refs:
         print("  note: index.html 未引用任何 img/*.webp（圖片外置未啟用？）")
         return 0
@@ -361,13 +364,42 @@ def copy_note_images():
     for dp, _dn, fn in os.walk(dst_dir):
         for n in fn:
             total += os.path.getsize(os.path.join(dp, n))
-    print("  筆記原圖：外置 %d 張（其中自製圖解 %d 張）→ img/（%.2f MB）"
-          % (copied, len(refs_gen), total / 1024.0 / 1024.0))
+    print("  筆記原圖：外置 %d 張（自製圖解 %d 張、真題配圖 %d 張）→ img/（%.2f MB）"
+          % (copied, len(refs_gen), len(refs_pp), total / 1024.0 / 1024.0))
     return copied
 
 
+
+
+def copy_extra_files():
+    """把 extras/<sid>/ 下的補充檔案（html/xlsx/pdf 等）複製到 gh-pages/files/。
+
+    這些檔案由 extras.js 的 viewFiles() 透過相對路徑 files/<name> 存取。
+    """
+    src_dir = os.path.join(os.path.dirname(SITE), "extras", "bio")
+    if not os.path.isdir(src_dir):
+        print("  note: extras/bio/ 不存在，略過補充檔案複製")
+        return 0
+    dst_dir = os.path.join(OUT, "files")
+    if not os.path.isdir(dst_dir):
+        os.makedirs(dst_dir)
+    copied = 0
+    for n in sorted(os.listdir(src_dir)):
+        if not n.endswith((".html", ".xlsx", ".pdf", ".zip")):
+            continue
+        ap = os.path.join(src_dir, n)
+        if not os.path.isfile(ap):
+            continue
+        shutil.copy2(ap, os.path.join(dst_dir, n))
+        copied += 1
+        print("  複製補充檔案：files/%s" % n)
+    print("  補充檔案：files/ %d 個" % copied)
+    return copied
+
 def main():
-    rmtree_soft(OUT)
+    # 可用 NO_WIPE=1 跳過清空（原地覆蓋，適合沙箱不允許批量刪除時）
+    if not os.environ.get("NO_WIPE"):
+        rmtree_soft(OUT)
     if not os.path.isdir(OUT):
         os.makedirs(OUT)
 
@@ -398,6 +430,7 @@ def main():
         f.write(NOTFOUND)
     pwa = copy_pwa()
     n_img = copy_note_images()
+    n_files = copy_extra_files()
 
     print("站名：%s" % SITE_TITLE)
     print("來源：%s" % os.path.basename(src))

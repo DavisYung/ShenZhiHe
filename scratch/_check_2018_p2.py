@@ -1,5 +1,5 @@
 import json, sys
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem\scratch"
 jp = BASE + r"\map\2018_p2.json"
 raw = open(jp, encoding="utf-8").read()
 assert "\ufffd" not in raw, "U+FFFD found in json"

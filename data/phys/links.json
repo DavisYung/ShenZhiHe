@@ -627,12 +627,12 @@
     {
         "from": "elec2-s3-p2",
         "to": "heat2-s1-p2",
-        "label": "金屬电阻隨温度升高而增大（温度影響电阻）"
+        "label": "金屬电阻隨溫度升高而增大（溫度影響电阻）"
     },
     {
         "from": "elec2-s3-p3",
         "to": "heat3-s1-p2",
-        "label": "電流的热效应令導体温度上升"
+        "label": "電流的热效应令導体溫度上升"
     },
     {
         "from": "elec3-s1-p2",
@@ -783,5 +783,250 @@
         "from": "atomic3-s1-p1",
         "to": "atomic3-s2-p3",
         "label": "納米尺度需借助電子顯微鏡才看得清"
+    },
+    {
+        "from": "energy1-s1-p2",
+        "to": "elec3-s1-p1",
+        "label": "能源效益的計算基礎：輸入電功率與電流熱效應"
+    },
+    {
+        "from": "energy1-s1-p3",
+        "to": "elec3-s1-p4",
+        "label": "能源效益與電費：輸入能量換算耗電量"
+    },
+    {
+        "from": "energy1-s2-p1",
+        "to": "elec3-s1-p1",
+        "label": "電熱平板爐靠電流的熱效應發熱"
+    },
+    {
+        "from": "energy1-s2-p3",
+        "to": "elec5-s3-p2",
+        "label": "電磁爐的渦電流與電磁感應的渦電流同一原理"
+    },
+    {
+        "from": "energy1-s2-p4",
+        "to": "wave6-s3-p2",
+        "label": "微波爐的 2.45 GHz 屬微波波段"
+    },
+    {
+        "from": "energy1-s3-p7",
+        "to": "elec3-s1-p1",
+        "label": "冷卻能力與性能係數：功率和能量轉換的計算"
+    },
+    {
+        "from": "energy1-s3-p8",
+        "to": "elec3-s1-p4",
+        "label": "空調機總能量輸入即耗電量與電費的來源"
+    },
+    {
+        "from": "energy2-s1-p1",
+        "to": "atomic1-s3-p1",
+        "label": "電子躍遷放出電磁波：光子能量取決於能級差"
+    },
+    {
+        "from": "energy2-s1-p1",
+        "to": "atomic2-s1-p6",
+        "label": "照明原理就是電子躍遷、激發與返回低能級"
+    },
+    {
+        "from": "energy2-s1-p1",
+        "to": "atomic2-s1-p5",
+        "label": "受激態與基態：發光前的能量吸收"
+    },
+    {
+        "from": "energy2-s1-p2",
+        "to": "atomic2-s1-p1",
+        "label": "氣體放電燈的發射光譜與線狀光譜"
+    },
+    {
+        "from": "energy2-s1-p6",
+        "to": "elec1-s1-p2",
+        "label": "LED 的 n 型、p 型半導體與導體／絕緣體的分別"
+    },
+    {
+        "from": "energy2-s1-p6",
+        "to": "elec2-s1-p1",
+        "label": "LED 只允許電流單向通過：直流電操作"
+    },
+    {
+        "from": "energy2-s1-p7",
+        "to": "atomic1-s3-p1",
+        "label": "LED 發光也是電子躍遷放出能量"
+    },
+    {
+        "from": "energy2-s1-p11",
+        "to": "wave6-s1-p4",
+        "label": "照明度是光照射表面：光線為波陣面垂直方向"
+    },
+    {
+        "from": "energy2-s1-p16",
+        "to": "wave6-s3-p3",
+        "label": "光視效能與人眼對可見光波長的敏感度"
+    },
+    {
+        "from": "energy2-s2-p1",
+        "to": "elec3-s1-p3",
+        "label": "能源效益標籤的評級與電器額定功率"
+    },
+    {
+        "from": "energy2-s2-p2",
+        "to": "elec3-s1-p4",
+        "label": "能源效益指數與實際耗電量、電費的關係"
+    },
+    {
+        "from": "energy3-s1-p1",
+        "to": "heat4-s1-p1",
+        "label": "建築物外殼傳熱的兩種方式：傳導與輻射"
+    },
+    {
+        "from": "energy3-s1-p1",
+        "to": "heat4-s1-p2",
+        "label": "不同物料的傳導能力：玻璃與牆壁"
+    },
+    {
+        "from": "energy3-s1-p3",
+        "to": "heat2-s2-p1",
+        "label": "U 值涉及熱傳遞率：與比熱容量相關的能量計算"
+    },
+    {
+        "from": "energy3-s1-p4",
+        "to": "heat2-s2-p2",
+        "label": "熱傳導率的計算與比熱容量的計算同屬能量傳遞"
+    },
+    {
+        "from": "energy3-s1-p8",
+        "to": "heat4-s2-p1",
+        "label": "影響熱傳遞率的因素：傳導、對流、輻射"
+    },
+    {
+        "from": "energy3-s1-p9",
+        "to": "heat4-s2-p3",
+        "label": "減少傳導：限制流體流動與保溫設計"
+    },
+    {
+        "from": "energy3-s1-p10",
+        "to": "heat4-s3-p2",
+        "label": "三種玻璃減少輻射：表面顏色與表面面積影響淨能量傳遞"
+    },
+    {
+        "from": "energy3-s1-p10",
+        "to": "heat4-s3-p3",
+        "label": "低放射性玻璃與保溫瓶都靠反射減少輻射"
+    },
+    {
+        "from": "energy3-s2-p1",
+        "to": "mech7-s2-p5",
+        "label": "傳統燃油車以摩擦力制動：撞擊力與安全措施"
+    },
+    {
+        "from": "energy3-s2-p3",
+        "to": "mech2-s2-p1",
+        "label": "再生制動把動能回收：能量守恆與運動描述"
+    },
+    {
+        "from": "energy3-s2-p5",
+        "to": "heat2-s2-p1",
+        "label": "再生制動儲存的能量用質量與速度計算"
+    },
+    {
+        "from": "energy3-s2-p10",
+        "to": "mech7-s1-p1",
+        "label": "公共運輸的能源效益：每乘客每公里能量與動量無關"
+    },
+    {
+        "from": "energy4-s1-p1",
+        "to": "nuclear3-s1-p1",
+        "label": "核裂變：核能發電的燃料與反應"
+    },
+    {
+        "from": "energy4-s1-p2",
+        "to": "nuclear3-s2-p4",
+        "label": "原子核結合能與核反應能量計算"
+    },
+    {
+        "from": "energy4-s1-p3",
+        "to": "nuclear3-s2-p3",
+        "label": "質能關係 E = mc²"
+    },
+    {
+        "from": "energy4-s1-p4",
+        "to": "nuclear3-s2-p1",
+        "label": "原子質量單位 u 與結合能單位換算"
+    },
+    {
+        "from": "energy4-s1-p4",
+        "to": "nuclear3-s2-p2",
+        "label": "電子伏與 MeV 的關係"
+    },
+    {
+        "from": "energy4-s1-p5",
+        "to": "nuclear3-s1-p1",
+        "label": "結合能曲線解釋為何重核裂變、輕核聚變放能"
+    },
+    {
+        "from": "energy4-s1-p6",
+        "to": "nuclear3-s1-p2",
+        "label": "核裂變與核聚變：由結合能曲線理解放能方向"
+    },
+    {
+        "from": "energy4-s1-p8",
+        "to": "nuclear3-s1-p3",
+        "label": "連鎖反應與臨界質量：核反應堆的發電原理"
+    },
+    {
+        "from": "energy4-s1-p9",
+        "to": "nuclear3-s3-p1",
+        "label": "減速劑與控制棒如何控制核能輸出"
+    },
+    {
+        "from": "energy4-s2-p1",
+        "to": "mech7-s1-p1",
+        "label": "風力渦輪機利用空氣的動能發電"
+    },
+    {
+        "from": "energy4-s2-p4",
+        "to": "mech7-s1-p1",
+        "label": "水力發電利用水的重力勢能轉為動能"
+    },
+    {
+        "from": "energy4-s2-p7",
+        "to": "wave6-s3-p1",
+        "label": "太陽常數與電磁波譜：太陽輻射的能量分佈"
+    },
+    {
+        "from": "energy4-s2-p11",
+        "to": "atomic1-s2-p1",
+        "label": "太陽能電池的光電效應：光子激發電子"
+    },
+    {
+        "from": "energy4-s2-p11",
+        "to": "elec1-s1-p2",
+        "label": "太陽能電池的 n 型、p 型半導體結構"
+    },
+    {
+        "from": "energy4-s2-p11",
+        "to": "elec5-s3-p2",
+        "label": "太陽能電池的 PN 接面與電場"
+    },
+    {
+        "from": "energy4-s3-p1",
+        "to": "heat4-s1-p1",
+        "label": "能量轉換過程中的熱污染與傳導"
+    },
+    {
+        "from": "energy4-s3-p2",
+        "to": "heat4-s3-p4",
+        "label": "溫室效應：大氣層困住地面發出的熱輻射"
+    },
+    {
+        "from": "energy4-s3-p3",
+        "to": "heat4-s3-p4",
+        "label": "溫室氣體吸收紅外輻射造成全球暖化"
+    },
+    {
+        "from": "energy4-s3-p4",
+        "to": "heat4-s3-p4",
+        "label": "全球暖化的成因與後果：溫室效應的加強"
     }
 ]

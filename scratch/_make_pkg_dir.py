@@ -4,7 +4,7 @@ import io, os, shutil, stat, sys
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-WORK = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace"
+WORK = r"D:\deepseek-harness\default-workspace"
 SRC = os.path.join(WORK, "f6chem", "gh-pages")
 PKG = os.path.join(WORK, "神智核-GitHub部署包")
 

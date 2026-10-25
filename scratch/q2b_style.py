@@ -1,6 +1,6 @@
 import sys, json, os
 sys.stdout.reconfigure(encoding="utf-8")
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 q = json.load(open(os.path.join(BASE,"quiz","2a.json"), encoding="utf-8"))
 qs = q["questions"]
 print("keys:", list(q.keys()))

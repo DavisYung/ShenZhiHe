@@ -2,7 +2,7 @@
 import json, io, os
 from collections import Counter
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 out = io.open(BASE + r"\scratch\q8_report.txt", "w", encoding="utf-8")
 
 data = json.load(io.open(BASE + r"\quiz\8.json", encoding="utf-8"))

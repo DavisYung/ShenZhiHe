@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, sys, collections
 sys.stdout.reconfigure(encoding='utf-8')
-BASE = r'C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem'
+BASE = r'D:\deepseek-harness\default-workspace\f6chem'
 q = json.load(open(BASE + r'\quiz\4b.json', encoding='utf-8'))
 d = json.load(open(BASE + r'\data\4b.json', encoding='utf-8'))
 

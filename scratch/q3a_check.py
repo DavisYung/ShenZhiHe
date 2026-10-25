@@ -2,7 +2,7 @@
 """統計與覆蓋檢查（含最終驗證）"""
 import json, os, sys, re, collections
 sys.stdout.reconfigure(encoding='utf-8')
-base = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+base = r"D:\deepseek-harness\default-workspace\f6chem"
 out = os.path.join(base, "quiz", "3a.json")
 data = json.load(open(out, encoding="utf-8"))
 src = json.load(open(os.path.join(base, "data", "3a.json"), encoding="utf-8"))

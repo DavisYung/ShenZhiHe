@@ -108,17 +108,20 @@ check("课题页返回键可用", t.includes("返回"));
 await evalJs("location.hash='#/phys/quiz'");
 await new Promise((r) => setTimeout(r, 2500));
 t = await evalJs("document.body.innerText");
-check("测验页含「熱學全部」按鈕", t.includes("熱學全部"), "");
+// V0.14.0 起测验页改为「课题卡片 + 勾选」：单元入口是分组头部的 .qgwhole
+// 「整區 N 題 →」按钮（旧版的 .scope「熱學全部」已下线）
+const unitHead = await evalJs("document.querySelector('.qgroup[data-uid=thermal] .qgt') ? document.querySelector('.qgroup[data-uid=thermal] .qgt').textContent.trim() : ''");
+check("测验页有热学分组标题", /熱學/.test(unitHead), unitHead);
 check("测验页仍列出各课题", TITLES.filter((x) => t.includes(x)).length === 5);
 await shot("u_quiz.png");
 
 // 5. 单元测验真的能开始并抽到题
 const started = await evalJs(`(function(){
-  var el=Array.from(document.querySelectorAll('.scope')).find(x=>/熱學全部/.test(x.textContent));
+  var el=document.querySelector('.qgroup[data-uid=thermal] .qgwhole');
   if(el){ el.click(); return el.textContent.trim().slice(0,30); }
   return null;
 })()`);
-check("能开始「熱學全部」测验", !!started, "点击=" + started);
+check("能开始热学整区测验", !!started, "点击=" + started);
 await new Promise((r) => setTimeout(r, 2500));
 t = await evalJs("document.body.innerText");
 check("单元测验进入做题（有题号）", /第 \d+ \/ \d+ 題/.test(t), (t.match(/第 \d+ \/ \d+ 題/) || [""])[0]);

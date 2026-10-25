@@ -1,7 +1,7 @@
 import json, sys
 sys.stdout.reconfigure(encoding="utf-8")
 
-P = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\data\1b.json"
+P = r"D:\deepseek-harness\default-workspace\f6chem\data\1b.json"
 d = json.load(open(P, encoding="utf-8"))
 print("top keys:", list(d.keys()) if isinstance(d, dict) else type(d))
 secs = d["sections"]

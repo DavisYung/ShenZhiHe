@@ -1,6 +1,6 @@
 import sys, json, os
 sys.stdout.reconfigure(encoding="utf-8")
-SCR = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch"
+SCR = r"D:\deepseek-harness\default-workspace\f6chem\scratch"
 
 Q = []
 

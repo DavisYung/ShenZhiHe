@@ -1,7 +1,7 @@
 import json, io, sys
 sys.stdout.reconfigure(encoding="utf-8")
 
-p = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\data\1b.json"
+p = r"D:\deepseek-harness\default-workspace\f6chem\data\1b.json"
 with io.open(p, encoding="utf-8") as f:
     raw = f.read()
 

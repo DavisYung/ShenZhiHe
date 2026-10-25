@@ -1,6 +1,6 @@
 import json, io, sys, os
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem\scratch"
 MAP = os.path.join(BASE, "map", "2022_p1b_a.json")
 CAT = os.path.join(BASE, "pp", "catalog.tsv")
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, os
 
-path = r'C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\quiz\4a.json'
+path = r'D:\deepseek-harness\default-workspace\f6chem\quiz\4a.json'
 os.makedirs(os.path.dirname(path), exist_ok=True)
 
 qs = [

@@ -1,0 +1,56 @@
+{
+  "id": "orgnaming",
+  "type": "orgnaming",
+  "order": 1,
+  "emoji": "🧬",
+  "title": "有機化學命名規則：官能基順序 × 前綴後綴",
+  "subtitle": "依 IUPAC 命名規則整理：官能基的優先順序（誰當字尾、誰當字首）、各官能基的前綴與後綴寫法、烷基與鹵基的命名，並對照本站化學區 3a／3b 的有機化學筆記。",
+  "source": "命名規則＝IUPAC《Nomenclature of Organic Chemistry》（Blue Book, 2013 Recommendations，P-4 官能基優先順序表）；筆記＝本站化學區 3a 有機化合物（3a-s7 烴類的命名）、3b 碳化合物的化學反應（3b-s1 官能基）",
+  "priority": [
+    {"rank": 1, "grp": "羧基 –COOH", "suffix": "酸（-oic acid）", "prefix": "羧基（carboxy-）", "series": "羧酸", "pt": "3b-s11-p1", "tp": "3b", "note": "最高優先，永遠是字尾；碳鏈編號由羧基碳開始（羧基碳必為 C-1）"},
+    {"rank": 2, "grp": "磺基 –SO₃H", "suffix": "磺酸（-sulphonic acid）", "prefix": "磺基（sulpho-）", "series": "磺酸", "pt": "", "tp": "", "note": "DSE 課程較少涉及，順序在羧酸之後"},
+    {"rank": 3, "grp": "酯基 –COO–", "suffix": "酸某酯（-oate，即「某酸某酯」）", "prefix": "烷氧羰基（alkoxycarbonyl-）", "series": "酯", "pt": "3a-s12-p2", "tp": "3a", "note": "命名特殊：先寫氧上那個烷基（R′），再寫酸的部份，如「乙酸乙酯」＝ethylethanoate"},
+    {"rank": 4, "grp": "醯胺基 –CONH₂", "suffix": "醯胺（-amide）", "prefix": "胺甲醯基／醯胺基（carbamoyl-）", "series": "醯胺", "pt": "3b-s11-p3", "tp": "3b", "note": "由羧酸與銨鹽反應製得"},
+    {"rank": 5, "grp": "腈基 –CN", "suffix": "腈（-nitrile）", "prefix": "氰基（cyano-）", "series": "腈", "pt": "", "tp": "", "note": "加字尾時保留字幹的 e（…anenitrile），與其他官能基不同"},
+    {"rank": 6, "grp": "醛基 –CHO", "suffix": "醛（-al）", "prefix": "氧代／醛基（oxo- / formyl-）", "series": "醛", "pt": "3b-s10-p1", "tp": "3b", "note": "醛基必在鏈端，故編號時它一定是 C-1，通常不需標位數"},
+    {"rank": 7, "grp": "酮基 >C=O", "suffix": "酮（-one）", "prefix": "氧代（oxo-）", "series": "酮", "pt": "3b-s10-p1", "tp": "3b", "note": "酮基在鏈中間，必須標位數（如丁-2-酮）"},
+    {"rank": 8, "grp": "羥基 –OH", "suffix": "醇（-ol）", "prefix": "羥基（hydroxy-）", "series": "醇", "pt": "3a-s11-p1", "tp": "3a", "note": "同時有醛／酮時，–OH 降為字首 hydroxy-"},
+    {"rank": 9, "grp": "胺基 –NH₂", "suffix": "胺（-amine）", "prefix": "胺基（amino-）", "series": "胺", "pt": "3b-s1-p1", "tp": "3b", "note": "胺的位數標在「胺」字前（如丙-2-胺）"},
+    {"rank": 10, "grp": "碳-碳雙鍵 >C=C<", "suffix": "烯（-ene）", "prefix": "烯基（alkenyl-）", "series": "烯", "pt": "3a-s7-p5", "tp": "3a", "note": "「不飽和度」也要標位數，且位數寫在字尾前：丁-1-烯"},
+    {"rank": 11, "grp": "碳-碳三鍵 –C≡C–", "suffix": "炔（-yne）", "prefix": "炔基（alkynyl-）", "series": "炔", "pt": "3a-s7-p5", "tp": "3a", "note": "與烯同級，若兩者並存則以數字小者優先、並用「烯炔」表示"}
+  ],
+  "subst": [
+    {"grp": "鹵素 –X（–F／–Cl／–Br／–I）", "prefix": "氟／氯／溴／碘（fluoro-／chloro-／bromo-／iodo-）", "note": "永遠只能當字首（沒有字尾形式）。命名時與烷基一起按字母順序排列，如 2-氯-2-甲基丙烷。", "pt": "3b-s5-p1", "tp": "3b"},
+    {"grp": "烷基 –R（如 –CH₃／–C₂H₅）", "prefix": "甲基／乙基（methyl-／ethyl-）", "note": "分支寫在母體名前，數字與數字用「,」、數字與文字用「-」：2,2-二甲基丙烷。", "pt": "3a-s7-p3", "tp": "3a"},
+    {"grp": "硝基 –NO₂", "prefix": "硝基（nitro-）", "note": "只能當字首，常見於芳香族（如硝基苯）。", "pt": "", "tp": ""},
+    {"grp": "烷氧基 –OR", "prefix": "甲氧基／乙氧基（methoxy-／ethoxy-）", "note": "只能當字首；注意與酯基（–COO–，可當字尾）不同。", "pt": "3b-s1-p1", "tp": "3b"}
+  ],
+  "rules": [
+    {"t": "① 選主鏈", "d": "選<b>最長</b>的連續碳鏈作主鏈；若兩條一樣長，選<b>取代基最多</b>那條。有官能基時，主鏈必須<b>包含</b>該官能基。", "pt": "3a-s7-p2", "tp": "3a"},
+    {"t": "② 定字尾", "d": "找出<b>優先順序最高</b>的官能基（見上表 rank 小者），用它決定字尾；其餘官能基一律降級成<b>字首</b>。", "pt": "3a-s7-p5", "tp": "3a"},
+    {"t": "③ 編號", "d": "由<b>最接近主要官能基</b>的一端開始編號，讓官能基位數最小；若官能基已在鏈端（如羧酸、醛），則改由<b>取代基位數最小</b>的一端編號。", "pt": "3a-s7-p2", "tp": "3a"},
+    {"t": "④ 寫取代基", "d": "相同取代基用中文數字合併（二甲基、三甲基）；不同取代基按<b>字母順序</b>（英文）或「簡單前、複雜後」排列。", "pt": "3a-s7-p3", "tp": "3a"},
+    {"t": "⑤ 標點", "d": "<b>數字與數字之間用「,」</b>，<b>數字與文字之間用「-」</b>。例：2,3-二甲基丁烷、2-甲基-3-乙基戊烷。", "pt": "3a-s7-p3", "tp": "3a"},
+    {"t": "⑥ 環狀化合物", "d": "環烷直接在「環」＋碳數＋「烷」：環丙烷、環丁烷、環己烷（通式 CₙH₂ₙ）。環上取代基的位數由<b>取代基所在位置編號最小</b>開始。", "pt": "3a-s7-p4", "tp": "3a"},
+    {"t": "⑦ 酯的特別寫法", "d": "酯＝「某酸某酯」：<b>先寫氧上接的烷基</b>，再寫酸的部分。例：CH₃COOC₂H₅ → 乙酸乙酯（ethyl ethanoate）。", "pt": "3a-s12-p2", "tp": "3a"}
+  ],
+  "chain": [
+    {"n": 1, "cn": "甲", "en": "meth-"}, {"n": 2, "cn": "乙", "en": "eth-"},
+    {"n": 3, "cn": "丙", "en": "prop-"}, {"n": 4, "cn": "丁", "en": "but-"},
+    {"n": 5, "cn": "戊", "en": "pent-"}, {"n": 6, "cn": "己", "en": "hex-"},
+    {"n": 7, "cn": "庚", "en": "hept-"}, {"n": 8, "cn": "辛", "en": "oct-"},
+    {"n": 9, "cn": "壬", "en": "non-"}, {"n": 10, "cn": "癸", "en": "dec-"}
+  ],
+  "examples": [
+    {"name": "2-甲基丁烷", "en": "2-methylbutane", "why": "主鏈 4 個碳（丁烷），甲基在第 2 位；分支位數取最小"},
+    {"name": "2,2-二甲基丙烷", "en": "2,2-dimethylpropane", "why": "同一碳上有兩個甲基，用「二」合併；數字間用「,」"},
+    {"name": "2-甲基-3-乙基戊烷", "en": "3-ethyl-2-methylpentane", "why": "不同分支：中文按「簡單前、複雜後」；英文按字母序（ethyl 在 methyl 前）"},
+    {"name": "3-甲基丁-1-烯", "en": "3-methylbut-1-ene", "why": "烯的位數寫在字尾前；編號由雙鍵最近端開始"},
+    {"name": "丁-2-醇", "en": "butan-2-ol", "why": "羥基在第 2 位；只有一種結構時可省略數字（如丙烯）"},
+    {"name": "3-甲基丁-1-醇", "en": "3-methylbutan-1-ol", "why": "分支與官能基同時存在，分支寫前、官能基位數寫字尾前"},
+    {"name": "2-氯-2-甲基丙烷", "en": "2-chloro-2-methylpropane", "why": "鹵素永遠是字首，與烷基並列按字母序"},
+    {"name": "3-氧代丁酸", "en": "3-oxobutanoic acid", "why": "羧酸優先度最高當字尾；酮基降為字首「氧代」，編號由羧基碳起算"},
+    {"name": "3-羥基丙醛", "en": "3-hydroxypropanal", "why": "醛優先於醇：醛當字尾 -al，羥基降為字首 hydroxy-"},
+    {"name": "乙酸乙酯", "en": "ethyl ethanoate", "why": "酯的特殊寫法：先寫氧上的烷基（ethyl），再寫酸的部分（ethanoate）"}
+  ]
+}

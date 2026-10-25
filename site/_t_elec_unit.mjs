@@ -51,8 +51,7 @@ async function cdp() {
   throw new Error("CDP not ready");
 }
 
-const ws = new (await import("node:worker_threads")) ? null : null; // 占位不用
-const { WebSocket } = await import("node:http").then(() => globalThis.WebSocket ? { WebSocket: globalThis.WebSocket } : { WebSocket: null });
+const { WebSocket } = globalThis.WebSocket ? { WebSocket: globalThis.WebSocket } : { WebSocket: null };
 
 const results = [];
 const ok = (n, c, d) => { results.push([n, !!c]); console.log((c ? "  PASS " : "  FAIL ") + n + (d ? "  " + d : "")); };

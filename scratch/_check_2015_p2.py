@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json, io, sys
 
-MAP = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\map\2015_p2.json"
-CAT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+MAP = r"D:\deepseek-harness\default-workspace\f6chem\scratch\map\2015_p2.json"
+CAT = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 
 raw = io.open(MAP, "rb").read()
 assert b"\xef\xbf\xbd" not in raw, "JSON 文件含 U+FFFD"

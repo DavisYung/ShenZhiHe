@@ -4,7 +4,7 @@ import bisect, json, struct, sys
 
 sys.stdout.reconfigure(encoding="utf-8")
 ASAR = r"D:\deepseek\resources\app.asar"
-OUT = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch"
+OUT = r"D:\deepseek-harness\default-workspace\f6chem\scratch"
 
 with open(ASAR, "rb") as f:
     f.read(4)

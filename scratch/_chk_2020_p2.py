@@ -2,7 +2,7 @@
 import json, sys, re, io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem\scratch"
 MAP = BASE + r"\map\2020_p2.json"
 CAT = BASE + r"\pp\catalog.tsv"
 

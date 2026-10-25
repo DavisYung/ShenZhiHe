@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 
-const PLUGIN = 'C:/Users/guomi/OneDrive/文件/deepseek-harness/default-workspace/f6chem/scratch/genui-src'
+const PLUGIN = 'D:/deepseek-harness/default-workspace/f6chem/scratch/genui-src'
 const repair = await import(pathToFileURL(PLUGIN + '/shared/fence-repair.ts').href)
 const { repairFenceJson, completeFenceJson, isCompleteJson, describeJsonFailure } = repair
 console.log('fence-repair.ts loaded:', Object.keys(repair).join(', '))
@@ -16,7 +16,7 @@ try {
   console.log('fence-resolve.ts load failed:', e.message)
 }
 
-const raw = readFileSync('C:/Users/guomi/OneDrive/文件/deepseek-harness/default-workspace/f6chem/scratch/failing_fence.json', 'utf8')
+const raw = readFileSync('D:/deepseek-harness/default-workspace/f6chem/scratch/failing_fence.json', 'utf8')
 console.log('\nfingerprint(session recorded) = 39337636e5b8')
 console.log('fingerprint(reconstruction)   =', createHash('sha256').update(raw.trim()).digest('hex').slice(0, 12))
 

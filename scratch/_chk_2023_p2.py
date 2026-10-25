@@ -1,6 +1,6 @@
 import json, re, io, sys
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem\scratch"
 OUT = BASE + r"\map\2023_p2.json"
 CAT = BASE + r"\pp\catalog.tsv"
 

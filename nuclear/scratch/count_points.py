@@ -1,6 +1,6 @@
 import json, glob, os
 
-base = "C:/Users/guomi/OneDrive/文件/deepseek-harness/default-workspace/f6chem/nuclear/data"
+base = "D:/deepseek-harness/default-workspace/f6chem/nuclear/data"
 for f in sorted(glob.glob(base + "/*.json")):
     with open(f, encoding="utf-8") as fh:
         d = json.load(fh)

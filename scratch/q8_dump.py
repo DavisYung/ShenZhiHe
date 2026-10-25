@@ -1,6 +1,6 @@
 import json, io, sys
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 d = json.load(io.open(BASE + r"\data\8.json", encoding="utf-8"))
 idx = {}
 for s in d["sections"]:

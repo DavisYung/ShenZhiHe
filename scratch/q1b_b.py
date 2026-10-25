@@ -1,7 +1,7 @@
 import json, sys, os
 sys.stdout.reconfigure(encoding="utf-8")
 
-BASE = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem"
+BASE = r"D:\deepseek-harness\default-workspace\f6chem"
 
 B = [
  {"n":15,"type":"mc","point":"1b-s7-p1",

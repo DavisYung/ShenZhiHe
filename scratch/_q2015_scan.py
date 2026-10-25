@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import io, collections, re, sys
-OUT = io.open(r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\_q2015_scan.out.txt", "w", encoding="utf-8")
+OUT = io.open(r"D:\deepseek-harness\default-workspace\f6chem\scratch\_q2015_scan.out.txt", "w", encoding="utf-8")
 sys.stdout = OUT
-p = r"C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
+p = r"D:\deepseek-harness\default-workspace\f6chem\scratch\pp\catalog.tsv"
 rows = []
 with io.open(p, encoding="utf-8") as f:
     for line in f:

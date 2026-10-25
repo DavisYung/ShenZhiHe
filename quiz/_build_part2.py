@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
-path = r'C:\Users\guomi\OneDrive\文件\deepseek-harness\default-workspace\f6chem\quiz\4a.json'
+path = r'D:\deepseek-harness\default-workspace\f6chem\quiz\4a.json'
 with open(path, encoding='utf-8') as f:
     d = json.load(f)
 

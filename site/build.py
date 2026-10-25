@@ -205,6 +205,18 @@ def load_subject(sid):
         else:
             print("  warning: %s/%s.json 測驗題格式不對，已跳過" % (sid, tid))
 
+    # 歷屆真題（_pastpaper.json）：以 _ 開頭不會被 build 當作課題載入，
+    # 這裡額外讀進來，掛在 subject 的 _pastpaper 欄位，供前端「DSE 真題」頁面使用。
+    pastpaper = None
+    pp_path = os.path.join(sdir, "_pastpaper.json")
+    if os.path.exists(pp_path):
+        pp = load(pp_path, None)
+        if isinstance(pp, dict):
+            pastpaper = pp
+            print("  note: %s 載入歷屆真題 %d 個年份" % (sid, len(pp.get("years", {}))))
+        else:
+            print("  warning: %s/_pastpaper.json 格式不是物件，已跳過" % sid)
+
     # 額外資訊：extras/<科目>/*.json（元素週期表、速查表…），依 order 排序
     extras = []
     edir = os.path.join(EXTRAS, sid)
@@ -292,6 +304,7 @@ def load_subject(sid):
         "links": links,
         "quiz": quiz,
         "extras": extras,
+        "_pastpaper": pastpaper,
         "stats": {
             "topics": len(topics),
             "sections": sum(len(t.get("sections", [])) for t in topics),
